@@ -206,6 +206,12 @@ export class UniversalModelSelector {
       case 'PODCAST_EDIT':
         return this.selectAudioEditModel(intent);
 
+      case 'AUDIO_TRANSCRIPTION':
+        return this.selectTranscriptionModel();
+
+      case 'VOICE_CHANGE':
+        return this.selectVoiceChangeModel();
+
       // VIDEO EDITING
       case 'AUTO_EDIT_VIDEO':
       case 'CLIP_EXTRACTION':
@@ -216,8 +222,40 @@ export class UniversalModelSelector {
       case 'AUTO_CAPTION':
         return this.selectCaptionModel();
 
+      case 'AUTO_B_ROLL':
+        return this.selectBRollModel();
+
+      case 'COLOR_GRADING':
+      case 'NOISE_REDUCTION':
+      case 'STABILIZATION':
+        return this.selectVideoEnhanceModel(intent);
+
+      case 'SLOW_MOTION':
+      case 'TIME_REMAPPING':
+        return this.selectTimeRemapModel(intent);
+
+      case 'TRANSITION_GENERATION':
+        return this.selectTransitionModel();
+
       case 'LIP_SYNC':
         return this.selectLipSyncModel();
+
+      // ADVANCED VIDEO FEATURES
+      case 'MOTION_TRACKING':
+      case 'OBJECT_REMOVAL_VIDEO':
+      case 'VIDEO_INPAINTING':
+        return this.selectAdvancedVideoModel(intent);
+
+      case 'STYLE_TRANSFER_VIDEO':
+        return this.selectStyleTransferVideoModel();
+
+      case 'FRAME_INTERPOLATION':
+        return this.selectFrameInterpolationModel();
+
+      case 'DEPTH_MAP':
+      case 'SEGMENTATION':
+      case 'POSE_ESTIMATION':
+        return this.selectComputerVisionModel(intent);
 
       // 3D GENERATION
       case 'TEXT_TO_3D':
@@ -241,6 +279,15 @@ export class UniversalModelSelector {
       case 'VIDEO_SCRIPT':
       case 'STORYBOARD':
         return this.selectTextModel();
+
+      case 'PRESENTATION_DECK':
+        return this.selectPresentationModel();
+
+      case 'ILLUSTRATED_BOOK':
+      case 'COMIC_STRIP':
+      case 'VISUAL_NOVEL':
+      case 'INTERACTIVE_STORY':
+        return this.selectMultimediaStoryModel(intent);
 
       default:
         // Fallback generico
@@ -902,6 +949,265 @@ export class UniversalModelSelector {
         api: 'anthropic/claude-haiku',
         estimatedCost: 0.005,
         reason: 'Fast content generation'
+      }
+    };
+  }
+
+  // ========================================
+  // NEW CAPABILITIES (Phase 7)
+  // ========================================
+
+  private selectTranscriptionModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'Whisper Large V3',
+        api: 'fal-ai/whisper',
+        estimatedCost: 0.02,
+        reason: 'Best transcription accuracy'
+      },
+      fallback: {
+        name: 'Whisper Medium',
+        api: 'openai/whisper-medium',
+        estimatedCost: 0.01,
+        reason: 'Fast transcription'
+      }
+    };
+  }
+
+  private selectVoiceChangeModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'ElevenLabs Voice Conversion',
+        api: 'elevenlabs/voice-conversion',
+        estimatedCost: 0.05,
+        reason: 'High-quality voice modification'
+      },
+      fallback: {
+        name: 'Resemble AI Voice Changer',
+        api: 'resemble-ai/voice-changer',
+        estimatedCost: 0.03,
+        reason: 'Budget voice modification'
+      }
+    };
+  }
+
+  private selectBRollModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'Runway B-Roll Generator',
+        api: 'runwayml/b-roll-generator',
+        estimatedCost: 0.10,
+        reason: 'AI-powered B-roll suggestions'
+      },
+      fallback: {
+        name: 'Kling Video Generation',
+        api: 'fal-ai/kling-video/v2.5-turbo/pro/text-to-video',
+        estimatedCost: 0.07,
+        reason: 'Generate custom B-roll'
+      }
+    };
+  }
+
+  private selectVideoEnhanceModel(intent: UserIntent): ModelSelection {
+    if (intent.capability === 'COLOR_GRADING') {
+      return {
+        primary: {
+          name: 'DaVinci Resolve AI',
+          api: 'blackmagic/davinci-resolve-ai',
+          estimatedCost: 0.08,
+          reason: 'Professional color grading'
+        },
+        fallback: {
+          name: 'Topaz Video AI',
+          api: 'topaz/video-ai/color',
+          estimatedCost: 0.05,
+          reason: 'AI color enhancement'
+        }
+      };
+    }
+
+    return {
+      primary: {
+        name: 'Topaz Video AI',
+        api: 'topaz/video-ai/enhance',
+        estimatedCost: 0.06,
+        reason: 'Professional video enhancement'
+      },
+      fallback: {
+        name: 'Adobe Sensei Video',
+        api: 'adobe/sensei/video-enhance',
+        estimatedCost: 0.04,
+        reason: 'AI video enhancement'
+      }
+    };
+  }
+
+  private selectTimeRemapModel(intent: UserIntent): ModelSelection {
+    return {
+      primary: {
+        name: 'Topaz Video AI Slow-Mo',
+        api: 'topaz/video-ai/slow-motion',
+        estimatedCost: 0.08,
+        reason: 'Best slow-motion quality'
+      },
+      fallback: {
+        name: 'DAIN Frame Interpolation',
+        api: 'dain/frame-interpolation',
+        estimatedCost: 0.05,
+        reason: 'Good slow-motion at lower cost'
+      }
+    };
+  }
+
+  private selectTransitionModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'Runway Transition Generator',
+        api: 'runwayml/transition-generator',
+        estimatedCost: 0.04,
+        reason: 'AI-powered transitions'
+      },
+      fallback: {
+        name: 'Adobe Sensei Transitions',
+        api: 'adobe/sensei/transitions',
+        estimatedCost: 0.03,
+        reason: 'Standard AI transitions'
+      }
+    };
+  }
+
+  private selectAdvancedVideoModel(intent: UserIntent): ModelSelection {
+    return {
+      primary: {
+        name: 'Runway Advanced Video',
+        api: 'runwayml/advanced-video-tools',
+        estimatedCost: 0.12,
+        reason: 'Professional video manipulation'
+      },
+      fallback: {
+        name: 'Stability AI Video',
+        api: 'stability-ai/video-tools',
+        estimatedCost: 0.08,
+        reason: 'Advanced video editing'
+      }
+    };
+  }
+
+  private selectStyleTransferVideoModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'Runway Style Transfer Video',
+        api: 'runwayml/style-transfer-video',
+        estimatedCost: 0.10,
+        reason: 'High-quality video style transfer'
+      },
+      fallback: {
+        name: 'Fast Neural Style Video',
+        api: 'neural-style/video-transfer',
+        estimatedCost: 0.06,
+        reason: 'Fast style transfer'
+      }
+    };
+  }
+
+  private selectFrameInterpolationModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'RIFE Frame Interpolation',
+        api: 'rife/frame-interpolation',
+        estimatedCost: 0.06,
+        reason: 'Best frame interpolation'
+      },
+      fallback: {
+        name: 'DAIN Interpolation',
+        api: 'dain/interpolation',
+        estimatedCost: 0.04,
+        reason: 'Fast frame interpolation'
+      }
+    };
+  }
+
+  private selectComputerVisionModel(intent: UserIntent): ModelSelection {
+    if (intent.capability === 'DEPTH_MAP') {
+      return {
+        primary: {
+          name: 'Depth Anything V2',
+          api: 'fal-ai/depth-anything-v2',
+          estimatedCost: 0.03,
+          reason: 'Best depth estimation'
+        },
+        fallback: {
+          name: 'MiDaS Depth',
+          api: 'midas/depth-estimation',
+          estimatedCost: 0.02,
+          reason: 'Fast depth maps'
+        }
+      };
+    }
+
+    return {
+      primary: {
+        name: 'Segment Anything Model (SAM)',
+        api: 'meta/segment-anything',
+        estimatedCost: 0.04,
+        reason: 'Best segmentation model'
+      },
+      fallback: {
+        name: 'MediaPipe Computer Vision',
+        api: 'google/mediapipe',
+        estimatedCost: 0.02,
+        reason: 'Fast computer vision'
+      }
+    };
+  }
+
+  private selectPresentationModel(): ModelSelection {
+    return {
+      primary: {
+        name: 'Claude Sonnet 4.5 + Canva AI',
+        api: 'anthropic/claude-sonnet-4',
+        estimatedCost: 0.05,
+        reason: 'AI-powered presentation creation'
+      },
+      fallback: {
+        name: 'Gamma AI Presentation',
+        api: 'gamma/ai-presentation',
+        estimatedCost: 0.03,
+        reason: 'Fast presentation generation'
+      }
+    };
+  }
+
+  private selectMultimediaStoryModel(intent: UserIntent): ModelSelection {
+    if (intent.capability === 'ILLUSTRATED_BOOK' || intent.capability === 'COMIC_STRIP') {
+      return {
+        primary: {
+          name: 'Claude Sonnet + Flux Pro',
+          api: 'multi-agent/story-illustration',
+          estimatedCost: 0.20,
+          reason: 'Complete story with illustrations'
+        },
+        fallback: {
+          name: 'Claude Sonnet + SDXL',
+          api: 'multi-agent/story-illustration-budget',
+          estimatedCost: 0.12,
+          reason: 'Budget illustrated story'
+        }
+      };
+    }
+
+    return {
+      primary: {
+        name: 'Claude Sonnet + Interactive Tools',
+        api: 'multi-agent/interactive-story',
+        estimatedCost: 0.15,
+        reason: 'Interactive multimedia story'
+      },
+      fallback: {
+        name: 'Claude Haiku + Interactive Tools',
+        api: 'multi-agent/interactive-story-budget',
+        estimatedCost: 0.08,
+        reason: 'Budget interactive story'
       }
     };
   }

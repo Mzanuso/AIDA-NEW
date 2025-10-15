@@ -35,13 +35,15 @@ OPENAI_API_KEY=sk-...  # For embeddings (temporary)
 FAL_KEY=...
 KIE_API_KEY=...
 
-# Database
-DATABASE_URL=postgresql://user:pass@localhost:5432/aida
+# Database (Supabase PostgreSQL - migrated from Neon 2025-10-15)
+DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
 
 # Service Config
 ORCHESTRATOR_PORT=3003
 NODE_ENV=development
 ```
+
+**Note:** See [SUPABASE-MIGRATION-GUIDE.md](SUPABASE-MIGRATION-GUIDE.md) for migration details.
 
 ### Run Database Migration
 

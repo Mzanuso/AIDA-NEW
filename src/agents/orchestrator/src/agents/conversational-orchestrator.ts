@@ -12,14 +12,25 @@ import { IntentAnalyzer } from '../services/intent-analyzer';
 import { UniversalModelSelector, UserIntent, CreativeCapability } from '../services/model-selector';
 import { CostCalculator } from '../utils/cost-calculator';
 import { StyleSelectorClient } from '../clients/style-selector-client';
+import { LanguageDetector, Language } from '../services/language-detector';
 import {
   buildSystemPrompt,
   buildUserContextString,
-  COST_TRANSPARENCY_PROMPT,
-  PERSONALITY_PROMPT,
-  THERAPY_MODE_PROMPT,
-  DIRECT_ANSWER_PROMPT
-} from '../config/personality-prompt';
+  getPersonalityPrompt,
+  getCostTransparencyPrompt,
+  getTherapyModePrompt,
+  getDirectAnswerPrompt
+} from '../config/personality-prompts-multilingual';
+import { MockTechnicalPlanner } from '../mocks/technical-planner.mock';
+import {
+  ITechnicalPlanner,
+  ProjectBrief,
+  ExecutionPlan,
+  ProjectStatus,
+  ContentType
+} from '../types/technical-planner.types';
+import { ContextOptimizer } from '../services/context-optimizer';
+import { ErrorHandler, CategorizedError } from '../services/error-handler';
 
 const logger = createLogger('ConversationalOrchestrator');
 
@@ -34,6 +45,8 @@ export interface OrchestratorResponse {
   proposedCost?: number;
   toolPlan?: any;
   executionStatus?: 'pending' | 'in_progress' | 'completed' | 'failed';
+  executionPlan?: ExecutionPlan;
+  projectStatus?: ProjectStatus;
   metadata?: Record<string, any>;
 }
 
@@ -48,24 +61,44 @@ export class ConversationalOrchestrator {
   private modelSelector: UniversalModelSelector;
   private costCalculator: CostCalculator;
   private styleSelector: StyleSelectorClient;
+  private languageDetector: LanguageDetector;
+  private technicalPlanner: ITechnicalPlanner;
+  private contextOptimizer: ContextOptimizer;
+  private errorHandler: ErrorHandler;
   private claude: Anthropic;
 
   constructor(config?: {
     anthropicApiKey?: string;
     openaiApiKey?: string;
     styleSelectorUrl?: string;
+    enableCaching?: boolean;
+    enableCompression?: boolean;
   }) {
+    const apiKey = config?.anthropicApiKey || process.env.ANTHROPIC_API_KEY!;
+
     this.contextAnalyzer = new ContextAnalyzer();
-    this.intentAnalyzer = new IntentAnalyzer(config?.anthropicApiKey);
+    this.intentAnalyzer = new IntentAnalyzer(apiKey);
     this.modelSelector = new UniversalModelSelector();
     this.costCalculator = new CostCalculator();
     this.styleSelector = new StyleSelectorClient(config?.styleSelectorUrl);
-
-    this.claude = new Anthropic({
-      apiKey: config?.anthropicApiKey || process.env.ANTHROPIC_API_KEY!
+    this.languageDetector = new LanguageDetector();
+    this.technicalPlanner = new MockTechnicalPlanner();
+    this.contextOptimizer = new ContextOptimizer(apiKey, {
+      enableCaching: config?.enableCaching ?? true,
+      enableCompression: config?.enableCompression ?? true
     });
+    this.errorHandler = new ErrorHandler();
 
-    logger.info('ConversationalOrchestrator initialized');
+    this.claude = new Anthropic({ apiKey });
+
+    logger.info('ConversationalOrchestrator initialized', {
+      multilingualSupport: true,
+      technicalPlanner: true,
+      contextOptimization: true,
+      errorHandling: true,
+      caching: config?.enableCaching ?? true,
+      compression: config?.enableCompression ?? true
+    });
   }
 
   /**
@@ -106,8 +139,36 @@ export class ConversationalOrchestrator {
         }
       }
 
-      // 2. Detect conversation mode (therapy, direct answer, or task)
-      const conversationMode = this.detectConversationMode(message, context);
+      // 2. Detect language from current message and conversation history
+      const previousLanguage = context.metadata?.language as Language | undefined;
+      const userMessages = context.messages
+        .filter(m => m.role === 'user')
+        .map(m => m.content);
+
+      const languageDetection = userMessages.length > 0
+        ? this.languageDetector.detectFromHistory(userMessages, message)
+        : this.languageDetector.detect(message, previousLanguage);
+
+      const detectedLanguage = languageDetection.language;
+
+      // Log language change if detected
+      if (previousLanguage && this.languageDetector.hasLanguageChanged(previousLanguage, detectedLanguage, languageDetection.confidence)) {
+        logger.info('Language changed', {
+          from: previousLanguage,
+          to: detectedLanguage,
+          confidence: languageDetection.confidence
+        });
+      }
+
+      // Update context metadata with detected language
+      context.metadata = {
+        ...context.metadata,
+        language: detectedLanguage,
+        languageConfidence: languageDetection.confidence
+      };
+
+      // 3. Detect conversation mode (therapy, direct answer, or task)
+      const conversationMode = this.detectConversationMode(message, context, detectedLanguage);
 
       // 3. Handle special modes early (before intent analysis)
       if (conversationMode === 'therapy') {
@@ -193,13 +254,25 @@ export class ConversationalOrchestrator {
     } catch (error) {
       logger.error('Failed to process message', { error, userId, sessionId });
 
-      // Return friendly error message
+      // Categorize and handle error
+      const categorizedError = this.errorHandler.categorizeError(error);
+      const language = context?.metadata?.language as Language || 'it';
+
+      // Get user-friendly error message
+      const userMessage = this.errorHandler.getUserMessage(categorizedError, language);
+      const recoverySuggestion = this.errorHandler.getRecoverySuggestion(categorizedError, language);
+
       return {
-        message: 'Scusa, ho avuto un problema. Puoi riprovare?',
+        message: `${userMessage} ${recoverySuggestion}`,
         sessionId: sessionId || 'error',
-        phase: 'discovery',
+        phase: context?.phase || 'discovery',
         needsUserInput: true,
-        metadata: { error: String(error) }
+        metadata: {
+          error: categorizedError.message,
+          errorCategory: categorizedError.category,
+          recoveryStrategy: categorizedError.recoveryStrategy,
+          retryable: categorizedError.retryable
+        }
       };
     }
   }
@@ -291,14 +364,23 @@ export class ConversationalOrchestrator {
     const hasApproval = lastUserMessage &&
       /^(sì|si|yes|ok|vai|procedi|perfetto|va bene|certo)/i.test(lastUserMessage.content.trim());
 
-    if (hasApproval && context.metadata.proposedToolPlan) {
+    if (hasApproval && context.metadata.projectBrief) {
       // User approved - move to execution
       context.phase = 'execution';
       return this.handleExecution(context, sessionId);
     }
 
+    // Generate ProjectBrief for Technical Planner
+    const brief = await this.generateProjectBrief(context);
+
     // Propose direction + cost
-    const proposal = await this.proposeDirection(context);
+    const proposal = await this.proposeDirection(context, brief);
+
+    // Store brief in context metadata for execution phase
+    context.metadata = {
+      ...context.metadata,
+      projectBrief: brief
+    };
 
     return {
       message: proposal.message,
@@ -309,7 +391,8 @@ export class ConversationalOrchestrator {
       toolPlan: proposal.toolPlan,
       metadata: {
         toolPlan: proposal.toolPlan,
-        costBreakdown: proposal.costBreakdown
+        costBreakdown: proposal.costBreakdown,
+        projectBrief: brief
       }
     };
   }
@@ -323,8 +406,77 @@ export class ConversationalOrchestrator {
   ): Promise<OrchestratorResponse> {
     logger.info('Handling execution phase', { sessionId });
 
+    // Get ProjectBrief from context
+    const brief = context.metadata.projectBrief as ProjectBrief;
+
+    if (!brief) {
+      logger.error('No ProjectBrief found in context metadata', { sessionId });
+      throw new Error('ProjectBrief missing - cannot start execution');
+    }
+
+    // Check if execution plan already exists (checking status)
+    if (context.metadata.executionPlanId) {
+      const planId = context.metadata.executionPlanId as string;
+      logger.info('Checking execution status', { planId });
+
+      const status = await this.technicalPlanner.getProjectStatus(planId);
+
+      // If completed, move to delivery
+      if (status.status === 'completed') {
+        context.phase = 'delivery';
+        return this.handleDelivery(context, sessionId);
+      }
+
+      // If failed, provide error information
+      if (status.status === 'failed') {
+        const language = (context.metadata?.language as Language) || 'it';
+        const errorMessage = this.formatExecutionError(status, language);
+
+        return {
+          message: errorMessage,
+          sessionId,
+          phase: 'execution',
+          needsUserInput: true,
+          executionStatus: 'failed',
+          projectStatus: status,
+          metadata: {
+            executionPlanId: planId,
+            projectStatus: status
+          }
+        };
+      }
+
+      // Still in progress - return status update
+      const language = (context.metadata?.language as Language) || 'it';
+      const statusMessage = this.formatExecutionStatus(status, language);
+
+      return {
+        message: statusMessage,
+        sessionId,
+        phase: 'execution',
+        needsUserInput: false,
+        executionStatus: 'in_progress',
+        projectStatus: status,
+        metadata: {
+          executionPlanId: planId,
+          projectStatus: status
+        }
+      };
+    }
+
+    // Create execution plan via Technical Planner
+    logger.info('Creating execution plan', { briefId: brief.id });
+    const executionPlan = await this.technicalPlanner.createExecutionPlan(brief);
+
+    // Store execution plan ID in context
+    context.metadata = {
+      ...context.metadata,
+      executionPlanId: executionPlan.id
+    };
+
     // Generate execution confirmation message
-    const executionMessage = await this.execute(context);
+    const language = (context.metadata?.language as Language) || 'it';
+    const executionMessage = await this.execute(context, executionPlan, language);
 
     return {
       message: executionMessage,
@@ -332,8 +484,10 @@ export class ConversationalOrchestrator {
       phase: 'execution',
       needsUserInput: false,
       executionStatus: 'in_progress',
+      executionPlan,
       metadata: {
-        toolPlan: context.metadata.proposedToolPlan
+        executionPlanId: executionPlan.id,
+        executionPlan
       }
     };
   }
@@ -347,7 +501,19 @@ export class ConversationalOrchestrator {
   ): Promise<OrchestratorResponse> {
     logger.info('Handling delivery phase', { sessionId });
 
-    const deliveryMessage = await this.deliverResults(context);
+    // Get project status with results
+    const planId = context.metadata.executionPlanId as string;
+
+    if (!planId) {
+      logger.error('No executionPlanId found in context', { sessionId });
+      throw new Error('ExecutionPlanId missing - cannot deliver results');
+    }
+
+    const status = await this.technicalPlanner.getProjectStatus(planId);
+
+    // Generate delivery message with results
+    const language = (context.metadata?.language as Language) || 'it';
+    const deliveryMessage = await this.deliverResults(context, status, language);
 
     return {
       message: deliveryMessage,
@@ -355,8 +521,11 @@ export class ConversationalOrchestrator {
       phase: 'delivery',
       needsUserInput: true,
       executionStatus: 'completed',
+      projectStatus: status,
       metadata: {
-        resultUrls: context.metadata.resultUrls || []
+        executionPlanId: planId,
+        projectStatus: status,
+        resultUrls: status.result?.files || []
       }
     };
   }
@@ -370,30 +539,48 @@ export class ConversationalOrchestrator {
       missingInfo: context.missingInfo
     });
 
-    const systemPrompt = buildSystemPrompt('discovery');
-    const userContext = buildUserContextString({
-      detectedIntent: context.detectedIntent,
-      inferredSpecs: context.inferredSpecs,
-      messageCount: context.messages.length,
-      previousProjects: 0 // TODO: get from user history
+    const language = (context.metadata?.language as Language) || 'it';
+
+    // Optimize context with token budget tracking
+    const optimizedMessages = await this.contextOptimizer.optimizeMessages(
+      context,
+      language,
+      context.sessionId
+    );
+    const optimizedRequest = this.contextOptimizer.buildOptimizedRequest(
+      context,
+      'discovery',
+      language,
+      optimizedMessages
+    );
+
+    logger.debug('Context optimization stats', {
+      ...optimizedRequest.metadata,
+      tokenUsage: optimizedMessages.tokenUsage?.percentUsed.toFixed(1) + '%'
     });
 
-    // Build conversation history for Claude
-    const messages: Anthropic.MessageParam[] = context.messages
-      .filter(m => m.role !== 'system')
-      .map(m => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content
-      }));
+    // Log budget warning if present
+    if (optimizedMessages.budgetWarning) {
+      logger.warn('Token budget warning', {
+        sessionId: context.sessionId,
+        warning: optimizedMessages.budgetWarning
+      });
+    }
 
     try {
-      const response = await this.claude.messages.create({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        temperature: 0.7,
-        system: `${systemPrompt}\n\n${userContext}`,
-        messages
-      });
+      // Execute with retry and circuit breaker protection
+      const response = await this.errorHandler.executeWithProtection(
+        'claude-api',
+        async () => {
+          return await this.claude.messages.create({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 300,
+            temperature: 0.7,
+            system: optimizedRequest.system,
+            messages: optimizedMessages.messages
+          });
+        }
+      );
 
       const question = response.content[0].type === 'text'
         ? response.content[0].text
@@ -403,24 +590,35 @@ export class ConversationalOrchestrator {
       return question;
 
     } catch (error) {
-      logger.error('Failed to generate smart question', { error });
-      // Fallback question
-      return 'Raccontami un po\' - che tipo di progetto hai in mente?';
+      logger.error('Failed to generate smart question after retries', { error });
+
+      // Fallback questions based on language
+      const fallbackQuestions: Record<Language, string> = {
+        it: 'Raccontami un po\' - che tipo di progetto hai in mente?',
+        en: 'Tell me a bit - what kind of project do you have in mind?',
+        es: 'Cuéntame un poco - ¿qué tipo de proyecto tienes en mente?',
+        fr: 'Dites-moi un peu - quel type de projet avez-vous en tête?',
+        de: 'Erzähl mir ein bisschen - was für ein Projekt hast du im Kopf?'
+      };
+
+      return fallbackQuestions[language];
     }
   }
 
   /**
    * Propose creative direction with cost during refinement
    */
-  private async proposeDirection(context: ConversationContext): Promise<{
+  private async proposeDirection(context: ConversationContext, brief: ProjectBrief): Promise<{
     message: string;
     cost: number;
     toolPlan: any;
     costBreakdown: any;
   }> {
-    logger.info('Proposing creative direction', { sessionId: context.sessionId });
+    logger.info('Proposing creative direction', { sessionId: context.sessionId, briefId: brief.id });
 
     try {
+      const language = (context.metadata?.language as Language) || 'it';
+
       // 1. Get style recommendations from Style Selector
       const styleRecommendations = await this.styleSelector.getRecommendations({
         purpose: context.detectedIntent.purpose,
@@ -476,36 +674,60 @@ export class ConversationalOrchestrator {
         }
       };
 
-      // 6. Generate proposal with Claude (including style suggestions)
-      const systemPrompt = buildSystemPrompt('refinement');
+      // 6. Generate proposal with Claude (including style suggestions and context optimization)
 
-      // Add style recommendations to context
+      // Optimize context with token budget tracking
+      const optimizedMessages = await this.contextOptimizer.optimizeMessages(
+        context,
+        language,
+        context.sessionId
+      );
+      const optimizedRequest = this.contextOptimizer.buildOptimizedRequest(
+        context,
+        'refinement',
+        language,
+        optimizedMessages
+      );
+
+      logger.debug('Context optimization stats for proposal', {
+        ...optimizedRequest.metadata,
+        tokenUsage: optimizedMessages.tokenUsage?.percentUsed.toFixed(1) + '%'
+      });
+
+      // Log budget warning if present
+      if (optimizedMessages.budgetWarning) {
+        logger.warn('Token budget warning', {
+          sessionId: context.sessionId,
+          warning: optimizedMessages.budgetWarning
+        });
+      }
+
+      // Add style recommendations and tool plan to the last system message
       const stylesInfo = styleRecommendations.length > 0
         ? `\n\nSTYLE RECOMMENDATIONS:\n${styleRecommendations.map(s =>
             `- ${s.name} (${s.code}): ${s.patternAnalysis || s.creativeInterpretation || 'No description'}`
           ).join('\n')}`
         : '';
 
-      const userContext = buildUserContextString({
-        detectedIntent: context.detectedIntent,
-        inferredSpecs: context.inferredSpecs,
-        messageCount: context.messages.length,
-        previousProjects: 0
-      }) + stylesInfo;
+      const toolPlanInfo = `\n\nSELECTED TOOLS: ${JSON.stringify(toolPlan, null, 2)}`;
 
-      const messages: Anthropic.MessageParam[] = context.messages
-        .filter(m => m.role !== 'system')
-        .map(m => ({
-          role: m.role as 'user' | 'assistant',
-          content: m.content
-        }));
+      // Append to system prompt (works for both cached and non-cached)
+      const finalSystem = Array.isArray(optimizedRequest.system)
+        ? [
+            ...optimizedRequest.system.slice(0, -1),
+            {
+              ...(optimizedRequest.system[optimizedRequest.system.length - 1] as any),
+              text: (optimizedRequest.system[optimizedRequest.system.length - 1] as any).text + stylesInfo + toolPlanInfo
+            }
+          ]
+        : optimizedRequest.system + stylesInfo + toolPlanInfo;
 
       const proposalResponse = await this.claude.messages.create({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 400,
         temperature: 0.7,
-        system: `${systemPrompt}\n\n${userContext}\n\nSelected tools: ${JSON.stringify(toolPlan, null, 2)}`,
-        messages
+        system: finalSystem as any,
+        messages: optimizedMessages.messages
       });
 
       const proposal = proposalResponse.content[0].type === 'text'
@@ -537,70 +759,135 @@ export class ConversationalOrchestrator {
   /**
    * Start execution and inform user
    */
-  private async execute(context: ConversationContext): Promise<string> {
-    logger.info('Starting execution', { sessionId: context.sessionId });
+  private async execute(
+    context: ConversationContext,
+    executionPlan: ExecutionPlan,
+    language: Language
+  ): Promise<string> {
+    logger.info('Starting execution', {
+      sessionId: context.sessionId,
+      planId: executionPlan.id,
+      steps: executionPlan.steps.length
+    });
 
-    // TODO: Coordinate with sub-agents (Writer, Director, Media Generator)
-    // For now, return acknowledgment message
+    // Build execution message based on language
+    const executionMessages: Record<Language, string[]> = {
+      'it': [
+        'Perfetto! Comincio subito a lavorarci.',
+        'Ci sto! Ti aggiorno tra poco.',
+        'Ok, parto! Ti faccio sapere quando ho finito.',
+        'Vai tranquillo, me ne occupo io adesso.'
+      ],
+      'en': [
+        'Perfect! Starting work right now.',
+        'Got it! I\'ll update you soon.',
+        'Alright, getting started! I\'ll let you know when it\'s done.',
+        'On it! Working on this now.'
+      ],
+      'es': [
+        '¡Perfecto! Empiezo ahora mismo.',
+        '¡Entendido! Te actualizo pronto.',
+        '¡Vale, empiezo! Te aviso cuando termine.',
+        'Tranquilo, me encargo ahora.'
+      ],
+      'fr': [
+        'Parfait ! Je commence tout de suite.',
+        'Compris ! Je vous tiens au courant bientôt.',
+        'D\'accord, je commence ! Je vous préviens quand c\'est terminé.',
+        'Je m\'en occupe maintenant.'
+      ],
+      'de': [
+        'Perfekt! Ich fange jetzt an.',
+        'Verstanden! Ich melde mich bald.',
+        'Okay, ich lege los! Ich sage Bescheid, wenn es fertig ist.',
+        'Ich kümmere mich jetzt darum.'
+      ]
+    };
 
-    const systemPrompt = `${PERSONALITY_PROMPT}\n\nCURRENT TASK: User approved the plan. Acknowledge enthusiastically and let them know you're starting work. Be brief (1-2 sentences).`;
+    // Randomly pick a message
+    const messages = executionMessages[language];
+    const baseMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    try {
-      const response = await this.claude.messages.create({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 200,
-        temperature: 0.7,
-        system: systemPrompt,
-        messages: [{
-          role: 'user',
-          content: 'User approved the creative direction and cost. Start execution.'
-        }]
-      });
+    // Add execution details
+    const detailsMessages: Record<Language, string> = {
+      'it': `\n\nUso ${executionPlan.primaryModel.name} - dovrei metterci circa ${Math.round(executionPlan.estimatedTime / 60)} minuti.`,
+      'en': `\n\nUsing ${executionPlan.primaryModel.name} - should take about ${Math.round(executionPlan.estimatedTime / 60)} minutes.`,
+      'es': `\n\nUsando ${executionPlan.primaryModel.name} - debería tardar unos ${Math.round(executionPlan.estimatedTime / 60)} minutos.`,
+      'fr': `\n\nUtilisation de ${executionPlan.primaryModel.name} - ça devrait prendre environ ${Math.round(executionPlan.estimatedTime / 60)} minutes.`,
+      'de': `\n\nVerwende ${executionPlan.primaryModel.name} - sollte etwa ${Math.round(executionPlan.estimatedTime / 60)} Minuten dauern.`
+    };
 
-      const message = response.content[0].type === 'text'
-        ? response.content[0].text
-        : 'Perfetto! Comincio subito a lavorarci.';
+    const fullMessage = baseMessage + detailsMessages[language];
 
-      logger.info('Execution started', { message });
-      return message;
-
-    } catch (error) {
-      logger.error('Failed to generate execution message', { error });
-      return 'Perfetto! Comincio subito a lavorarci. Ti aggiorno tra poco!';
-    }
+    logger.info('Execution started', { message: fullMessage });
+    return fullMessage;
   }
 
   /**
    * Deliver results and ask for feedback
    */
-  private async deliverResults(context: ConversationContext): Promise<string> {
-    logger.info('Delivering results', { sessionId: context.sessionId });
+  private async deliverResults(
+    context: ConversationContext,
+    status: ProjectStatus,
+    language: Language
+  ): Promise<string> {
+    logger.info('Delivering results', {
+      sessionId: context.sessionId,
+      planId: status.planId,
+      filesCount: status.result?.files?.length || 0
+    });
 
-    const systemPrompt = `${PERSONALITY_PROMPT}\n\nCURRENT TASK: Deliver completed results. Be proud but not boastful. Ask if they want to iterate or create something else.`;
+    // Build delivery message based on language
+    const deliveryMessages: Record<Language, string[]> = {
+      'it': [
+        'Ecco fatto! Dai un\'occhiata.',
+        'Fatto! Che ne pensi?',
+        'Finito! Dimmi se ti piace.',
+        'Pronto! Vedi un po\'.'
+      ],
+      'en': [
+        'Done! Take a look.',
+        'All set! What do you think?',
+        'Finished! Let me know if you like it.',
+        'Ready! Check it out.'
+      ],
+      'es': [
+        '¡Listo! Échale un vistazo.',
+        '¡Hecho! ¿Qué te parece?',
+        '¡Terminado! Dime si te gusta.',
+        '¡Preparado! Míralo.'
+      ],
+      'fr': [
+        'Voilà ! Jetez un œil.',
+        'C\'est fait ! Qu\'en pensez-vous ?',
+        'Terminé ! Dites-moi si ça vous plaît.',
+        'Prêt ! Regardez.'
+      ],
+      'de': [
+        'Fertig! Schau es dir an.',
+        'Erledigt! Was denkst du?',
+        'Fertig! Sag mir, ob es dir gefällt.',
+        'Bereit! Sieh es dir an.'
+      ]
+    };
 
-    try {
-      const response = await this.claude.messages.create({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        temperature: 0.7,
-        system: systemPrompt,
-        messages: [{
-          role: 'user',
-          content: 'Results are ready. Present them to the user.'
-        }]
-      });
+    // Randomly pick a message
+    const messages = deliveryMessages[language];
+    const baseMessage = messages[Math.floor(Math.random() * messages.length)];
 
-      const message = response.content[0].type === 'text'
-        ? response.content[0].text
-        : 'Ecco fatto! Che ne pensi?';
+    // Add follow-up question based on language
+    const followUpMessages: Record<Language, string> = {
+      'it': '\n\nVuoi che modifichi qualcosa o facciamo altro?',
+      'en': '\n\nWant me to change anything or create something else?',
+      'es': '\n\n¿Quieres que modifique algo o creamos otra cosa?',
+      'fr': '\n\nVoulez-vous que je modifie quelque chose ou que nous créions autre chose ?',
+      'de': '\n\nMöchtest du, dass ich etwas ändere oder etwas anderes erstelle?'
+    };
 
-      logger.info('Results delivered', { message });
-      return message;
+    const fullMessage = baseMessage + followUpMessages[language];
 
-    } catch (error) {
-      logger.error('Failed to generate delivery message', { error });
-      return 'Ecco fatto! Dai un\'occhiata e dimmi che ne pensi.';
-    }
+    logger.info('Results delivered', { message: fullMessage });
+    return fullMessage;
   }
 
   /**
@@ -687,7 +974,8 @@ export class ConversationalOrchestrator {
    */
   private detectConversationMode(
     message: string,
-    context: ConversationContext
+    context: ConversationContext,
+    language: Language
   ): 'task' | 'therapy' | 'direct_answer' {
     const lowerMessage = message.toLowerCase();
 
@@ -914,4 +1202,149 @@ export class ConversationalOrchestrator {
   async getUserHistory(userId: string) {
     return this.contextAnalyzer.getUserHistory(userId);
   }
+
+  // ========================================
+  // TECHNICAL PLANNER INTEGRATION HELPERS
+  // ========================================
+
+  /**
+   * Generate ProjectBrief from conversation context
+   */
+  private async generateProjectBrief(context: ConversationContext): Promise<ProjectBrief> {
+    const language = (context.metadata?.language as Language) || 'it';
+    const capability = this.mapIntentToCapability(context.detectedIntent);
+    const contentType = this.determineContentType(context.detectedIntent);
+
+    const brief: ProjectBrief = {
+      id: this.generateId(),
+      sessionId: context.sessionId,
+      userId: context.userId,
+      capability,
+      type: contentType,
+      requirements: {
+        description: this.extractDescription(context),
+        style: context.detectedIntent.style !== 'unknown' ? context.detectedIntent.style : undefined,
+        mood: context.detectedIntent.style !== 'unknown' ? context.detectedIntent.style : undefined,
+        duration: context.inferredSpecs.duration,
+        aspectRatio: context.inferredSpecs.aspectRatio,
+        resolution: context.inferredSpecs.resolution,
+        quality: context.inferredSpecs.qualityLevel,
+        budget: context.detectedIntent.budgetSensitivity === 'high' ? 'low' : 'medium',
+        deadline: undefined // Could be extracted from conversation
+      },
+      context: {
+        description: this.extractDescription(context),
+        mood: context.detectedIntent.style !== 'unknown' ? context.detectedIntent.style : undefined,
+        targetAudience: undefined, // Could be extracted
+        brandGuidelines: undefined // Could be extracted
+      },
+      rawConversation: context.messages.map(m => ({
+        role: m.role,
+        content: m.content,
+        timestamp: new Date()
+      })),
+      createdAt: new Date(),
+      language
+    };
+
+    logger.info('ProjectBrief generated', {
+      briefId: brief.id,
+      capability: brief.capability,
+      type: brief.type,
+      language: brief.language
+    });
+
+    return brief;
+  }
+
+  /**
+   * Determine content type from intent
+   */
+  private determineContentType(intent: any): ContentType {
+    switch (intent.mediaType) {
+      case 'video':
+        return 'video';
+      case 'image':
+        return 'image';
+      case 'music':
+      case 'audio':
+        return 'audio';
+      case 'text':
+        return 'text';
+      default:
+        return 'multimedia';
+    }
+  }
+
+  /**
+   * Extract description from conversation context
+   */
+  private extractDescription(context: ConversationContext): string {
+    // Get user messages
+    const userMessages = context.messages
+      .filter(m => m.role === 'user')
+      .map(m => m.content);
+
+    // Combine all user messages into a description
+    return userMessages.join(' ').substring(0, 500); // Limit to 500 chars
+  }
+
+  /**
+   * Generate unique ID
+   */
+  private generateId(): string {
+    return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+  }
+
+  /**
+   * Format execution status message
+   */
+  private formatExecutionStatus(status: ProjectStatus, language: Language): string {
+    const progress = status.progress || 0;
+
+    const statusMessages: Record<Language, Record<string, string>> = {
+      'it': {
+        'in_progress': `Sto lavorando... ${progress}% completato.`,
+        'pending': 'Sto per iniziare...'
+      },
+      'en': {
+        'in_progress': `Working on it... ${progress}% complete.`,
+        'pending': 'About to start...'
+      },
+      'es': {
+        'in_progress': `Trabajando... ${progress}% completado.`,
+        'pending': 'A punto de empezar...'
+      },
+      'fr': {
+        'in_progress': `En cours... ${progress}% terminé.`,
+        'pending': 'Sur le point de commencer...'
+      },
+      'de': {
+        'in_progress': `Arbeite daran... ${progress}% abgeschlossen.`,
+        'pending': 'Gleich geht\'s los...'
+      }
+    };
+
+    return statusMessages[language][status.status] || statusMessages[language]['in_progress'];
+  }
+
+  /**
+   * Format execution error message
+   */
+  private formatExecutionError(status: ProjectStatus, language: Language): string {
+    const errorMessages: Record<Language, string> = {
+      'it': 'Accidenti, c\'è stato un problema. Vuoi che riprovo?',
+      'en': 'Oops, something went wrong. Want me to try again?',
+      'es': 'Ups, hubo un problema. ¿Quieres que lo intente de nuevo?',
+      'fr': 'Oups, il y a eu un problème. Voulez-vous que je réessaie ?',
+      'de': 'Hoppla, etwas ist schief gelaufen. Soll ich es nochmal versuchen?'
+    };
+
+    return errorMessages[language];
+  }
 }
+
+// Legacy constants for backward compatibility
+const PERSONALITY_PROMPT = getPersonalityPrompt('it');
+const THERAPY_MODE_PROMPT = getTherapyModePrompt('it');
+const DIRECT_ANSWER_PROMPT = getDirectAnswerPrompt('it');
