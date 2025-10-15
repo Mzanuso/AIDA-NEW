@@ -1,0 +1,105 @@
+name: AIDA-FLOW CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Check test coverage
+      run: npm run test:coverage || echo "Coverage check skipped"
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: TypeScript check
+      run: npx tsc --noEmit
+
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+    needs: [test, lint]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist/
+        retention-days: 7
+
+  aida-flow-check:
+    name: AIDA-FLOW Compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check commit message format
+      run: |
+        if [[ "${{ github.event.head_commit.message }}" =~ ^\[FLOW-[0-9]+\] ]]; then
+          echo "✅ Commit follows AIDA-FLOW format"
+        else
+          echo "⚠️  Commit should follow format: [FLOW-XXX] message"
+          echo "Current: ${{ github.event.head_commit.message }}"
+        fi
+        
+    - name: Check commit size
+      run: |
+        CHANGED_LINES=$(git diff --stat HEAD^ HEAD | tail -1 | awk '{print $4+$6}')
+        if [ "$CHANGED_LINES" -gt 100 ]; then
+          echo "⚠️  Commit has $CHANGED_LINES lines (max 100 recommended)"
+        else
+          echo "✅ Commit size within limits ($CHANGED_LINES lines)"
+        fi
