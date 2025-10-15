@@ -44,7 +44,7 @@ Every session, Claude MUST:
 ## 📁 File Structure
 
 ```
-D:\AIDA-CLEAN\
+D:\AIDA-NEW\
 ├── .flow/              # Active work
 │   ├── current.md      # Current task (50 lines max)
 │   ├── memory.md       # Critical info (20 lines max)

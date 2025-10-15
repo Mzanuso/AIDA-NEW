@@ -1,88 +1,253 @@
-# AIDA NEW - Clean Version
+# AIDA - AI Multimedia Creation Platform
 
-**Created:** 2025-10-14
-**Purpose:** Fresh start with only working code from AIDA-CLEAN
+**Version:** V5 Architecture  
+**Updated:** 2025-10-15  
+**Status:** Active Development - Refactoring Phase
 
-## Project Structure
+---
+
+## 🎯 What is AIDA?
+
+AIDA is a conversational AI platform that creates multimedia content through specialized AI agents. Users describe what they want in natural language, and AIDA orchestrates multiple AI models to deliver professional results.
+
+**94 Creative Capabilities:** Text, images, video, audio, design, repurposing, and multimedia projects.
+
+---
+
+## 📁 Project Structure
 
 ```
 D:\AIDA-NEW/
-├── docs/                        # Documentation files
 ├── src/
-│   ├── ui/                      # UI Components
-│   │   ├── Launchpad.tsx
+│   ├── ui/                      # UI Components (React + Tailwind)
+│   │   ├── Launchpad.tsx        # Main interface
 │   │   ├── StyleSelectorModal.tsx
-│   │   └── components/          # Shadcn UI components
+│   │   └── components/          # 96 shadcn UI components
 │   ├── agents/
-│   │   ├── orchestrator/        # Conversational orchestrator service
-│   │   └── style-selector/      # Style selector API service
+│   │   ├── orchestrator/        # Account Manager (100% complete)
+│   │   └── style-selector/      # Art Director (95% complete)
 │   └── database/
-│       └── migrations/          # Database migration files
+│       └── migrations/          # PostgreSQL/Supabase migrations
 ├── data/
-│   └── sref_v2/                 # SREF style reference data
-├── architecture/                # Architecture documentation
-└── .flow/                       # AIDA-FLOW process files
+│   ├── sref_v2/                 # Style reference library
+│   └── AGENTI CONCEPT IDEA/     # Agent design documents
+├── architecture/
+│   └── 0-INDEX.md               # System architecture
+├── .flow/                       # AIDA-FLOW micro-sprint files
+│   ├── current.md               # Active task
+│   ├── memory.md                # Critical decisions
+│   └── tests.json               # Test registry
+├── old/                         # Archived documentation
+│   ├── migration/               # Migration records
+│   ├── sessions/                # Historical sessions
+│   └── deprecated/              # Superseded files
+└── docs/                        # (Reserved for future)
 ```
 
-## What's Included
+---
 
-### Working Components
-- **UI Components:** Launchpad and StyleSelectorModal from `_FROZEN/client`
-- **Orchestrator Service:** Conversational AI orchestrator (needs review)
-- **Style Selector Service:** Working style selection API
-- **Database:** Schema and migrations
-- **SREF Data:** Complete style reference library (200 files)
-- **Documentation:** All project docs, flow files, and architecture
+## 🚀 Quick Start
 
-### Configuration Files
-- `tsconfig.json` - TypeScript configuration
-- `tailwind.config.ts` - Tailwind CSS configuration
-- `vite.config.ts` - Vite build configuration
-- `vitest.config.ts` - Vitest test configuration
-- `postcss.config.js` - PostCSS configuration
-- `drizzle.config.ts` - Drizzle ORM configuration
+### 1. Install Dependencies
 
-## What's NOT Included
+```bash
+npm install
+```
 
-The following were intentionally excluded:
-- `node_modules/` - Install fresh with `npm install`
-- `venv/` - Python virtual environments
-- `_FROZEN/` - Archive directory
-- `Old/` - Deprecated code
-- `archive/` - Old documentation
-- Writer/Director/Visual/Video agents - To be reimplemented
+### 2. Configure Environment
 
-## Getting Started
+```bash
+cp .env.example .env
+# Edit .env with your API keys:
+# - ANTHROPIC_API_KEY (Claude Sonnet 4.5)
+# - DATABASE_URL (Supabase PostgreSQL)
+# - FAL_KEY (Media generation)
+```
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### 3. Run Development
 
-2. **Configure environment:**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your actual API keys
-   ```
+```bash
+# Start Orchestrator (Port 3003)
+cd src/agents/orchestrator
+npm run dev
 
-3. **Run development server:**
-   ```bash
-   npm run dev
-   ```
+# Start Style Selector (Port 3002)
+cd src/agents/style-selector
+npm run dev
 
-4. **Run tests:**
-   ```bash
-   npm test
-   ```
+# Start UI (Port 5173)
+npm run dev
+```
 
-## Next Steps
+### 4. Run Tests
 
-Refer to [START-HERE.md](START-HERE.md) for detailed instructions on:
-- Setting up the development environment
-- Understanding the AIDA-FLOW methodology
-- Working with the agents and services
+```bash
+npm test
+```
 
-## Migration Notes
+---
 
-This is a clean extraction from `D:\AIDA-CLEAN` performed on 2025-10-14.
-See the migration report for detailed information about what was copied.
+## 📚 Documentation
+
+### Core Files (Read These First)
+
+1. **[PROJECT-INSTRUCTIONS.md](PROJECT-INSTRUCTIONS.md)** - Complete AIDA-FLOW methodology
+2. **[FLOW-STATUS.md](FLOW-STATUS.md)** - Current project state (30 lines)
+3. **[PRD.md](PRD.md)** - Product requirements (94 capabilities)
+4. **[AIDA-FLOW.md](AIDA-FLOW.md)** - Detailed development methodology
+
+### Reference Documentation
+
+- **[architecture/0-INDEX.md](architecture/0-INDEX.md)** - System architecture
+- **[.flow/memory.md](.flow/memory.md)** - Critical project decisions
+- **[old/README.md](old/README.md)** - Archived documentation guide
+
+---
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────────────────────────┐
+│         USER LAYER                  │
+│  Natural language, 94 capabilities  │
+└──────────────┬──────────────────────┘
+               ↓
+┌─────────────────────────────────────┐
+│   ORCHESTRATOR (Port 3003)          │
+│   Role: Account Manager             │
+│   Status: 100% Complete ✅          │
+└──────────────┬──────────────────────┘
+               ↓ ProjectBrief
+┌─────────────────────────────────────┐
+│   TECHNICAL PLANNER                 │
+│   Role: Project Manager             │
+│   Status: In Design 🟡              │
+└──────────────┬──────────────────────┘
+               ↓ ExecutionPlan
+┌─────────────────────────────────────┐
+│   EXECUTION AGENTS                  │
+│   - Writer (40%)                    │
+│   - Director (40%)                  │
+│   - Visual Creator (0%)             │
+│   - Video Composer (0%)             │
+│   - Style Selector (95%) ✅         │
+└─────────────────────────────────────┘
+```
+
+---
+
+## 🎨 Current Status
+
+| Agent | Status | Tests | Progress |
+|-------|--------|-------|----------|
+| Orchestrator | ✅ Complete | 31/31 | 100% |
+| Style Selector | ✅ Complete | - | 95% |
+| Writer | 🟡 In Progress | - | 40% |
+| Director | 🟡 In Progress | - | 40% |
+| Visual Creator | ⚪ Not Started | - | 0% |
+| Video Composer | ⚪ Not Started | - | 0% |
+
+**Current Focus:** Orchestrator V5 refactoring (multi-agent architecture)
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React 18 + TypeScript
+- Vite (build tool)
+- Tailwind CSS + shadcn/ui
+- Zustand (state management)
+
+### Backend
+- Node.js + Express
+- PostgreSQL (Supabase)
+- Drizzle ORM
+- Vitest (testing)
+
+### AI Services
+- **Anthropic Claude Sonnet 4.5** (conversation, orchestration)
+- **FAL.AI** (52+ media generation models)
+- **KIE.AI** (Midjourney, Udio access)
+- **Supabase** (database, auth, storage)
+
+---
+
+## 🔄 Development Methodology
+
+AIDA uses **AIDA-FLOW**, a test-first, micro-sprint methodology:
+
+### Core Principles
+- ✅ **Test First** - Write test before code
+- ✅ **Small Steps** - Max 100 lines per commit
+- ✅ **Verify Always** - Green tests or stop
+- ✅ **Document Progress** - Update logs constantly
+
+### Micro-Sprint Workflow (20 min max)
+1. **SPEC** (5 min) - Define ONE specific outcome
+2. **TEST** (5 min) - Write test FIRST
+3. **CODE** (5 min) - Minimal code to pass test
+4. **VERIFY** (2 min) - Run test, must pass
+5. **CHECKPOINT** (3 min) - Commit & update logs
+
+See [PROJECT-INSTRUCTIONS.md](PROJECT-INSTRUCTIONS.md) for complete methodology.
+
+---
+
+## 📦 What Was Archived
+
+Historical documentation moved to `/old`:
+- Migration reports (completed October 2025)
+- Session-specific docs (superseded by FLOW-STATUS.md)
+- Deprecated guides (replaced by PROJECT-INSTRUCTIONS.md)
+
+See [old/README.md](old/README.md) for details.
+
+---
+
+## 🚧 Active Development
+
+**Current Sprint:** Orchestrator V5 Refactoring
+- Multi-language support (IT, EN, ES, FR, DE)
+- Proactive style guidance
+- Technical Planner integration
+- Context engineering optimization
+
+**Next Up:**
+- Complete Technical Planner design
+- Writer Agent completion
+- Director Agent completion
+
+---
+
+## 📊 Project Stats
+
+- **Total Capabilities:** 94
+- **Supported Languages:** 5 (IT, EN, ES, FR, DE)
+- **AI Models:** 52+ (via FAL.AI + KIE.AI)
+- **Active Agents:** 2 (Orchestrator, Style Selector)
+- **In Development:** 2 (Writer, Director)
+- **Planned:** 2 (Visual Creator, Video Composer)
+
+---
+
+## 🤝 Contributing
+
+Follow the AIDA-FLOW methodology:
+1. Read [PROJECT-INSTRUCTIONS.md](PROJECT-INSTRUCTIONS.md)
+2. Check [FLOW-STATUS.md](FLOW-STATUS.md) for current state
+3. Create micro-sprint in `.flow/current.md`
+4. Write test first, then code
+5. Commit with `[FLOW-XXX]` tag
+
+---
+
+## 📝 License
+
+[To be determined]
+
+---
+
+**Last Updated:** 2025-10-15  
+**Location:** D:\AIDA-NEW  
+**Methodology:** AIDA-FLOW v2.0

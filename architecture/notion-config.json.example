@@ -1,0 +1,25 @@
+{
+  "apiKey": "YOUR_NOTION_API_KEY_HERE",
+  "databaseId": "YOUR_DATABASE_ID_HERE",
+  "enabled": false,
+  "updateOnSessionEnd": true,
+  "fields": {
+    "sessionDate": "Date",
+    "summary": "Summary",
+    "tasksCompleted": "Tasks Completed",
+    "nextSteps": "Next Steps",
+    "agentProgress": "Agent Progress"
+  },
+  "instructions": {
+    "setup": [
+      "1. Crea Integration su Notion (https://www.notion.so/my-integrations)",
+      "2. Copia 'Internal Integration Token' come apiKey",
+      "3. Crea database 'AIDA Sessions' in Notion",
+      "4. Condividi database con l'integration",
+      "5. Copia database ID dall'URL",
+      "6. Set enabled: true",
+      "7. Run: npm install @notionhq/client"
+    ],
+    "databaseUrl": "https://notion.so/YOUR_WORKSPACE/DATABASE_ID"
+  }
+}

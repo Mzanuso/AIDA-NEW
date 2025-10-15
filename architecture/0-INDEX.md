@@ -1,68 +1,174 @@
-# AIDA Architecture Index
+# AIDA Architecture V5
 
-**Status:** In Setup  
-**Last Update:** 2025-10-14  
-**Source:** Notion Database (da creare)
-
----
-
-## 🎯 Purpose
-
-Questo file è l'entry point per l'architettura AIDA.  
-Collega ai database Notion dove sono mappati:
-- Components (agenti, servizi, UI)
-- Tools & Services (API, SDK, database)  
-- Connections (flussi di comunicazione)
+**Version:** 5.0
+**Updated:** 2025-10-15
+**Description:** Multi-Agent System with separated concerns
 
 ---
 
-## 📊 Notion Workspace
+## 🏗️ System Architecture
 
-**Nome:** AIDA Architecture  
-**URL:** [da aggiungere dopo setup]
-
-### Database
-1. **Components** - Pezzi del sistema
-2. **Tools & Services** - Attrezzi necessari
-3. **Connections** - Come si collegano
+```
+USER ↔ ORCHESTRATOR → ProjectBrief → TECHNICAL PLANNER → ExecutionPlan → EXECUTION AGENTS → RESULT → ORCHESTRATOR → USER
+```
 
 ---
 
-## 🚀 Quick Start
+## 🤖 Agent Roles & Responsibilities
 
-**Lavorando su un agente?**
-1. Apri Notion → Components database
-2. Cerca l'agente
-3. Leggi: Purpose, Dependencies, API Contract
-4. Verifica Tools & Services database per SDK necessari
-5. Verifica Connections per capire flusso dati
+### Orchestrator (Account Manager)
 
-**Aggiungendo nuova feature?**
-1. Aggiungi riga in Components
-2. Linka Tools necessari
-3. Definisci Connections
-4. Solo dopo → scrivi codice
+**Status:** refactoring (0%)
 
----
+**Port:** 3003
+**Database:** Supabase PostgreSQL
 
-## 📝 Export Protocol
+**Responsibilities:**
+- ✅ User-facing conversation (5 languages: IT, EN, ES, FR, DE)
+- ✅ Intent detection (94 capabilities)
+- ✅ Requirements gathering through dialogue
+- ✅ Proactive style guidance
+- ✅ Brief generation
+- ✅ Status updates to user
+- ✅ Result presentation
 
-Quando aggiorno Notion:
-1. Export database come Markdown
-2. Salvo in `architecture/exports/[date]/`
-3. Aggiorno questo INDEX con link
-
----
-
-## ⚠️ Status
-
-**Notion workspace:** ❌ Non ancora creato  
-**Database popolati:** ❌ Da fare  
-**Export disponibili:** ❌ Nessuno
-
-**Next Action:** Setup Notion workspace nella prossima sessione
+**Explicitly Excluded:**
+- ❌ Model selection
+- ❌ Workflow decisions
+- ❌ Technical planning
 
 ---
 
-**Version:** 1.0  
-**Updated:** 2025-10-14
+### Technical Planner (Project Manager)
+
+**Status:** design (0%)
+
+**Implementation:** mocked
+
+**Responsibilities:**
+- ✅ Receives ProjectBrief from Orchestrator
+- ✅ Selects optimal AI models (52+ models)
+- ✅ Designs execution workflow
+- ✅ Estimates cost and time
+- ✅ Coordinates execution agents
+
+**Explicitly Excluded:**
+- ❌ User interaction
+
+---
+
+### Style Selector (Art Director)
+
+**Status:** complete (95%)
+
+**Port:** 3002
+
+**Responsibilities:**
+- ✅ Visual style selection
+- ✅ Style gallery management
+- ✅ Style matching and categorization
+
+---
+
+### Writer (Content Writer)
+
+**Status:** in_progress (40%)
+
+**Responsibilities:**
+- ✅ Text content generation
+- ✅ Script writing
+- ✅ Story development
+
+---
+
+### Director (Creative Director)
+
+**Status:** in_progress (40%)
+
+**Responsibilities:**
+- ✅ Storyboards creation
+- ✅ Shot planning
+- ✅ Creative direction
+
+---
+
+### Visual Creator (Visual Artist)
+
+**Status:** not_started (0%)
+
+**Responsibilities:**
+- ✅ Image generation
+- ✅ Visual asset creation
+- ✅ Style application
+
+---
+
+### Video Composer (Video Editor)
+
+**Status:** not_started (0%)
+
+**Responsibilities:**
+- ✅ Video assembly
+- ✅ Editing and composition
+- ✅ Final rendering
+
+---
+
+## 🔗 Integration Points
+
+### Orchestrator → Technical Planner
+```
+POST /api/plans/create
+Body: ProjectBrief
+Response: ExecutionPlan
+```
+
+### Orchestrator → Style Selector
+```
+GET /api/styles/gallery?category=X&limit=9
+Response: StyleGallery
+```
+
+### Technical Planner → Execution Agents
+```
+Internal coordination via ExecutionPlan
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **framework:** React 18 + TypeScript
+- **build:** Vite
+- **styling:** Tailwind CSS + shadcn/ui
+- **state:** Zustand
+
+### Backend
+- **runtime:** Node.js + Express
+- **database:** PostgreSQL (Supabase)
+- **orm:** Drizzle ORM
+- **testing:** Vitest
+
+### AI Services
+- **conversation:** Anthropic Claude Sonnet 4.5
+- **media:** FAL.AI (52+ models)
+- **midjourney:** KIE.AI
+- **storage:** Supabase Storage
+
+---
+
+**Last Auto-Generated:** 2025-10-15
+**Source:** .flow/project-state.json
+
+---
+
+## 💡 To Update This File
+
+Don't edit this file directly! Instead:
+
+1. Edit `.flow/project-state.json`
+2. Run `npm run sync:docs`
+3. This file will be regenerated automatically
+
+See `.flow/SYNC-SYSTEM.md` for details.

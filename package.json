@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "sync:docs": "node sync-docs.js",
+    "presync:docs": "echo '📚 Syncing documentation from project-state.json...'",
+    "postsync:docs": "echo '✅ Documentation sync complete!'"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",

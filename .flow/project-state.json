@@ -1,0 +1,164 @@
+{
+  "version": "5.0",
+  "lastUpdate": "2025-10-15",
+  "architecture": {
+    "version": "V5",
+    "description": "Multi-Agent System with separated concerns",
+    "agents": {
+      "orchestrator": {
+        "role": "Account Manager",
+        "status": "refactoring",
+        "completion": {
+          "v4": 100,
+          "v5": 0
+        },
+        "responsibilities": [
+          "User-facing conversation (5 languages: IT, EN, ES, FR, DE)",
+          "Intent detection (94 capabilities)",
+          "Requirements gathering through dialogue",
+          "Proactive style guidance",
+          "Brief generation",
+          "Status updates to user",
+          "Result presentation"
+        ],
+        "excludes": [
+          "Model selection",
+          "Workflow decisions",
+          "Technical planning"
+        ],
+        "port": 3003,
+        "database": "Supabase PostgreSQL",
+        "tests": 31
+      },
+      "technicalPlanner": {
+        "role": "Project Manager",
+        "status": "design",
+        "completion": 0,
+        "responsibilities": [
+          "Receives ProjectBrief from Orchestrator",
+          "Selects optimal AI models (52+ models)",
+          "Designs execution workflow",
+          "Estimates cost and time",
+          "Coordinates execution agents"
+        ],
+        "excludes": [
+          "User interaction"
+        ],
+        "implementation": "mocked"
+      },
+      "styleSelector": {
+        "role": "Art Director",
+        "status": "complete",
+        "completion": 95,
+        "responsibilities": [
+          "Visual style selection",
+          "Style gallery management",
+          "Style matching and categorization"
+        ],
+        "port": 3002,
+        "tests": 0
+      },
+      "writer": {
+        "role": "Content Writer",
+        "status": "in_progress",
+        "completion": 40,
+        "responsibilities": [
+          "Text content generation",
+          "Script writing",
+          "Story development"
+        ],
+        "tests": 0
+      },
+      "director": {
+        "role": "Creative Director",
+        "status": "in_progress",
+        "completion": 40,
+        "responsibilities": [
+          "Storyboards creation",
+          "Shot planning",
+          "Creative direction"
+        ],
+        "tests": 0
+      },
+      "visualCreator": {
+        "role": "Visual Artist",
+        "status": "not_started",
+        "completion": 0,
+        "responsibilities": [
+          "Image generation",
+          "Visual asset creation",
+          "Style application"
+        ],
+        "tests": 0
+      },
+      "videoComposer": {
+        "role": "Video Editor",
+        "status": "not_started",
+        "completion": 0,
+        "responsibilities": [
+          "Video assembly",
+          "Editing and composition",
+          "Final rendering"
+        ],
+        "tests": 0
+      }
+    },
+    "flow": "USER ↔ ORCHESTRATOR → ProjectBrief → TECHNICAL PLANNER → ExecutionPlan → EXECUTION AGENTS → RESULT → ORCHESTRATOR → USER"
+  },
+  "capabilities": {
+    "total": 94,
+    "categories": {
+      "text": 13,
+      "visualGeneration": 13,
+      "imageEditing": 11,
+      "videoGeneration": 11,
+      "videoEditing": 12,
+      "audio": 11,
+      "design": 11,
+      "repurposing": 6,
+      "multimedia": 6
+    }
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "React 18 + TypeScript",
+      "build": "Vite",
+      "styling": "Tailwind CSS + shadcn/ui",
+      "state": "Zustand"
+    },
+    "backend": {
+      "runtime": "Node.js + Express",
+      "database": "PostgreSQL (Supabase)",
+      "orm": "Drizzle ORM",
+      "testing": "Vitest"
+    },
+    "ai": {
+      "conversation": "Anthropic Claude Sonnet 4.5",
+      "media": "FAL.AI (52+ models)",
+      "midjourney": "KIE.AI",
+      "storage": "Supabase Storage"
+    }
+  },
+  "currentFocus": {
+    "phase": "Orchestrator V5 Refactoring",
+    "changes": [
+      "Database migration: Neon → Supabase",
+      "Multi-language support: IT, EN, ES, FR, DE",
+      "Architecture shift: Monolithic → Multi-agent",
+      "Role clarification: Account Manager only",
+      "New: Proactive style proposals",
+      "New: Technical Planner integration",
+      "New: Context engineering (caching, JIT, compression)",
+      "New: Comprehensive error handling"
+    ],
+    "preserves": [
+      "RAG tools functionality",
+      "Agent tools functionality",
+      "Media tools functionality",
+      "Personality system",
+      "UI functionality",
+      "Database schema (PostgreSQL)"
+    ]
+  },
+  "languages": ["it", "en", "es", "fr", "de"]
+}

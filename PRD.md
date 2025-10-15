@@ -1,7 +1,7 @@
 # AIDA Product Requirements Document (PRD)
 
 **Version:** 2.0  
-**Date:** 2025-10-11  
+**Date:** 2025-10-15 (Architecture Updated to V5)  
 **Status:** COMPLETE
 
 ---
@@ -63,25 +63,62 @@ ILLUSTRATED_BOOK, COMIC_BOOK, PHOTO_BOOK, PORTFOLIO, CATALOG, MAGAZINE
 - ✅ Riconoscimento cognitivo adattivo (età, cultura, expertise)
 - ✅ Memoria cross-session e cross-device
 - ✅ Tono ironico/critico tipo Zerocalcare
+- ✅ Multi-language: IT, EN, ES, FR, DE
 
-### 2. Content Generation Pipeline
+### 2. Architecture V5 (Multi-Agent System)
+
+Multi-Agent System with separated concerns
+
+**Flow:**
 ```
-USER INPUT (idea/brief/asset)
-    ↓
-ORCHESTRATOR (analisi intent + routing)
-    ↓
-STYLE SELECTOR (selezione stile visivo)
-    ↓
-WRITER (narrativa/script)
-    ↓
-DIRECTOR (storyboard/shot list)
-    ↓
-VISUAL CREATOR (immagini via FAL.AI)
-    ↓
-VIDEO COMPOSER (montaggio via Kling/Veo)
-    ↓
-FINAL OUTPUT (video/libro/grafica)
+USER ↔ ORCHESTRATOR → ProjectBrief → TECHNICAL PLANNER → ExecutionPlan → EXECUTION AGENTS → RESULT → ORCHESTRATOR → USER
 ```
+
+**Agent Roles:**
+
+**Orchestrator (Account Manager):**
+- User-facing conversation (5 languages: IT, EN, ES, FR, DE)
+- Intent detection (94 capabilities)
+- Requirements gathering through dialogue
+- Proactive style guidance
+- Brief generation
+- Status updates to user
+- Result presentation
+- ❌ Does NOT: Model selection, Workflow decisions, Technical planning
+
+**Technical Planner (Project Manager):**
+- Receives ProjectBrief from Orchestrator
+- Selects optimal AI models (52+ models)
+- Designs execution workflow
+- Estimates cost and time
+- Coordinates execution agents
+- ❌ Does NOT: User interaction
+- **Implementation:** Mocked for Phase 1, real agent in Phase 3
+
+**Style Selector (Art Director):**
+- Visual style selection
+- Style gallery management
+- Style matching and categorization
+
+**Writer (Content Writer):**
+- Text content generation
+- Script writing
+- Story development
+
+**Director (Creative Director):**
+- Storyboards creation
+- Shot planning
+- Creative direction
+
+**Visual Creator (Visual Artist):**
+- Image generation
+- Visual asset creation
+- Style application
+
+**Video Composer (Video Editor):**
+- Video assembly
+- Editing and composition
+- Final rendering
 
 ### 3. Output Types
 - **Video:** Social-ready (9:16, 16:9, 1:1), fino a 4K
@@ -117,7 +154,7 @@ FINAL OUTPUT (video/libro/grafica)
 
 ### Must Have (MVP)
 1. **Orchestrator conversazionale** con memoria e personality
-2. **6 Agenti base** (Orchestrator, Style, Writer, Director, Visual, Video)
+2. **7 Agenti** (Orchestrator, Technical Planner, Style, Writer, Director, Visual, Video)
 3. **Chat interface** mobile-first
 4. **Sistema account** con sync cross-device
 5. **Integrazione FAL.AI** per tutti i modelli media
@@ -166,11 +203,13 @@ FINAL OUTPUT (video/libro/grafica)
 - **Date:** Ottobre 2025
 - **Users:** 10 beta tester interni
 - **Goal:** Test orchestrator + basic flow
+- **Focus:** Orchestrator V5 refactoring + Technical Planner mock
 
 ### Phase 2: Beta (Closed) - Q4 2025
 - **Date:** Novembre-Dicembre 2025
 - **Users:** 100 early adopters
 - **Goal:** Validate product-market fit
+- **Focus:** Complete execution agents + real Technical Planner
 
 ### Phase 3: Public Launch - Q1 2026
 - **Date:** Gennaio 2026
@@ -183,10 +222,10 @@ FINAL OUTPUT (video/libro/grafica)
 
 1. **Generation time:** 1-3 minuti per video standard
 2. **Max video duration:** 60 secondi (estendibile a pagamento)
-3. **Storage:** Firebase Cloud Storage + 30 giorni retention
+3. **Storage:** Supabase Storage + 30 giorni retention
 4. **Watermark:** Solo su free tier, removibile con upgrade
 5. **Music:** Libreria royalty-free integrata
-6. **Languages:** Italiano + Inglese al lancio
+6. **Languages:** IT, EN, ES, FR, DE (5 lingue al lancio)
 7. **Content moderation:** NSFW filter automatico
 8. **Concurrent generation:** 3 per utente Pro
 9. **Video format:** MP4 H.264 (universale)
@@ -204,55 +243,79 @@ FINAL OUTPUT (video/libro/grafica)
 
 ---
 
-## 🔄 Current State Assessment
+## 🔄 Current State Assessment (V5)
 
 ### What Works Now
-- ✅ Authentication system (JWT)
-- ✅ Landing page (Luma-inspired)
-- ✅ Database schema (PostgreSQL + Drizzle)
+- ✅ Orchestrator V4 (100% - needs V5 refactoring)
+- ✅ Style Selector (95% complete)
+- ✅ Database schema (PostgreSQL/Supabase + Drizzle)
 - ✅ Basic microservices structure
-- ✅ Style Selector UI (60%)
+- ✅ UI: test-orchestrator-chat.html
 
-### What's Partially Done
-- 🟡 Orchestrator (80% - needs tests + personality)
-- 🟡 Writer Agent (40% - needs conversation mode)
-- 🟡 Director Agent (40% - needs tool integration)
-- 🟡 Chat interface (exists but needs integration)
+### What's In Progress
+- 🟡 Orchestrator V5 Refactoring (0% - starting)
+  - Multi-language support
+  - Proactive style guidance
+  - Technical Planner integration
+  - Context engineering
+- 🟡 Writer Agent (40% - needs completion)
+- 🟡 Director Agent (40% - needs completion)
 
 ### What's Missing
+- ❌ Technical Planner (mocked for Phase 1)
 - ❌ Visual Creator Agent
 - ❌ Video Composer Agent  
 - ❌ FAL.AI integration complete
 - ❌ Payment system
-- ❌ Mobile app (React Native)
 
 ---
 
 ## 🎯 Next Steps Priority
 
-1. **IMMEDIATE:** Complete Orchestrator testing + personality system
-2. **THIS WEEK:** Integrate FAL.AI + build Visual Creator agent
-3. **THIS MONTH:** Full pipeline test (input → video output)
+1. **IMMEDIATE:** Orchestrator V5 refactoring (8-10 hours)
+   - Database: Neon → Supabase
+   - Languages: IT → 5 languages
+   - Architecture: Monolithic → Multi-agent
+   - New: Technical Planner interface (mocked)
+   
+2. **THIS WEEK:** Complete Writer + Director agents
+3. **THIS MONTH:** Build Visual Creator + Video Composer
 
 ---
 
 ## 🛠 Architecture Decisions
 
-### Agent Communication
-- **Pattern:** Message Bus (async, queued)
-- **Protocol:** JSON messages with typed schemas
-- **Persistence:** PostgreSQL for conversation state
+### Agent Communication (V5)
+- **Pattern:** Request/Response via TypeScript interfaces
+- **Protocol:** ProjectBrief → ExecutionPlan → ProjectResult
+- **Orchestrator:** Never sees technical details (models, workflows)
+- **Technical Planner:** All technical decisions centralized
 
-### Model Selection (FAL.AI)
+### Model Selection Strategy
+- **Decision Maker:** Technical Planner (not Orchestrator)
 - **Images:** FLUX for quality, SDXL for speed
 - **Video:** Kling 2.5 for quality, Veo 3 for cost
 - **Upscaling:** Real-ESRGAN for enhancement
+- **User Visibility:** ZERO - users never see model names
+
+### Database Architecture
+- **Primary:** Supabase (PostgreSQL + Auth + Storage)
+- **ORM:** Drizzle
+- **Migration:** Neon → Supabase (connection string only)
+- **Schema:** Unchanged (pure PostgreSQL)
 
 ### Personality System
-- **Core:** Critico ma propositivo
+- **Core:** Critico ma propositivo (stile Zerocalcare)
 - **Tone:** Ironico senza essere sarcastico
 - **Adaptation:** Silenzioso basato su cognitive profile
+- **Languages:** Adapts automatically to user's language
 
 ---
 
-**END OF PRD - Ready for implementation**
+**END OF PRD V5 - Ready for implementation**
+
+---
+
+**Last Updated:** 2025-10-15  
+**Auto-Generated:** NO (Manual update)  
+**Source:** .flow/project-state.json + manual architecture section

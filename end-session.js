@@ -3,16 +3,18 @@
 /**
  * AIDA - Fine Sessione Automatica
  * 
- * Esegui questo script alla fine di ogni chat per aggiornare i docs.
+ * Script per chiudere sessioni con aggiornamento automatico di:
+ * - SESSION-HANDOFF.md
+ * - .flow/current.md
+ * - Git commit + push
+ * - Notion database (via Claude MCP)
  * 
  * Usage:
- *   node end-session.js "Breve summary di cosa fatto"
+ *   node end-session.js "Summary di cosa fatto"
  * 
- * Aggiorna automaticamente:
- * - SESSION-HANDOFF.md
- * - FLOW-STATUS.md (se percentuali cambiate)
- * - .flow/current.md (svuota se task completo)
- * - Git commit + push automatico
+ * Flags:
+ *   --no-push    Skip git push
+ *   --no-notion  Skip Notion update
  */
 
 const fs = require('fs');
@@ -27,18 +29,28 @@ const CURRENT_TASK = path.join(ROOT, '.flow', 'current.md');
 
 // Get summary from command line
 const summary = process.argv[2] || "Sessione di lavoro";
-const noPush = process.argv.includes('--no-push'); // Flag per disabilitare push
+const noPush = process.argv.includes('--no-push');
+const noNotion = process.argv.includes('--no-notion');
 
 // Get current date
 const now = new Date();
-const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
-const timeStr = now.toTimeString().split(' ')[0].substring(0, 5); // HH:MM
+const dateStr = now.toISOString().split('T')[0];
+const timeStr = now.toTimeString().split(' ')[0].substring(0, 5);
 
-console.log('🔄 Aggiornamento documenti fine sessione...\n');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('🔄 AIDA - Fine Sessione Automatica');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+
+const checklist = {
+  handoff: false,
+  currentTask: false,
+  git: false,
+  push: false,
+  notion: false
+};
 
 // 1. Update SESSION-HANDOFF.md
 console.log('📝 Aggiorno SESSION-HANDOFF.md...');
-
 const handoffContent = `# SESSION HANDOFF
 
 **Data:** ${dateStr}
@@ -78,9 +90,10 @@ Continua AIDA
 `;
 
 fs.writeFileSync(SESSION_HANDOFF, handoffContent, 'utf8');
+checklist.handoff = true;
 console.log('✅ SESSION-HANDOFF.md aggiornato\n');
 
-// 2. Clear current task (if completed)
+// 2. Clear current task
 console.log('📝 Svuoto .flow/current.md...');
 const emptyTask = `# Current Micro-Sprint
 
@@ -93,46 +106,62 @@ Questo file viene popolato all'inizio di ogni micro-sprint.
 `;
 
 fs.writeFileSync(CURRENT_TASK, emptyTask, 'utf8');
+checklist.currentTask = true;
 console.log('✅ .flow/current.md svuotato\n');
 
 // 3. Git commit
-console.log('📦 Commit automatico...');
+console.log('📦 Git commit...');
 try {
-  execSync('git add SESSION-HANDOFF.md .flow/current.md FLOW-STATUS.md', { stdio: 'inherit' });
-  execSync(`git commit -m "[AUTO] End session: ${summary}"`, { stdio: 'inherit' });
-  console.log('✅ Commit creato\n');
+  execSync('git add SESSION-HANDOFF.md .flow/current.md FLOW-STATUS.md', { stdio: 'pipe' });
+  execSync(`git commit -m "[AUTO] End session: ${summary}"`, { stdio: 'pipe' });
+  checklist.git = true;
+  console.log('✅ Git commit creato\n');
   
-  // 4. Git push (se non disabilitato)
+  // 4. Git push
   if (!noPush) {
-    console.log('🚀 Push su remote...');
+    console.log('🚀 Git push...');
     try {
-      execSync('git push', { stdio: 'inherit' });
-      console.log('✅ Push completato\n');
+      execSync('git push', { stdio: 'pipe' });
+      checklist.push = true;
+      console.log('✅ Git push completato\n');
     } catch (pushErr) {
-      console.log('⚠️ Push fallito (normale se no remote configurato)\n');
-      console.log('   Configura remote con: git remote add origin <url>\n');
+      console.log('⚠️  Git push fallito (normale se remote non configurato)\n');
     }
   } else {
-    console.log('⏭️  Push skippato (--no-push flag)\n');
+    console.log('⏭️  Git push skippato (--no-push flag)\n');
   }
   
 } catch (err) {
-  console.log('⚠️ Nessuna modifica da committare (probabilmente già committato)\n');
+  console.log('⚠️  Nessuna modifica da committare\n');
 }
 
-// 5. Summary
+// 5. Notion update
+if (!noNotion) {
+  console.log('📊 Notion update...');
+  console.log('   ⚠️  Usa Claude nella prossima chat per aggiornare Notion');
+  console.log('   Prompt: "Aggiungi sessione a Notion con summary: ' + summary + '"');
+  checklist.notion = false;
+  console.log('');
+} else {
+  console.log('⏭️  Notion update skippato (--no-notion flag)\n');
+}
+
+// Final summary
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 console.log('✅ FINE SESSIONE COMPLETATA');
-console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+
+console.log('📋 Checklist:');
+console.log(`  ${checklist.handoff ? '✅' : '❌'} SESSION-HANDOFF.md`);
+console.log(`  ${checklist.currentTask ? '✅' : '❌'} .flow/current.md`);
+console.log(`  ${checklist.git ? '✅' : '❌'} Git commit`);
+console.log(`  ${checklist.push ? '✅' : '⏭️ '} Git push`);
+console.log(`  💬 Notion (update via Claude nella prossima chat)`);
 console.log('');
-console.log('📋 File aggiornati:');
-console.log('  ✅ SESSION-HANDOFF.md');
-console.log('  ✅ .flow/current.md');
-console.log('  ✅ Git commit creato');
-if (!noPush) {
-  console.log('  ✅ Git push eseguito');
-}
-console.log('');
+
 console.log('🚀 Prossima sessione:');
-console.log('  Scrivi: "Continua AIDA"');
-console.log('');
+console.log('  1. Scrivi: "Continua AIDA"');
+console.log('  2. Claude aggiornerà Notion automaticamente\n');
+
+const success = checklist.handoff && checklist.currentTask && checklist.git;
+process.exit(success ? 0 : 1);
