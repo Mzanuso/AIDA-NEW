@@ -1,0 +1,89 @@
+{
+  "sref_code": "unknown",
+  "name": "Dreamy Editorial Portrait",
+  "category": "photography",
+  "style_attributes": {
+    "primary_characteristics": [
+      "soft romantic lighting",
+      "painterly skin textures",
+      "editorial fashion aesthetic"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "warm coral",
+        "soft peach",
+        "cream white"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Intimate portrait framing with artistic backgrounds",
+    "lighting_quality": "Soft diffused natural light with golden hour warmth"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "smooth",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "soft glow",
+      "film emulation"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "romantic",
+      "ethereal",
+      "sophisticated"
+    ],
+    "emotional_tone": "Gentle and contemplative elegance",
+    "artistic_influences": [
+      "fine art photography",
+      "fashion editorial",
+      "classical portraiture"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "beauty portraits",
+      "fashion photography",
+      "romantic imagery"
+    ],
+    "subject_matter_fit": [
+      "female portraits",
+      "beauty shots",
+      "editorial content"
+    ],
+    "not_recommended_for": [
+      "dark moody scenes",
+      "urban gritty aesthetics"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "elegant woman portrait, soft lighting",
+      "dreamy fashion photography, warm tones"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "1:1",
+      "16:9"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "portrait",
+      "dreamy",
+      "editorial",
+      "romantic",
+      "soft"
+    ]
+  }
+}

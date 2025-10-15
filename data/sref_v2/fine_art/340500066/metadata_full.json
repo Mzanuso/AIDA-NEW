@@ -1,0 +1,106 @@
+{
+  "sref_code": "unknown",
+  "name": "Dark Fantasy Gothic Ornamental",
+  "category": "fantasy_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "ornate metalwork",
+      "gothic fantasy elements",
+      "mysterious hooded figures",
+      "elaborate decorative patterns",
+      "dark mystical atmosphere"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep blacks",
+        "rich golds",
+        "warm amber",
+        "burgundy accents"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Dramatic close-ups with intricate detail focus and ornamental framing",
+    "lighting_quality": "Moody chiaroscuro with warm golden highlights and deep shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "highly detailed",
+    "level_of_detail": "extremely high",
+    "post_processing": [
+      "dramatic lighting",
+      "ornate overlays",
+      "metallic enhancement",
+      "atmospheric particles"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mysterious",
+      "gothic",
+      "luxurious",
+      "ominous",
+      "mystical"
+    ],
+    "emotional_tone": "Dark elegance with foreboding mystique",
+    "artistic_influences": [
+      "Victorian gothic",
+      "medieval craftsmanship",
+      "fantasy illustration",
+      "baroque ornamentation"
+    ],
+    "time_period_feel": "medieval fantasy"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy characters",
+      "gothic architecture",
+      "ornate objects",
+      "mystical scenes",
+      "dark magic themes"
+    ],
+    "subject_matter_fit": [
+      "hooded figures",
+      "decorated armor",
+      "ornamental vessels",
+      "fantasy landscapes"
+    ],
+    "not_recommended_for": [
+      "modern subjects",
+      "bright cheerful scenes",
+      "minimalist designs"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "hooded figure with ornate details",
+      "gothic fantasy armor with gold accents",
+      "mystical decorated objects in moody lighting"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "gothic",
+      "fantasy",
+      "ornate",
+      "mysterious",
+      "dark",
+      "decorative",
+      "medieval",
+      "mystical",
+      "luxurious",
+      "dramatic"
+    ]
+  }
+}

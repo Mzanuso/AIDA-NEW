@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Romantic Storybook Illustration",
+  "category": "illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "ornate decorative borders",
+      "soft romantic portraiture",
+      "fairytale atmosphere"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted earth tones",
+        "sage green",
+        "warm cream"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Panel-based storytelling with decorative framing",
+    "lighting_quality": "Soft diffused lighting with gentle shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "painterly illustration",
+    "texture_quality": "soft and organic",
+    "level_of_detail": "high",
+    "post_processing": [
+      "vintage paper texture",
+      "ornamental borders",
+      "watercolor effects"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "romantic",
+      "melancholic",
+      "dreamy"
+    ],
+    "emotional_tone": "Wistful and contemplative with fairy tale romance",
+    "artistic_influences": [
+      "Art Nouveau",
+      "Victorian illustration",
+      "Pre-Raphaelite painting"
+    ],
+    "time_period_feel": "late 19th century"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fairy tale illustrations",
+      "romantic storytelling",
+      "book covers"
+    ],
+    "subject_matter_fit": [
+      "female portraits",
+      "period costume",
+      "nature scenes"
+    ],
+    "not_recommended_for": [
+      "modern themes",
+      "action scenes",
+      "technical subjects"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "medieval maiden in ornate frame",
+      "romantic storybook illustration with decorative borders"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "storybook",
+      "romantic",
+      "ornate",
+      "vintage",
+      "decorative"
+    ]
+  }
+}

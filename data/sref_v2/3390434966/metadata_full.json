@@ -1,0 +1,89 @@
+{
+  "sref_code": "dark_romantic_gothic",
+  "name": "Dark Romantic Gothic Fantasy",
+  "category": "dark_fantasy",
+  "style_attributes": {
+    "primary_characteristics": [
+      "ornate baroque details",
+      "floral gothic elements",
+      "dramatic chiaroscuro lighting"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep teal",
+        "burgundy",
+        "rose pink"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "Densely layered with ornamental baroque framing",
+    "lighting_quality": "Dramatic candlelit atmosphere with deep shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "painterly_realistic",
+    "texture_quality": "rich_ornate",
+    "level_of_detail": "extremely_high",
+    "post_processing": [
+      "dramatic contrast",
+      "gothic color grading",
+      "ornamental overlays"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mysterious",
+      "romantic",
+      "melancholic"
+    ],
+    "emotional_tone": "Haunting beauty with romantic darkness",
+    "artistic_influences": [
+      "baroque painting",
+      "gothic romanticism",
+      "victorian portraiture"
+    ],
+    "time_period_feel": "victorian_gothic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "gothic portraits",
+      "fantasy characters",
+      "romantic dark art"
+    ],
+    "subject_matter_fit": [
+      "portraits",
+      "still life",
+      "architectural scenes"
+    ],
+    "not_recommended_for": [
+      "modern minimalism",
+      "bright cheerful content"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "gothic portrait with roses",
+      "baroque dark fantasy scene"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "gothic",
+      "baroque",
+      "romantic",
+      "dark_fantasy",
+      "ornate"
+    ]
+  }
+}

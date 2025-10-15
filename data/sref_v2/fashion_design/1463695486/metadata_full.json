@@ -1,0 +1,97 @@
+{
+  "sref_code": "analyzed_style",
+  "name": "Retro Sci-Fi Fantasy Portrait",
+  "category": "conceptual_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "vintage color grading",
+      "fantasy creature integration",
+      "dramatic poses",
+      "ornate costume design"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "burnt orange",
+        "teal blue",
+        "warm amber"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Cinematic portrait composition with creature elements as dramatic backdrops",
+    "lighting_quality": "Golden hour lighting with strong contrast and warm atmospheric glow"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "detailed",
+    "level_of_detail": "high",
+    "post_processing": [
+      "vintage film grain",
+      "color separation",
+      "enhanced contrast"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mystical",
+      "dramatic",
+      "vintage",
+      "surreal"
+    ],
+    "emotional_tone": "Epic and otherworldly with retro sensibilities",
+    "artistic_influences": [
+      "1970s sci-fi book covers",
+      "vintage fantasy art",
+      "pulp magazine illustrations"
+    ],
+    "time_period_feel": "retro-futuristic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy portraits",
+      "sci-fi character design",
+      "album covers",
+      "book illustrations"
+    ],
+    "subject_matter_fit": [
+      "human subjects",
+      "fantasy creatures",
+      "costume photography"
+    ],
+    "not_recommended_for": [
+      "modern minimalist designs",
+      "corporate imagery",
+      "realistic medical imagery"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "fantasy portrait with dragon",
+      "retro sci-fi character design",
+      "vintage book cover style portrait"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "retro",
+      "fantasy",
+      "sci-fi",
+      "portrait",
+      "vintage",
+      "cinematic",
+      "creature",
+      "dramatic"
+    ]
+  }
+}

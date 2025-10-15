@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Post-Apocalyptic Cinematic Realism",
+  "category": "cinematic",
+  "style_attributes": {
+    "primary_characteristics": [
+      "atmospheric fog and mist",
+      "desaturated color grading",
+      "abandoned industrial landscapes"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted greens",
+        "steel gray",
+        "dusty brown"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "low"
+    },
+    "composition_style": "Wide cinematic framing with environmental storytelling",
+    "lighting_quality": "Diffused overcast lighting with heavy atmosphere"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "weathered and gritty",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "atmospheric haze",
+      "film grain"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "melancholic",
+      "dystopian",
+      "contemplative"
+    ],
+    "emotional_tone": "Somber reflection on abandonment and decay",
+    "artistic_influences": [
+      "Blade Runner 2049",
+      "The Road",
+      "post-apocalyptic cinema"
+    ],
+    "time_period_feel": "near-future dystopian"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "sci-fi concept art",
+      "dystopian narratives",
+      "environmental storytelling"
+    ],
+    "subject_matter_fit": [
+      "abandoned vehicles",
+      "ruined landscapes",
+      "solitary figures"
+    ],
+    "not_recommended_for": [
+      "bright cheerful scenes",
+      "colorful subjects",
+      "upbeat content"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "abandoned car in misty wasteland",
+      "post-apocalyptic settlement with overgrown vegetation"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "21:9",
+      "4:3"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "medium",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "post-apocalyptic",
+      "cinematic",
+      "atmospheric",
+      "dystopian",
+      "moody"
+    ]
+  }
+}

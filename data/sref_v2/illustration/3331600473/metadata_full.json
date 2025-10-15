@@ -1,0 +1,97 @@
+{
+  "sref_code": "unknown",
+  "name": "Digital Glitch Portrait",
+  "category": "digital art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "pixelated distortion",
+      "moiré interference patterns",
+      "chromatic aberration",
+      "digital noise overlay"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "electric blue",
+        "magenta",
+        "cyan",
+        "amber"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "Fragmented and distorted with grid-like pixelation effects",
+    "lighting_quality": "Artificial digital glow with color separation artifacts"
+  },
+  "technical_specs": {
+    "rendering_style": "digital glitch",
+    "texture_quality": "pixelated",
+    "level_of_detail": "medium",
+    "post_processing": [
+      "halftone screening",
+      "RGB separation",
+      "digital noise",
+      "moiré patterns"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "cyberpunk",
+      "futuristic",
+      "mysterious",
+      "technological"
+    ],
+    "emotional_tone": "Dystopian and otherworldly with digital fragmentation",
+    "artistic_influences": [
+      "glitch art",
+      "cyberpunk aesthetic",
+      "digital datamoshing",
+      "screen printing"
+    ],
+    "time_period_feel": "futuristic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "cyberpunk characters",
+      "sci-fi portraits",
+      "digital art projects",
+      "tech-themed designs"
+    ],
+    "subject_matter_fit": [
+      "human portraits",
+      "faces",
+      "digital beings",
+      "androids"
+    ],
+    "not_recommended_for": [
+      "natural landscapes",
+      "traditional portraits",
+      "clean corporate imagery"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "cyberpunk portrait with digital glitch effects",
+      "futuristic face with pixelated distortion"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "medium",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "glitch",
+      "cyberpunk",
+      "digital",
+      "pixelated",
+      "futuristic"
+    ]
+  }
+}

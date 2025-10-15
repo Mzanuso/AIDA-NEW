@@ -1,0 +1,99 @@
+{
+  "sref_code": "unknown",
+  "name": "Gothic Natural History Illustration",
+  "category": "architectural_illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "gothic cathedral architecture",
+      "natural history museum aesthetic",
+      "monochromatic line art",
+      "scientific specimen display"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep navy blue",
+        "white",
+        "cream"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "low"
+    },
+    "composition_style": "Symmetrical architectural framing with central specimen focus",
+    "lighting_quality": "Dramatic contrast with ethereal backlighting"
+  },
+  "technical_specs": {
+    "rendering_style": "detailed line art illustration",
+    "texture_quality": "fine detailed linework",
+    "level_of_detail": "very high",
+    "post_processing": [
+      "high contrast",
+      "vintage print effect",
+      "architectural precision"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "contemplative",
+      "mysterious",
+      "scholarly",
+      "reverent"
+    ],
+    "emotional_tone": "Quiet wonderment and scientific curiosity",
+    "artistic_influences": [
+      "Victorian natural history",
+      "Gothic Revival architecture",
+      "scientific illustration"
+    ],
+    "time_period_feel": "Victorian era meets contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "museum displays",
+      "scientific illustrations",
+      "educational materials",
+      "book covers"
+    ],
+    "subject_matter_fit": [
+      "marine life",
+      "botanical specimens",
+      "fossils",
+      "natural history"
+    ],
+    "not_recommended_for": [
+      "modern technology",
+      "abstract concepts",
+      "vibrant subjects"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "whale skeleton in gothic cathedral --sref",
+      "natural history museum specimen display --sref"
+    ],
+    "compatible_aspects": [
+      "2:3",
+      "4:5",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "gothic",
+      "scientific",
+      "museum",
+      "vintage",
+      "architectural",
+      "monochromatic",
+      "detailed",
+      "educational",
+      "specimen",
+      "cathedral"
+    ]
+  }
+}

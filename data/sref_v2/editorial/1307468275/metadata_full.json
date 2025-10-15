@@ -1,0 +1,96 @@
+{
+  "sref_code": "unknown",
+  "name": "Anime Cinematic Fantasy",
+  "category": "anime",
+  "style_attributes": {
+    "primary_characteristics": [
+      "anime art style",
+      "cinematic composition",
+      "magical realism",
+      "detailed environments"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep blues",
+        "starlight whites",
+        "warm oranges",
+        "mystical purples"
+      ],
+      "color_temperature": "cool to warm contrast",
+      "saturation_level": "high"
+    },
+    "composition_style": "Wide cinematic framing with atmospheric depth",
+    "lighting_quality": "Dramatic contrast between artificial and natural light sources"
+  },
+  "technical_specs": {
+    "rendering_style": "anime illustration",
+    "texture_quality": "smooth gradient shading",
+    "level_of_detail": "high",
+    "post_processing": [
+      "bloom effects",
+      "atmospheric haze",
+      "color grading",
+      "lens flare"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mystical",
+      "contemplative",
+      "dreamy",
+      "nostalgic"
+    ],
+    "emotional_tone": "Peaceful wonder with hints of melancholy",
+    "artistic_influences": [
+      "Studio Ghibli",
+      "Makoto Shinkai",
+      "anime cinematography"
+    ],
+    "time_period_feel": "contemporary with timeless elements"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "anime characters",
+      "fantasy scenes",
+      "night landscapes",
+      "emotional storytelling"
+    ],
+    "subject_matter_fit": [
+      "characters in contemplation",
+      "magical environments",
+      "urban fantasy"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "action scenes",
+      "industrial themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "anime girl under starry sky",
+      "mystical forest with glowing lights",
+      "contemplative character in magical setting"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "anime",
+      "cinematic",
+      "fantasy",
+      "atmospheric",
+      "magical"
+    ]
+  }
+}

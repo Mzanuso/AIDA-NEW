@@ -1,0 +1,94 @@
+{
+  "sref_code": "unknown",
+  "name": "Art Nouveau Stained Glass Fantasy",
+  "category": "fine_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "ornate decorative patterns",
+      "flowing organic curves",
+      "stained glass aesthetics",
+      "architectural fantasy elements"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep blue",
+        "warm orange",
+        "amber gold"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Curved architectural forms with intricate geometric and organic patterns",
+    "lighting_quality": "Luminous translucent glow with amber and blue light filtering"
+  },
+  "technical_specs": {
+    "rendering_style": "stylized illustration",
+    "texture_quality": "smooth with glass-like transparency",
+    "level_of_detail": "very high",
+    "post_processing": [
+      "luminosity enhancement",
+      "stained glass effect",
+      "architectural rendering"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mystical",
+      "elegant",
+      "fantastical",
+      "contemplative"
+    ],
+    "emotional_tone": "Serene wonder with architectural grandeur",
+    "artistic_influences": [
+      "Art Nouveau",
+      "Alphonse Mucha",
+      "Gothic Revival",
+      "Japanese woodblock prints"
+    ],
+    "time_period_feel": "Belle Époque with fantasy elements"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy architecture",
+      "decorative art",
+      "portrait integration",
+      "mystical scenes"
+    ],
+    "subject_matter_fit": [
+      "architectural spaces",
+      "character portraits",
+      "natural elements"
+    ],
+    "not_recommended_for": [
+      "realistic photography",
+      "minimalist designs",
+      "modern industrial themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "ornate stained glass cathedral interior",
+      "Art Nouveau portrait with decorative elements"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "art_nouveau",
+      "stained_glass",
+      "fantasy",
+      "ornate",
+      "architectural"
+    ]
+  }
+}

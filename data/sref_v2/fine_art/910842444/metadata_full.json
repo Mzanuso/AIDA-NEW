@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Ornate Venetian Mask Fantasy",
+  "category": "fantasy_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "elaborate ornamental details",
+      "venetian mask aesthetics",
+      "baroque decorative elements"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted gold",
+        "dusty blue",
+        "cream white"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Close-up profile with intricate ornamental framing",
+    "lighting_quality": "Soft diffused lighting with subtle shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "highly detailed illustration",
+    "texture_quality": "ornate and decorative",
+    "level_of_detail": "extremely high",
+    "post_processing": [
+      "matte finish",
+      "vintage patina",
+      "soft vignetting"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mysterious",
+      "elegant",
+      "theatrical"
+    ],
+    "emotional_tone": "Enigmatic and sophisticated",
+    "artistic_influences": [
+      "Venetian carnival masks",
+      "baroque ornamentation",
+      "art nouveau"
+    ],
+    "time_period_feel": "renaissance fantasy"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy characters",
+      "masquerade themes",
+      "ornate portraits"
+    ],
+    "subject_matter_fit": [
+      "masked figures",
+      "fantasy beings",
+      "theatrical characters"
+    ],
+    "not_recommended_for": [
+      "modern minimalist designs",
+      "realistic portraits",
+      "simple compositions"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "ornate venetian mask character",
+      "baroque fantasy portrait with intricate details"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "3:4",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "very high",
+    "versatility": "medium",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "venetian",
+      "ornate",
+      "baroque",
+      "fantasy",
+      "mask"
+    ]
+  }
+}

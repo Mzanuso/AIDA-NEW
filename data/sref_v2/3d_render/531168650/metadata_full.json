@@ -1,0 +1,91 @@
+{
+  "sref_code": "unknown",
+  "name": "Crystalline Particle Glamour",
+  "category": "digital_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "iridescent particle effects",
+      "crystalline textures",
+      "high-fashion glamour aesthetic"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "rainbow iridescent",
+        "holographic silver",
+        "electric blue"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "Close-up dramatic portraiture with particle dynamics",
+    "lighting_quality": "Prismatic reflective lighting with rainbow refractions"
+  },
+  "technical_specs": {
+    "rendering_style": "hyper-realistic",
+    "texture_quality": "crystalline",
+    "level_of_detail": "ultra-high",
+    "post_processing": [
+      "particle simulation",
+      "iridescent mapping",
+      "prismatic effects",
+      "motion blur"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "glamorous",
+      "ethereal",
+      "luxurious"
+    ],
+    "emotional_tone": "Mesmerizing and sophisticated",
+    "artistic_influences": [
+      "high-fashion photography",
+      "digital art",
+      "holographic design"
+    ],
+    "time_period_feel": "futuristic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "beauty and fashion imagery",
+      "luxury brand visuals",
+      "artistic portraits"
+    ],
+    "subject_matter_fit": [
+      "human subjects",
+      "fashion accessories",
+      "beauty products"
+    ],
+    "not_recommended_for": [
+      "natural landscapes",
+      "architectural photography",
+      "minimalist designs"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "glamorous portrait with crystalline particles",
+      "iridescent beauty shot with prismatic effects"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "glamour",
+      "particles",
+      "iridescent",
+      "crystalline",
+      "fashion"
+    ]
+  }
+}

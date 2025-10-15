@@ -1,0 +1,93 @@
+{
+  "sref_code": "unknown",
+  "name": "Pixar-Style 3D Character Comedy",
+  "category": "3d_illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "anthropomorphic objects",
+      "exaggerated facial expressions",
+      "smooth 3D rendering",
+      "comedic scenarios"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "bright orange",
+        "golden yellow",
+        "teal green"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Clean studio setup with dramatic color contrast",
+    "lighting_quality": "Professional studio lighting with soft shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "high-quality 3D",
+    "texture_quality": "realistic surface textures",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "ambient lighting",
+      "depth of field"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "humorous",
+      "whimsical",
+      "shocked",
+      "playful"
+    ],
+    "emotional_tone": "Light-hearted comedy with surprise elements",
+    "artistic_influences": [
+      "Pixar animation",
+      "modern 3D character design",
+      "commercial illustration"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "character design",
+      "comedy illustrations",
+      "brand mascots",
+      "food advertising"
+    ],
+    "subject_matter_fit": [
+      "anthropomorphic objects",
+      "cartoon characters",
+      "product mascots"
+    ],
+    "not_recommended_for": [
+      "serious subjects",
+      "realistic portraits",
+      "dark themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "3D cartoon character with shocked expression",
+      "anthropomorphic fruit character in studio lighting"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "1:1",
+      "4:5"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "3d",
+      "cartoon",
+      "pixar",
+      "comedy",
+      "character"
+    ]
+  }
+}

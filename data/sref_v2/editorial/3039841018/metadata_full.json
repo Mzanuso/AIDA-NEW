@@ -1,0 +1,102 @@
+{
+  "sref_code": "vintage_film_street",
+  "name": "Vintage Film Street Photography",
+  "category": "editorial",
+  "style_attributes": {
+    "primary_characteristics": [
+      "analog film grain",
+      "candid street photography",
+      "vintage color grading",
+      "natural urban lighting"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "warm greens",
+        "muted oranges",
+        "cream whites",
+        "soft blacks"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Documentary-style framing with natural poses and urban architectural backgrounds",
+    "lighting_quality": "Soft natural daylight with gentle shadows and film-like exposure"
+  },
+  "technical_specs": {
+    "rendering_style": "analog_film_simulation",
+    "texture_quality": "grainy",
+    "level_of_detail": "medium",
+    "post_processing": [
+      "film grain",
+      "vintage color grading",
+      "slight overexposure",
+      "soft contrast"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "nostalgic",
+      "authentic",
+      "urban",
+      "casual",
+      "timeless"
+    ],
+    "emotional_tone": "Relaxed and genuine with nostalgic warmth",
+    "artistic_influences": [
+      "1970s street photography",
+      "film photography",
+      "documentary photography"
+    ],
+    "time_period_feel": "1970s-1980s"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "portrait photography",
+      "street scenes",
+      "lifestyle photography",
+      "editorial content"
+    ],
+    "subject_matter_fit": [
+      "people",
+      "urban environments",
+      "fashion",
+      "candid moments"
+    ],
+    "not_recommended_for": [
+      "high-tech subjects",
+      "futuristic scenes",
+      "luxury products"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "street photography portrait on film",
+      "vintage urban lifestyle shot",
+      "candid moment in city setting"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "3:4",
+      "16:9"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-400"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "vintage",
+      "film",
+      "street",
+      "analog",
+      "documentary",
+      "urban",
+      "candid",
+      "nostalgic",
+      "authentic"
+    ]
+  }
+}

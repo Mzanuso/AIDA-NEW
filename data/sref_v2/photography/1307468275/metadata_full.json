@@ -1,0 +1,104 @@
+{
+  "sref_code": "unknown",
+  "name": "Anime Fantasy Dreamscape",
+  "category": "illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "anime-inspired illustration",
+      "magical realism",
+      "starry night skies",
+      "glowing atmospheric effects"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep blues",
+        "vibrant teals",
+        "warm oranges",
+        "soft purples"
+      ],
+      "color_temperature": "cool with warm accents",
+      "saturation_level": "high"
+    },
+    "composition_style": "Cinematic wide shots with dreamy atmospheric depth",
+    "lighting_quality": "Soft ethereal glow with magical luminescence and star-filled skies"
+  },
+  "technical_specs": {
+    "rendering_style": "digital painting",
+    "texture_quality": "soft and painterly",
+    "level_of_detail": "high",
+    "post_processing": [
+      "bloom effects",
+      "atmospheric haze",
+      "color grading",
+      "soft focus"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "dreamy",
+      "nostalgic",
+      "peaceful",
+      "magical",
+      "contemplative"
+    ],
+    "emotional_tone": "Serene and wondrous with romantic undertones",
+    "artistic_influences": [
+      "Studio Ghibli",
+      "Makoto Shinkai",
+      "anime cinematography"
+    ],
+    "time_period_feel": "contemporary anime"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy scenes",
+      "anime characters",
+      "night landscapes",
+      "emotional storytelling",
+      "magical environments"
+    ],
+    "subject_matter_fit": [
+      "characters in contemplation",
+      "urban fantasy",
+      "nature scenes",
+      "romantic moments"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "harsh industrial scenes",
+      "bright daylight scenarios"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "anime girl under starry sky",
+      "magical forest with glowing lights",
+      "peaceful night scene with character silhouette"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "anime",
+      "fantasy",
+      "dreamy",
+      "starry",
+      "magical",
+      "atmospheric",
+      "night",
+      "glowing",
+      "peaceful",
+      "cinematic"
+    ]
+  }
+}

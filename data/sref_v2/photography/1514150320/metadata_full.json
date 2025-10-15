@@ -1,0 +1,97 @@
+{
+  "sref_code": "3089380859",
+  "name": "Surreal Fashion Photography",
+  "category": "photography",
+  "style_attributes": {
+    "primary_characteristics": [
+      "surreal environments",
+      "geometric elements",
+      "soft fabric drapery",
+      "bold color blocking"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "coral pink",
+        "vibrant orange",
+        "soft white"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Architectural surrealism with human subjects integrated into dreamlike environments",
+    "lighting_quality": "Bright natural lighting with clear shadows and high contrast"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "smooth with fabric emphasis",
+    "level_of_detail": "high",
+    "post_processing": [
+      "digital compositing",
+      "color enhancement",
+      "geometric overlay integration"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "dreamlike",
+      "whimsical",
+      "avant-garde",
+      "optimistic"
+    ],
+    "emotional_tone": "Playful and otherworldly with contemporary sophistication",
+    "artistic_influences": [
+      "surrealism",
+      "installation art",
+      "contemporary fashion photography"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fashion editorials",
+      "artistic portraits",
+      "conceptual photography",
+      "brand campaigns"
+    ],
+    "subject_matter_fit": [
+      "fashion models",
+      "artistic concepts",
+      "lifestyle imagery"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "documentary photography",
+      "corporate headshots"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "surreal fashion photography with geometric elements",
+      "model in dreamlike architectural environment with coral and orange tones"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "3:4",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "surreal",
+      "fashion",
+      "geometric",
+      "coral",
+      "orange",
+      "avant-garde",
+      "editorial",
+      "dreamlike",
+      "contemporary"
+    ]
+  }
+}

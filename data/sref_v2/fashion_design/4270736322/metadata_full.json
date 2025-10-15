@@ -1,0 +1,91 @@
+{
+  "sref_code": "unknown",
+  "name": "Ethereal Renaissance Chiaroscuro",
+  "category": "fine_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "dramatic chiaroscuro lighting",
+      "flowing fabric textures",
+      "classical renaissance composition"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "warm amber",
+        "deep burgundy",
+        "ivory white"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Classical renaissance with dramatic figure groupings",
+    "lighting_quality": "Dramatic directional lighting with deep shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "painterly",
+    "texture_quality": "soft",
+    "level_of_detail": "high",
+    "post_processing": [
+      "warm color grading",
+      "enhanced contrast",
+      "soft focus effects"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mystical",
+      "dramatic",
+      "ethereal"
+    ],
+    "emotional_tone": "Contemplative and mysterious",
+    "artistic_influences": [
+      "renaissance masters",
+      "baroque painting",
+      "neoclassical art"
+    ],
+    "time_period_feel": "renaissance"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "classical art recreations",
+      "mythological scenes",
+      "dramatic portraits"
+    ],
+    "subject_matter_fit": [
+      "human figures",
+      "mythical creatures",
+      "religious imagery"
+    ],
+    "not_recommended_for": [
+      "modern technology",
+      "contemporary fashion",
+      "bright cheerful scenes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "classical painting style",
+      "renaissance art",
+      "dramatic lighting"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "3:4",
+      "16:9"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "renaissance",
+      "chiaroscuro",
+      "classical",
+      "painterly",
+      "dramatic"
+    ]
+  }
+}

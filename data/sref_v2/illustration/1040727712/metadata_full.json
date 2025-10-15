@@ -1,0 +1,90 @@
+{
+  "sref_code": "analyzed_from_images",
+  "name": "Neon Grid Cyberpunk",
+  "category": "digital art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "neon wireframe outlines",
+      "synthwave grid backgrounds",
+      "cyberpunk aesthetic"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "hot pink",
+        "magenta",
+        "black"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "High contrast silhouettes with glowing neon outlines against geometric grid patterns",
+    "lighting_quality": "Artificial neon glow with strong rim lighting and digital luminescence"
+  },
+  "technical_specs": {
+    "rendering_style": "digital vector",
+    "texture_quality": "smooth gradient",
+    "level_of_detail": "high",
+    "post_processing": [
+      "bloom effects",
+      "neon glow",
+      "grid overlay"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "futuristic",
+      "cyberpunk",
+      "retro-futuristic"
+    ],
+    "emotional_tone": "Cool, technological, and mysterious with 80s nostalgia",
+    "artistic_influences": [
+      "Tron Legacy",
+      "synthwave art",
+      "cyberpunk media"
+    ],
+    "time_period_feel": "1980s futurism"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "sci-fi characters",
+      "cyberpunk themes",
+      "retro-futuristic designs"
+    ],
+    "subject_matter_fit": [
+      "robots",
+      "motorcycles",
+      "futuristic helmets"
+    ],
+    "not_recommended_for": [
+      "natural landscapes",
+      "historical subjects",
+      "soft romantic themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "cyberpunk warrior with neon outline",
+      "synthwave motorcycle rider in digital grid world"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "1:1",
+      "9:16"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "moderate",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "cyberpunk",
+      "neon",
+      "synthwave",
+      "grid",
+      "wireframe"
+    ]
+  }
+}

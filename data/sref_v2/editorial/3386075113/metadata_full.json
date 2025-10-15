@@ -1,0 +1,95 @@
+{
+  "sref_code": "unknown",
+  "name": "Fantasy Character Portrait Style",
+  "category": "character_design",
+  "style_attributes": {
+    "primary_characteristics": [
+      "clean vector aesthetics",
+      "fantasy character focus",
+      "soft shading",
+      "stylized proportions"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted blues",
+        "warm earth tones",
+        "soft pastels"
+      ],
+      "color_temperature": "neutral to warm",
+      "saturation_level": "moderate"
+    },
+    "composition_style": "Portrait-focused with clean backgrounds and character prominence",
+    "lighting_quality": "Soft ambient lighting with gentle shadows and highlights"
+  },
+  "technical_specs": {
+    "rendering_style": "stylized 3D",
+    "texture_quality": "smooth with subtle detail",
+    "level_of_detail": "moderate",
+    "post_processing": [
+      "soft shading",
+      "clean edges",
+      "color grading"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "heroic",
+      "mystical",
+      "noble",
+      "adventure"
+    ],
+    "emotional_tone": "Inspiring and fantastical with heroic undertones",
+    "artistic_influences": [
+      "modern game art",
+      "animated films",
+      "fantasy illustration"
+    ],
+    "time_period_feel": "contemporary fantasy"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fantasy characters",
+      "game design",
+      "character portraits",
+      "RPG artwork"
+    ],
+    "subject_matter_fit": [
+      "heroes",
+      "magical beings",
+      "medieval fantasy",
+      "dragons"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "modern settings",
+      "horror themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "fantasy knight portrait",
+      "dragon tamer character design",
+      "medieval king on throne"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "fantasy",
+      "character_design",
+      "clean_art",
+      "game_art",
+      "stylized"
+    ]
+  }
+}

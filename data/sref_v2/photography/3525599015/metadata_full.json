@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Romantic Surreal Landscape",
+  "category": "digital art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "floating geological formations",
+      "classical romantic painting aesthetic",
+      "dreamlike surreal elements"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted beige",
+        "soft pink",
+        "pale blue"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "low"
+    },
+    "composition_style": "Balanced surreal landscape with impossible floating elements",
+    "lighting_quality": "Soft diffused natural lighting with gentle shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "painterly realism",
+    "texture_quality": "detailed rocky textures",
+    "level_of_detail": "high",
+    "post_processing": [
+      "soft color grading",
+      "atmospheric haze",
+      "vintage tonality"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "contemplative",
+      "mysterious",
+      "serene"
+    ],
+    "emotional_tone": "Wonder and philosophical contemplation",
+    "artistic_influences": [
+      "René Magritte",
+      "19th century Romantic landscape painting",
+      "German Romanticism"
+    ],
+    "time_period_feel": "19th century romantic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "surreal landscapes",
+      "conceptual art",
+      "philosophical imagery"
+    ],
+    "subject_matter_fit": [
+      "impossible architecture",
+      "floating objects",
+      "dreamscapes"
+    ],
+    "not_recommended_for": [
+      "modern cityscapes",
+      "technical illustrations",
+      "high-energy action scenes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "floating rock formations over water",
+      "surreal landscape with impossible gravity"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "3:2"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "medium",
+    "learning_curve": "easy",
+    "popularity_score": 6,
+    "tags": [
+      "surreal",
+      "romantic",
+      "landscape",
+      "floating",
+      "classical"
+    ]
+  }
+}

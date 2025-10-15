@@ -1,0 +1,98 @@
+{
+  "sref_code": "michael_rabone_style",
+  "name": "Whimsical Surreal Photography",
+  "category": "photography",
+  "style_attributes": {
+    "primary_characteristics": [
+      "surreal juxtapositions",
+      "anthropomorphic subjects",
+      "dreamlike scenarios",
+      "crisp photorealistic rendering",
+      "unexpected scale combinations"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "warm orange",
+        "muted greens",
+        "soft pastels"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "moderate"
+    },
+    "composition_style": "Clean, centered subjects with minimalist backgrounds and careful attention to scale relationships",
+    "lighting_quality": "Soft, even studio lighting with subtle shadows creating dimensional depth"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "highly detailed",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "seamless compositing",
+      "sharp focus throughout"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "whimsical",
+      "contemplative",
+      "surreal",
+      "playful",
+      "mysterious"
+    ],
+    "emotional_tone": "Gentle wonder mixed with subtle melancholy and curiosity",
+    "artistic_influences": [
+      "contemporary surrealism",
+      "commercial photography",
+      "fine art portraiture"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "conceptual portraits",
+      "advertising campaigns",
+      "editorial illustrations",
+      "fantasy creatures",
+      "anthropomorphic characters"
+    ],
+    "subject_matter_fit": [
+      "animals in human contexts",
+      "oversized creatures",
+      "surreal scenarios",
+      "character studies"
+    ],
+    "not_recommended_for": [
+      "realistic landscapes",
+      "technical documentation",
+      "action scenes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "giant fluffy creature in city street",
+      "cat wearing human clothing portrait",
+      "surreal animal human hybrid scene"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "surreal",
+      "whimsical",
+      "photorealistic",
+      "anthropomorphic",
+      "conceptual"
+    ]
+  }
+}

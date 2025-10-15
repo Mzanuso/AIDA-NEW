@@ -1,0 +1,89 @@
+{
+  "sref_code": "unknown",
+  "name": "Whimsical Children's Book Illustration",
+  "category": "illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "hand-drawn aesthetic",
+      "childlike simplicity",
+      "minimal line art"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "warm orange",
+        "red",
+        "golden yellow"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "medium"
+    },
+    "composition_style": "Simple centered figure with decorative background elements",
+    "lighting_quality": "Flat, even lighting with no shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "stylized illustration",
+    "texture_quality": "flat",
+    "level_of_detail": "low",
+    "post_processing": [
+      "clean lines",
+      "solid color fills"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "playful",
+      "innocent",
+      "cheerful"
+    ],
+    "emotional_tone": "Joyful and carefree",
+    "artistic_influences": [
+      "children's book illustration",
+      "doodle art",
+      "naive art"
+    ],
+    "time_period_feel": "timeless"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "children's books",
+      "educational materials",
+      "greeting cards"
+    ],
+    "subject_matter_fit": [
+      "children",
+      "fantasy characters",
+      "simple objects"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "complex scenes",
+      "dark themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "cute superhero child --sref [code]",
+      "simple character illustration --sref [code]"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "50-200"
+  },
+  "metadata": {
+    "complexity": "low",
+    "versatility": "medium",
+    "learning_curve": "easy",
+    "popularity_score": 6,
+    "tags": [
+      "children",
+      "whimsical",
+      "simple",
+      "warm",
+      "illustration"
+    ]
+  }
+}

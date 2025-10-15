@@ -1,0 +1,96 @@
+{
+  "sref_code": "unknown",
+  "name": "Hyperrealistic American Regionalism",
+  "category": "illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "photorealistic rendering",
+      "meticulous detail work",
+      "clean precise linework",
+      "architectural accuracy"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "muted earth tones",
+        "soft blues",
+        "warm browns",
+        "natural greens"
+      ],
+      "color_temperature": "neutral to warm",
+      "saturation_level": "moderate"
+    },
+    "composition_style": "Balanced symmetrical layouts with strong focal points and geometric structure",
+    "lighting_quality": "Natural diffused daylight with subtle shadows and realistic atmospheric perspective"
+  },
+  "technical_specs": {
+    "rendering_style": "hyperrealistic",
+    "texture_quality": "highly detailed",
+    "level_of_detail": "extremely high",
+    "post_processing": [
+      "subtle color grading",
+      "enhanced clarity",
+      "fine detail sharpening"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "serene",
+      "nostalgic",
+      "contemplative",
+      "pastoral"
+    ],
+    "emotional_tone": "Calm and introspective with subtle melancholy undertones",
+    "artistic_influences": [
+      "Grant Wood",
+      "Edward Hopper",
+      "American Regionalism",
+      "architectural illustration"
+    ],
+    "time_period_feel": "mid-20th century Americana"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "architectural visualization",
+      "rural landscapes",
+      "americana scenes",
+      "nostalgic portraits"
+    ],
+    "subject_matter_fit": [
+      "buildings",
+      "countryside",
+      "small towns",
+      "domestic scenes"
+    ],
+    "not_recommended_for": [
+      "abstract concepts",
+      "futuristic themes",
+      "fantasy subjects"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "rural american farmhouse with detailed architecture",
+      "small town main street in hyperrealistic style"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:3",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "hyperrealistic",
+      "americana",
+      "architectural",
+      "pastoral",
+      "detailed"
+    ]
+  }
+}

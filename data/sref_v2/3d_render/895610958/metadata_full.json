@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Surreal Landscape Collage",
+  "category": "digital_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "surreal compositions",
+      "clean geometric cuts",
+      "nature-architecture fusion"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "emerald green",
+        "soft whites",
+        "muted pastels"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "moderate"
+    },
+    "composition_style": "Layered collage with sharp geometric divisions",
+    "lighting_quality": "Soft diffused lighting with minimal shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic collage",
+    "texture_quality": "mixed realistic textures",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "geometric masking",
+      "seamless blending"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "dreamlike",
+      "serene",
+      "contemplative"
+    ],
+    "emotional_tone": "Peaceful and otherworldly",
+    "artistic_influences": [
+      "surrealism",
+      "contemporary digital art",
+      "architectural photography"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "conceptual landscapes",
+      "artistic compositions",
+      "abstract nature scenes"
+    ],
+    "subject_matter_fit": [
+      "landscapes",
+      "architectural elements",
+      "natural formations"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "urban cityscapes",
+      "action scenes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "surreal landscape with geometric elements",
+      "collage-style nature composition"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "9:16",
+      "4:5"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 6,
+    "tags": [
+      "surreal",
+      "collage",
+      "geometric",
+      "nature",
+      "dreamlike"
+    ]
+  }
+}

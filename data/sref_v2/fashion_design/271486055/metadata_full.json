@@ -1,0 +1,94 @@
+{
+  "sref_code": "unknown",
+  "name": "Minimalist Dark Silhouette",
+  "category": "graphic_design",
+  "style_attributes": {
+    "primary_characteristics": [
+      "high contrast silhouettes",
+      "geometric composition",
+      "minimal lighting",
+      "clean shapes"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "dark gray",
+        "black",
+        "white"
+      ],
+      "color_temperature": "neutral",
+      "saturation_level": "low"
+    },
+    "composition_style": "Grid-based minimal composition with stark geometric forms",
+    "lighting_quality": "Dramatic directional lighting creating strong silhouettes"
+  },
+  "technical_specs": {
+    "rendering_style": "stylized",
+    "texture_quality": "minimal",
+    "level_of_detail": "simplified",
+    "post_processing": [
+      "high contrast",
+      "silhouette enhancement",
+      "minimal color grading"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "mysterious",
+      "contemplative",
+      "modern",
+      "sophisticated"
+    ],
+    "emotional_tone": "Quiet and introspective with subtle drama",
+    "artistic_influences": [
+      "minimalism",
+      "geometric abstraction",
+      "modernist design"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "logo design",
+      "poster art",
+      "architectural visualization",
+      "product silhouettes"
+    ],
+    "subject_matter_fit": [
+      "vehicles",
+      "animals",
+      "objects",
+      "figures"
+    ],
+    "not_recommended_for": [
+      "detailed portraits",
+      "complex scenes",
+      "vibrant illustrations"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "minimalist silhouette design",
+      "high contrast geometric composition"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "16:9",
+      "4:5"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "low",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "minimalist",
+      "silhouette",
+      "geometric",
+      "high contrast",
+      "modern"
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "sref_code": "unknown",
+  "name": "Digital Halftone Portrait Distortion",
+  "category": "digital_art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "halftone dot patterns",
+      "digital pixelation effects",
+      "chromatic aberration",
+      "layered transparency",
+      "geometric grid overlays"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "electric blue",
+        "magenta",
+        "cyan",
+        "amber yellow"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "Fragmented portrait compositions with overlapping grid patterns",
+    "lighting_quality": "High contrast digital lighting with color separation effects"
+  },
+  "technical_specs": {
+    "rendering_style": "digital_abstract",
+    "texture_quality": "pixelated_dotted",
+    "level_of_detail": "high",
+    "post_processing": [
+      "halftone screening",
+      "chromatic separation",
+      "digital noise",
+      "grid overlay",
+      "color channel splitting"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "futuristic",
+      "technological",
+      "fragmented",
+      "experimental",
+      "cyberpunk"
+    ],
+    "emotional_tone": "Mysterious and technologically enhanced with digital fragmentation",
+    "artistic_influences": [
+      "pop art halftones",
+      "digital glitch art",
+      "contemporary digital manipulation",
+      "cyberpunk aesthetics"
+    ],
+    "time_period_feel": "futuristic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "portrait art",
+      "cyberpunk characters",
+      "tech industry visuals",
+      "experimental photography",
+      "digital identity concepts"
+    ],
+    "subject_matter_fit": [
+      "human faces",
+      "technology themes",
+      "abstract concepts",
+      "identity exploration"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "natural landscapes",
+      "traditional photography",
+      "minimalist designs"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "portrait with digital halftone effects --sref [code]",
+      "cyberpunk face with grid overlay --sref [code]"
+    ],
+    "compatible_aspects": [
+      "1:1",
+      "4:5",
+      "16:9"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 6,
+    "tags": [
+      "halftone",
+      "digital_art",
+      "cyberpunk",
+      "portrait",
+      "glitch",
+      "chromatic",
+      "pixelated",
+      "futuristic",
+      "experimental"
+    ]
+  }
+}

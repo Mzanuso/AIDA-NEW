@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Vintage Documentary Black & White",
+  "category": "documentary",
+  "style_attributes": {
+    "primary_characteristics": [
+      "high contrast black and white",
+      "grainy film texture",
+      "candid documentary aesthetic"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "black",
+        "white",
+        "gray"
+      ],
+      "color_temperature": "neutral",
+      "saturation_level": "none"
+    },
+    "composition_style": "Natural, unposed documentary framing with authentic slice-of-life moments",
+    "lighting_quality": "Natural available light with strong contrast and shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "vintage film photography",
+    "texture_quality": "grainy",
+    "level_of_detail": "high",
+    "post_processing": [
+      "film grain",
+      "high contrast",
+      "analog photography effects"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "nostalgic",
+      "intimate",
+      "authentic"
+    ],
+    "emotional_tone": "Contemplative and genuine with everyday intimacy",
+    "artistic_influences": [
+      "street photography",
+      "documentary photography",
+      "1960s-70s photojournalism"
+    ],
+    "time_period_feel": "mid-20th century"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "documentary scenes",
+      "vintage lifestyle imagery",
+      "candid portraits"
+    ],
+    "subject_matter_fit": [
+      "everyday life",
+      "interior scenes",
+      "street photography"
+    ],
+    "not_recommended_for": [
+      "fantasy subjects",
+      "modern tech products",
+      "colorful commercial work"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "vintage documentary photograph of daily life",
+      "black and white candid moment in bedroom with newspapers"
+    ],
+    "compatible_aspects": [
+      "4:3",
+      "3:2",
+      "16:9"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "50-200"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "moderate",
+    "learning_curve": "easy",
+    "popularity_score": 6,
+    "tags": [
+      "black and white",
+      "vintage",
+      "documentary",
+      "film grain",
+      "authentic"
+    ]
+  }
+}

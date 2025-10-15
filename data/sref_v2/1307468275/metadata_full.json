@@ -1,0 +1,104 @@
+{
+  "sref_code": "unknown",
+  "name": "Anime Cinematic Fantasy",
+  "category": "anime_illustration",
+  "style_attributes": {
+    "primary_characteristics": [
+      "cinematic lighting",
+      "anime character design",
+      "magical realism",
+      "starry night skies",
+      "ethereal atmospheres"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep blues",
+        "warm oranges",
+        "luminous teals",
+        "soft purples"
+      ],
+      "color_temperature": "cool with warm accents",
+      "saturation_level": "high"
+    },
+    "composition_style": "Cinematic wide shots with dramatic depth and atmospheric perspective",
+    "lighting_quality": "Dramatic chiaroscuro with glowing light sources and star-filled skies"
+  },
+  "technical_specs": {
+    "rendering_style": "anime illustration",
+    "texture_quality": "smooth with soft gradients",
+    "level_of_detail": "high",
+    "post_processing": [
+      "bloom effects",
+      "atmospheric haze",
+      "color grading",
+      "lens flares"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "dreamy",
+      "nostalgic",
+      "magical",
+      "contemplative",
+      "romantic"
+    ],
+    "emotional_tone": "Wistful and enchanting with a sense of wonder",
+    "artistic_influences": [
+      "Studio Ghibli",
+      "Makoto Shinkai",
+      "anime cinematography"
+    ],
+    "time_period_feel": "contemporary anime"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "anime characters",
+      "fantasy scenes",
+      "night landscapes",
+      "emotional storytelling",
+      "magical environments"
+    ],
+    "subject_matter_fit": [
+      "young protagonists",
+      "urban fantasy",
+      "natural landscapes",
+      "slice of life"
+    ],
+    "not_recommended_for": [
+      "realistic portraits",
+      "harsh industrial scenes",
+      "bright daylight scenarios"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "anime girl under starry sky --sref [code]",
+      "magical night scene with glowing lights --sref [code]"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "4:5",
+      "3:4"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "anime",
+      "cinematic",
+      "fantasy",
+      "starry",
+      "magical",
+      "atmospheric",
+      "dreamy",
+      "night",
+      "glowing",
+      "ethereal"
+    ]
+  }
+}

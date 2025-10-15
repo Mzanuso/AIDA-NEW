@@ -1,0 +1,91 @@
+{
+  "sref_code": "analyzed_style",
+  "name": "Cinematic Green Tonal Photography",
+  "category": "photography",
+  "style_attributes": {
+    "primary_characteristics": [
+      "muted green color grading",
+      "cinematic atmosphere",
+      "soft natural lighting"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "sage green",
+        "muted whites",
+        "deep forest green"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "low"
+    },
+    "composition_style": "Elegant framing with natural depth and organic integration",
+    "lighting_quality": "Soft, diffused natural lighting with gentle shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "smooth",
+    "level_of_detail": "high",
+    "post_processing": [
+      "color grading",
+      "contrast balancing",
+      "tone mapping"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "serene",
+      "contemplative",
+      "sophisticated"
+    ],
+    "emotional_tone": "Calm and introspective with understated elegance",
+    "artistic_influences": [
+      "film photography",
+      "nature photography",
+      "luxury lifestyle"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "luxury lifestyle",
+      "nature portraits",
+      "automotive photography"
+    ],
+    "subject_matter_fit": [
+      "organic subjects",
+      "luxury items",
+      "architectural elements"
+    ],
+    "not_recommended_for": [
+      "vibrant scenes",
+      "high-energy subjects",
+      "tropical themes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "luxury car in green tones",
+      "portrait surrounded by foliage",
+      "elegant architecture with natural elements"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "1:1",
+      "4:5"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "high",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "cinematic",
+      "green tones",
+      "natural",
+      "sophisticated",
+      "calm"
+    ]
+  }
+}

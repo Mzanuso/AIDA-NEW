@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Cinematic Portrait Drama",
+  "category": "portrait",
+  "style_attributes": {
+    "primary_characteristics": [
+      "dramatic lighting",
+      "high contrast shadows",
+      "cinematic composition"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "deep red",
+        "warm amber",
+        "rich black"
+      ],
+      "color_temperature": "warm",
+      "saturation_level": "high"
+    },
+    "composition_style": "Intimate close-up with dramatic angular lighting",
+    "lighting_quality": "Strong directional lighting with deep shadows"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic",
+    "texture_quality": "highly detailed",
+    "level_of_detail": "very high",
+    "post_processing": [
+      "color grading",
+      "contrast enhancement",
+      "shadow deepening"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "dramatic",
+      "intimate",
+      "moody"
+    ],
+    "emotional_tone": "Intense and captivating with subtle vulnerability",
+    "artistic_influences": [
+      "film noir",
+      "fashion photography",
+      "editorial portraiture"
+    ],
+    "time_period_feel": "contemporary"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "portrait photography",
+      "character studies",
+      "fashion editorials"
+    ],
+    "subject_matter_fit": [
+      "human subjects",
+      "character portraits",
+      "artistic headshots"
+    ],
+    "not_recommended_for": [
+      "bright cheerful content",
+      "product photography",
+      "landscapes"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "cinematic portrait with dramatic lighting",
+      "fashion photography with deep shadows"
+    ],
+    "compatible_aspects": [
+      "4:5",
+      "3:4",
+      "1:1"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "200-600"
+  },
+  "metadata": {
+    "complexity": "moderate",
+    "versatility": "moderate",
+    "learning_curve": "easy",
+    "popularity_score": 8,
+    "tags": [
+      "portrait",
+      "cinematic",
+      "dramatic",
+      "moody",
+      "fashion"
+    ]
+  }
+}

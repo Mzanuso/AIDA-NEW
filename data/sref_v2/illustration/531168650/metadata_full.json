@@ -1,0 +1,90 @@
+{
+  "sref_code": "unknown",
+  "name": "Prismatic Crystal Particle Effect",
+  "category": "digital art",
+  "style_attributes": {
+    "primary_characteristics": [
+      "holographic crystal textures",
+      "rainbow particle effects",
+      "iridescent surfaces"
+    ],
+    "color_palette": {
+      "dominant_colors": [
+        "rainbow spectrum",
+        "metallic silver",
+        "crystal blue"
+      ],
+      "color_temperature": "cool",
+      "saturation_level": "high"
+    },
+    "composition_style": "High contrast subjects with crystalline particle overlays",
+    "lighting_quality": "Reflective prismatic lighting with spectral dispersion"
+  },
+  "technical_specs": {
+    "rendering_style": "photorealistic with digital effects",
+    "texture_quality": "crystalline and reflective",
+    "level_of_detail": "high",
+    "post_processing": [
+      "particle effects",
+      "holographic mapping",
+      "spectral dispersion",
+      "crystal texturing"
+    ]
+  },
+  "aesthetic_profile": {
+    "mood_tags": [
+      "futuristic",
+      "magical",
+      "luxurious"
+    ],
+    "emotional_tone": "Mesmerizing and otherworldly",
+    "artistic_influences": [
+      "digital art",
+      "holographic design",
+      "crystal photography"
+    ],
+    "time_period_feel": "futuristic"
+  },
+  "use_cases": {
+    "ideal_for": [
+      "fashion imagery",
+      "beauty photography",
+      "sci-fi concepts"
+    ],
+    "subject_matter_fit": [
+      "portraits",
+      "body parts",
+      "fashion accessories"
+    ],
+    "not_recommended_for": [
+      "natural landscapes",
+      "historical subjects"
+    ]
+  },
+  "midjourney_params": {
+    "typical_prompts": [
+      "crystal particle effect portrait",
+      "holographic rainbow texture fashion shoot"
+    ],
+    "compatible_aspects": [
+      "16:9",
+      "1:1",
+      "4:5"
+    ],
+    "recommended_version": "v6.1",
+    "stylize_range": "300-700"
+  },
+  "metadata": {
+    "complexity": "high",
+    "versatility": "moderate",
+    "learning_curve": "moderate",
+    "popularity_score": 8,
+    "tags": [
+      "holographic",
+      "crystal",
+      "particles",
+      "rainbow",
+      "futuristic"
+    ]
+  }
+}
