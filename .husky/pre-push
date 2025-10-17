@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# AIDA-FLOW Pre-push Validation
+echo "🚀 Running pre-push validations..."
+
+# Update test registry
+echo "📊 Updating test registry..."
+npm run test:scan
+
+# Run full validation
+echo "🔍 Running full validation suite..."
+npm run validate
+
+# Run coverage check
+echo "📈 Checking test coverage..."
+npm run test:coverage:check
+
+# Check exit code
+if [ $? -ne 0 ]; then
+  echo "❌ Pre-push validation failed!"
+  echo "💡 Coverage must be at least 70%"
+  echo "💡 Run 'npm run test:coverage' to see detailed report"
+  exit 1
+fi
+
+echo "✅ All pre-push validations passed!"
+echo "🚀 Push proceeding..."

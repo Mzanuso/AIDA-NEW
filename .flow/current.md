@@ -1,20 +1,20 @@
 # Current Micro-Sprint
 
-**ID:** MS-011
+**ID:** MS-012
 **Status:** IN_PROGRESS
-**Started:** 2025-10-16 22:56:14
-**Goal:** Sistema automatico per tracciare test
+**Started:** 2025-10-16 23:04:19
+**Goal:** Pre-push hook con coverage validation
 
 ## Spec
-- Input: Scansione automatica file *.test.ts, *.test.tsx
-- Process: Parsing, conteggio test, statistiche
-- Output: .flow/tests.json aggiornato automaticamente
-- Test: Verifica che rilevi tutti i test esistenti
+- Input: Git push attempt
+- Process: Run full test suite + coverage check
+- Output: Push blocked if coverage < 70%
+- Test: Verificare hook attivo e funzionante
 
 ## Checklist
 - [ ] Test written
-- [ ] Script creato (scan-tests.js)
-- [ ] package.json script aggiunto
-- [ ] Pre-commit integrazione
+- [ ] Coverage config aggiunto
+- [ ] Pre-push hook creato
+- [ ] package.json aggiornato
 - [ ] Test passa
 - [ ] Committed
