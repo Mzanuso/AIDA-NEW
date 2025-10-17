@@ -4,6 +4,9 @@
 # AIDA-FLOW Pre-commit Validation
 echo "🔍 Running pre-commit validations..."
 
+# Update test registry
+npm run test:scan
+
 # Run type-check, lint, and tests
 npm run validate
 
