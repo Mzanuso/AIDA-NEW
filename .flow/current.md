@@ -1,20 +1,38 @@
 # Current Micro-Sprint
 
-**ID:** MS-012
+**ID:** MS-013
 **Status:** IN_PROGRESS
-**Started:** 2025-10-16 23:04:19
-**Goal:** Pre-push hook con coverage validation
+**Started:** 2025-10-16 23:16:39
+**Goal:** Code Quality Cleanup - Fix TypeScript, ESLint, Test errors
 
-## Spec
-- Input: Git push attempt
-- Process: Run full test suite + coverage check
-- Output: Push blocked if coverage < 70%
-- Test: Verificare hook attivo e funzionante
+## Problem Statement
+Errori accumulati dai MS precedenti che bloccano coverage e quality gates:
+- TypeScript: ~100+ errori
+- ESLint: 1841 problemi (1485 errors, 356 warnings)
+- Tests: 13/106 falliti
+
+## Strategy
+1. **TypeScript Priority Fixes** (core blockers)
+   - CreativeCapability export issues
+   - SystemMessageParam deprecation
+   - Database client method signatures
+
+2. **ESLint Quick Wins**
+   - Aggiungere globals (process, window, document, __dirname)
+   - Rimuovere unused imports
+
+3. **Test Fixes**
+   - processConversation function import
+   - Mock setup issues
+
+4. **Coverage Validation**
+   - Target: ≥70% coverage
+   - Verify pre-push hook works
 
 ## Checklist
-- [ ] Test written
-- [ ] Coverage config aggiunto
-- [ ] Pre-push hook creato
-- [ ] package.json aggiornato
-- [ ] Test passa
+- [ ] TypeScript errors fixed
+- [ ] ESLint critical errors fixed
+- [ ] Failed tests fixed
+- [ ] Coverage ≥70%
+- [ ] Pre-push hook validated
 - [ ] Committed

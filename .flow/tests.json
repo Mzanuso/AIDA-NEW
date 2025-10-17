@@ -19,22 +19,10 @@
       "path": "D:\\AIDA-NEW\\.flow\\tests\\pre-commit-validation.test.ts"
     },
     {
-      "file": ".flow\\tests\\orchestrator-vitest-migration.test.ts",
-      "tests": 3,
-      "suites": 1,
-      "path": "D:\\AIDA-NEW\\.flow\\tests\\orchestrator-vitest-migration.test.ts"
-    },
-    {
       "file": ".flow\\tests\\husky-setup.test.ts",
       "tests": 6,
       "suites": 1,
       "path": "D:\\AIDA-NEW\\.flow\\tests\\husky-setup.test.ts"
-    },
-    {
-      "file": ".flow\\tests\\ci-setup.test.ts",
-      "tests": 5,
-      "suites": 1,
-      "path": "D:\\AIDA-NEW\\.flow\\tests\\ci-setup.test.ts"
     },
     {
       "file": "src\\agents\\style-selector\\style.routes.test.ts",
@@ -53,18 +41,6 @@
       "tests": 8,
       "suites": 5,
       "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\src\\__tests__\\personality.test.ts"
-    },
-    {
-      "file": "src\\agents\\orchestrator\\src\\__tests__\\health.test.ts",
-      "tests": 1,
-      "suites": 1,
-      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\src\\__tests__\\health.test.ts"
-    },
-    {
-      "file": "src\\agents\\orchestrator\\src\\agents\\__tests__\\conversational-orchestrator.test.ts",
-      "tests": 9,
-      "suites": 4,
-      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\src\\agents\\__tests__\\conversational-orchestrator.test.ts"
     },
     {
       "file": "src\\agents\\orchestrator\\__tests__\\context-optimizer.test.ts",
@@ -86,9 +62,9 @@
     }
   ],
   "stats": {
-    "total": 111,
-    "files": 14,
-    "suites": 43
+    "total": 93,
+    "files": 10,
+    "suites": 36
   },
-  "lastScan": "2025-10-17T03:13:36.858Z"
+  "lastScan": "2025-10-17T03:26:35.872Z"
 }

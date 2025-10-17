@@ -18,9 +18,24 @@ export default [
         }
       },
       globals: {
-        browser: true,
-        es2021: true,
-        node: true
+        // Browser globals
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+        alert: 'readonly',
+        HTMLElement: 'readonly',
+        HTMLDivElement: 'readonly',
+        // Node globals
+        process: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        // Common
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearTimeout: 'readonly',
+        clearInterval: 'readonly'
       }
     },
     plugins: {
