@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/agents/orchestrator/**/*"],
+  "exclude": ["node_modules", "build", "dist", "**/*.test.ts", "client/**/*", "src/ui/**/*", "**/*.spec.ts"]
+}

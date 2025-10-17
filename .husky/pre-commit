@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# AIDA-FLOW Pre-commit Validation
+echo "🔍 Running pre-commit validations..."
+
+# Run type-check, lint, and tests
+npm run validate
+
+# Check exit code
+if [ $? -ne 0 ]; then
+  echo "❌ Pre-commit validation failed!"
+  echo "💡 Tip: Run 'npm run lint:fix' to auto-fix linting issues"
+  exit 1
+fi
+
+echo "✅ All validations passed!"
