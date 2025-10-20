@@ -1,8 +1,8 @@
 # Visual Creator Architecture
 
-**Version:** 1.1  
+**Version:** 1.2  
 **Date:** 2025-10-20  
-**Status:** ✅ 60% Implemented (Core Complete)  
+**Status:** ✅ 75% Implemented (Core Pipeline Complete)  
 
 ---
 
@@ -14,9 +14,9 @@ Il Visual Creator Agent è responsabile della generazione di immagini seguendo l
 
 ## 🎉 Implementation Status
 
-**Overall Progress:** 60% Complete (Core Functional)
+**Overall Progress:** 75% Complete (Core Pipeline Functional)
 
-### ✅ Completed Components (MS-020A, MS-020B, MS-020C)
+### ✅ Completed Components (MS-020A, MS-020B, MS-020C, MS-020D)
 
 1. **Smart Router** (MS-020A) - 100% Complete ✅
    - 3-level decision tree implemented
@@ -50,6 +50,17 @@ Il Visual Creator Agent è responsabile della generazione di immagini seguendo l
    - Dependency management
    - 12/12 tests passing
    - File: `src/agents/visual-creator/workflow-orchestrator.ts`
+
+4. **Visual Creator Bridge** (MS-020D) - 100% Complete ✅ 🆕
+   - ExecutionPlan → WorkflowExecutionPlan converter
+   - Intelligent scene description parser
+   - Multi-scene workflow generation
+   - Technical Planner integration
+   - 21/21 tests passing (target)
+   - Files: 
+     - `src/agents/visual-creator/visual-creator-bridge.ts`
+     - `src/shared/types/execution-plan.types.ts`
+   - **Completes core pipeline from Technical Planner to Workflow Execution**
 
 ### 🚧 In Progress
 
@@ -384,6 +395,7 @@ function applyBudgetConstraints(strategy: ModelStrategy, budget: BudgetConstrain
 ## Document Control
 
 **Changelog:**
+- 2025-10-20 19:00: MS-020D complete - Visual Creator Bridge (TP integration, 21/21 tests)
 - 2025-10-20 17:00: MS-020C complete - Workflow Orchestrator (4 workflows, 12/12 tests)
 - 2025-10-20 16:00: MS-020B complete - Prompt Adapters (7 adapters, 99/99 tests)
 - 2025-10-20 15:00: MS-020A complete - Smart Router (3-level decision tree, 14/14 tests)

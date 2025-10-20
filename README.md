@@ -1,8 +1,8 @@
 # AIDA - AI Multimedia Creation Platform
 
-**Version:** V5 Architecture + Visual Creator Core  
+**Version:** V5 Architecture + Visual Creator Core (75% Complete)  
 **Updated:** 2025-10-20  
-**Status:** Active Development - Visual Creator 60% Complete
+**Status:** Active Development - Visual Creator Integration Complete
 
 ---
 
@@ -303,16 +303,17 @@ See [old/README.md](old/README.md) for details.
 **Current Sprint:** Visual Creator Development (MS-020 series)
 
 **Recent Completions (Oct 20):**
-- ✅ MS-020A: Smart Router (model selection, 3-level decision tree)
-- ✅ MS-020B: Prompt Adapters (7 model-specific optimizers)
+- ✅ MS-020D: Visual Creator Bridge (Technical Planner integration)
 - ✅ MS-020C: Workflow Orchestrator (4 workflow types)
-- 🎉 Visual Creator: 60% complete (core functional)
+- ✅ MS-020B: Prompt Adapters (7 model-specific optimizers)
+- ✅ MS-020A: Smart Router (model selection, 3-level decision tree)
+- 🎉 Visual Creator: 75% complete (core pipeline functional)
 
 **Next Up:**
-- MS-020D: Technical Planner Integration
-- MS-021: API Integration (FAL.AI, KIE.AI wrappers)
+- MS-021: API Integration Layer (FAL.AI, KIE.AI wrappers)
 - MS-022: Reference Management System
 - MS-023: Quality Validation & Retry Logic
+- MS-024: End-to-end Visual Creator testing
 
 ---
 
@@ -321,9 +322,9 @@ See [old/README.md](old/README.md) for details.
 - **Total Capabilities:** 94
 - **Supported Languages:** 5 (IT, EN, ES, FR, DE)
 - **AI Models:** 52+ (via FAL.AI + KIE.AI)
-- **Active Agents:** 2.6 (Orchestrator 88%, Style Selector 60%, Visual Creator 60%) 🆕
+- **Active Agents:** 2.75 (Orchestrator 88%, Style Selector 60%, Visual Creator 75%) 🆕
 - **Shared Tools:** 3 (Memory, Voice, Monitoring)
-- **In Development:** 3 (Visual Creator 60%, Writer 0%, Director 0%)
+- **In Development:** 3 (Visual Creator 75%, Writer 0%, Director 0%)
 - **Planned:** 2 (Technical Planner implementation, Video Composer)
 - **Deploy Platforms:** 2 (Vercel, Railway) 🆕
 
@@ -404,4 +405,4 @@ RAILWAY_TOKEN=...
 **Last Updated:** 2025-10-20  
 **Location:** D:\AIDA-NEW  
 **Methodology:** AIDA-FLOW v2.0  
-**Phase:** Visual Creator Core Complete (Smart Router + Adapters + Orchestrator)
+**Phase:** Visual Creator Core Complete (Pipeline: TP → Bridge → Router → Adapters → Orchestrator)

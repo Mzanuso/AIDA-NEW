@@ -25,6 +25,19 @@ export class VisualCreatorBridge {
   private smartRouter: SmartRouter;
   private orchestrator: WorkflowOrchestrator;
 
+  /**
+   * Supported model IDs (from ADAPTER_REGISTRY in workflow-orchestrator)
+   */
+  private readonly SUPPORTED_MODELS = [
+    'midjourney-v6',
+    'flux-pro-1.1',
+    'flux-schnell',
+    'seedream-4.0',
+    'hunyuan-video',
+    'recraft-v3',
+    'ideogram-v2'
+  ];
+
   constructor() {
     this.smartRouter = new SmartRouter();
     this.orchestrator = new WorkflowOrchestrator();
@@ -110,6 +123,14 @@ export class VisualCreatorBridge {
 
     if (!plan.quality_tier) {
       throw new Error('ExecutionPlan must have quality_tier');
+    }
+
+    // Validate model ID is supported
+    if (plan.primary_model.model_id && !this.SUPPORTED_MODELS.includes(plan.primary_model.model_id)) {
+      throw new Error(
+        `Unsupported model: ${plan.primary_model.model_id}. ` +
+        `Supported models: ${this.SUPPORTED_MODELS.join(', ')}`
+      );
     }
   }
 

@@ -61,24 +61,24 @@ describe('VisualCreatorBridge', () => {
       }).not.toThrow();
     });
 
-    it('should throw error if ExecutionPlan is missing scene_descriptions', () => {
+    it('should throw error if ExecutionPlan is missing scene_descriptions', async () => {
       const invalidPlan = { ...mockExecutionPlan };
       delete invalidPlan.scene_descriptions;
 
-      expect(() => {
-        bridge.process(invalidPlan);
-      }).toThrow('ExecutionPlan must have scene_descriptions for visual content');
+      await expect(bridge.process(invalidPlan)).rejects.toThrow(
+        'ExecutionPlan must have scene_descriptions for visual content'
+      );
     });
 
-    it('should throw error if target_agent is not visual_creator', () => {
+    it('should throw error if target_agent is not visual_creator', async () => {
       const invalidPlan: ExecutionPlan = {
         ...mockExecutionPlan,
         target_agent: 'video_composer'
       };
 
-      expect(() => {
-        bridge.process(invalidPlan);
-      }).toThrow('ExecutionPlan target_agent must be visual_creator');
+      await expect(bridge.process(invalidPlan)).rejects.toThrow(
+        'ExecutionPlan target_agent must be visual_creator'
+      );
     });
   });
 
