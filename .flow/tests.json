@@ -1,6 +1,18 @@
 {
   "tests": [
     {
+      "file": "__tests__\\smart-router.test.ts",
+      "tests": 14,
+      "suites": 1,
+      "path": "D:\\AIDA-NEW\\__tests__\\smart-router.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\midjourney-adapter.test.ts",
+      "tests": 15,
+      "suites": 7,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\midjourney-adapter.test.ts"
+    },
+    {
       "file": ".flow\\tests\\pre-push-validation.test.ts",
       "tests": 5,
       "suites": 1,
@@ -25,6 +37,24 @@
       "path": "D:\\AIDA-NEW\\.flow\\tests\\husky-setup.test.ts"
     },
     {
+      "file": "src\\shared\\monitoring\\tests\\langfuse-monitor.test.ts",
+      "tests": 4,
+      "suites": 1,
+      "path": "D:\\AIDA-NEW\\src\\shared\\monitoring\\tests\\langfuse-monitor.test.ts"
+    },
+    {
+      "file": "src\\shared\\voice\\tests\\voice-router.test.ts",
+      "tests": 4,
+      "suites": 1,
+      "path": "D:\\AIDA-NEW\\src\\shared\\voice\\tests\\voice-router.test.ts"
+    },
+    {
+      "file": "src\\shared\\memory\\tests\\chroma-manager.test.ts",
+      "tests": 4,
+      "suites": 1,
+      "path": "D:\\AIDA-NEW\\src\\shared\\memory\\tests\\chroma-manager.test.ts"
+    },
+    {
       "file": "src\\agents\\style-selector\\style.routes.test.ts",
       "tests": 7,
       "suites": 4,
@@ -41,6 +71,30 @@
       "tests": 8,
       "suites": 5,
       "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\src\\__tests__\\personality.test.ts"
+    },
+    {
+      "file": "src\\agents\\orchestrator\\__tests__\\image-flow.test.ts",
+      "tests": 13,
+      "suites": 7,
+      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\__tests__\\image-flow.test.ts"
+    },
+    {
+      "file": "src\\agents\\orchestrator\\__tests__\\messages.test.ts",
+      "tests": 13,
+      "suites": 6,
+      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\__tests__\\messages.test.ts"
+    },
+    {
+      "file": "src\\agents\\orchestrator\\__tests__\\language-detector-simple.test.ts",
+      "tests": 15,
+      "suites": 6,
+      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\__tests__\\language-detector-simple.test.ts"
+    },
+    {
+      "file": "src\\agents\\orchestrator\\__tests__\\command-preprocessor.test.ts",
+      "tests": 19,
+      "suites": 7,
+      "path": "D:\\AIDA-NEW\\src\\agents\\orchestrator\\__tests__\\command-preprocessor.test.ts"
     },
     {
       "file": "src\\agents\\orchestrator\\__tests__\\context-optimizer.test.ts",
@@ -62,9 +116,9 @@
     }
   ],
   "stats": {
-    "total": 93,
-    "files": 10,
-    "suites": 36
+    "total": 194,
+    "files": 19,
+    "suites": 73
   },
-  "lastScan": "2025-10-17T03:26:35.872Z"
+  "lastScan": "2025-10-20T17:33:36.878Z"
 }

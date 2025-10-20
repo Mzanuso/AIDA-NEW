@@ -10,7 +10,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import { ConversationContext } from './context-analyzer';
 import { Language } from './language-detector';
 import {

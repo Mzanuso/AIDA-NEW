@@ -11,7 +11,7 @@
  * Based on Claude's 200K context window with 4K reserved for output.
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('TokenBudgetManager');
 

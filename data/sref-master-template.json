@@ -1,0 +1,196 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SREF Master Template v2.0",
+  "description": "Standard metadata structure for all Midjourney SREF (Style Reference) codes",
+  "type": "object",
+  "required": ["sref_code", "name", "category", "keywords", "rgb_palette"],
+  "properties": {
+    "sref_code": {
+      "type": "string",
+      "description": "Midjourney SREF code (e.g., '1973662515')",
+      "pattern": "^[0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the style (e.g., 'Ornate Nobility Portrait')"
+    },
+    "category": {
+      "type": "string",
+      "description": "Primary style category",
+      "enum": ["Fine_Art", "Editorial", "Fashion_Design", "Photography", "Illustration", "3D_Render"]
+    },
+    "subcategory": {
+      "type": ["string", "null"],
+      "description": "Optional secondary category for more specific classification"
+    },
+    "pattern_analysis": {
+      "type": "string",
+      "description": "Detailed visual analysis of patterns, shapes, textures, and composition"
+    },
+    "creative_interpretation": {
+      "type": "string",
+      "description": "Interpretation of mood, emotion, narrative, and cultural context"
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Clean keyword tags (no 'SOCIAL MEDIA:' or formatting)",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3
+    },
+    "mood_tags": {
+      "type": "array",
+      "description": "Emotional/atmospheric tags for semantic matching",
+      "items": {
+        "type": "string",
+        "enum": [
+          "elegant", "dramatic", "calm", "energetic", "luxurious", 
+          "minimal", "bold", "sophisticated", "playful", "serious",
+          "romantic", "mysterious", "bright", "dark", "warm", 
+          "cool", "nostalgic", "modern", "vintage", "futuristic"
+        ]
+      }
+    },
+    "use_cases": {
+      "type": "array",
+      "description": "Recommended use cases for this style",
+      "items": {
+        "type": "string",
+        "enum": [
+          "advertising", "editorial", "social_media", "art", 
+          "product_photography", "portrait", "landscape", 
+          "brand_identity", "packaging", "web_design"
+        ]
+      }
+    },
+    "era": {
+      "type": ["string", "null"],
+      "description": "Historical period or era (if applicable)",
+      "enum": [
+        "Ancient", "Medieval", "Renaissance", "Victorian", "Edwardian",
+        "1920s", "1950s", "1960s", "1970s", "1980s", "1990s",
+        "Modern", "Contemporary", "Futuristic", null
+      ]
+    },
+    "subjects": {
+      "type": "array",
+      "description": "Primary visual subjects depicted",
+      "items": {
+        "type": "string",
+        "enum": [
+          "portrait", "people", "architecture", "nature", "product",
+          "abstract", "animal", "food", "interior", "landscape",
+          "still_life", "fashion", "technology"
+        ]
+      }
+    },
+    "technical_style": {
+      "type": "object",
+      "description": "Technical characteristics of the visual style",
+      "required": ["medium", "texture", "lighting"],
+      "properties": {
+        "medium": {
+          "type": "string",
+          "enum": ["photography", "illustration", "painting", "3d_render", "mixed_media"]
+        },
+        "texture": {
+          "type": "string",
+          "enum": ["smooth", "textured", "grainy", "glossy", "matte"]
+        },
+        "lighting": {
+          "type": "string",
+          "enum": ["natural", "dramatic", "soft", "hard", "studio", "ambient"]
+        }
+      }
+    },
+    "complexity": {
+      "type": "object",
+      "description": "Visual complexity metrics for matching user skill level",
+      "required": ["level", "detail_density", "color_variety"],
+      "properties": {
+        "level": {
+          "type": "integer",
+          "description": "Overall complexity (1=simple, 10=very complex)",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "detail_density": {
+          "type": "integer",
+          "description": "Amount of visual detail (1=minimal, 10=maximum)",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "color_variety": {
+          "type": "integer",
+          "description": "Number of distinct colors (1=monochrome, 10=rainbow)",
+          "minimum": 1,
+          "maximum": 10
+        }
+      }
+    },
+    "rgb_palette": {
+      "type": "array",
+      "description": "Dominant color palette (3-5 colors recommended)",
+      "items": {
+        "type": "object",
+        "required": ["r", "g", "b", "color_name", "description"],
+        "properties": {
+          "r": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "g": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "b": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "color_name": {
+            "type": "string",
+            "description": "Human-readable color name (e.g., 'Warm Ochre')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Where this color appears in the image"
+          }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 5
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "URL to thumbnail image (300x300px recommended)",
+      "format": "uri"
+    },
+    "images": {
+      "type": "array",
+      "description": "URLs to full-resolution example images",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "minItems": 1
+    },
+    "social_media": {
+      "type": "string",
+      "description": "Pre-formatted social media caption with hashtags"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this SREF was added to the system"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this SREF was last modified"
+    }
+  }
+}

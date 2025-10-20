@@ -11,7 +11,7 @@
  * Uses pattern matching, common word analysis, and special character detection.
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('LanguageDetector');
 

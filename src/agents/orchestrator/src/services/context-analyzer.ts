@@ -1,11 +1,11 @@
-import { db } from '@backend/utils/db';
+import { db } from '../../../../utils/db';
 import {
   conversationSessions,
   conversationMessages,
   detectedIntents
 } from '@backend/shared/schema';
 import { eq, and, desc } from 'drizzle-orm';
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('ContextAnalyzer');
 

@@ -1,0 +1,12 @@
+Ciao! Questo è un file di test creato da Claude.
+
+Data e ora: Saturday, October 18, 2025
+
+Questo file dimostra che il tool MCP del filesystem funziona correttamente.
+
+Se vedi questo file, significa che Claude può:
+✓ Accedere al filesystem
+✓ Creare e scrivere file
+✓ Salvare contenuti
+
+Buon lavoro! 🚀

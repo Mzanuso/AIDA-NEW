@@ -1,8 +1,8 @@
 # AIDA - AI Multimedia Creation Platform
 
-**Version:** V5 Architecture  
-**Updated:** 2025-10-15  
-**Status:** Active Development - Refactoring Phase
+**Version:** V5 Architecture + Shared Tools  
+**Updated:** 2025-10-17  
+**Status:** Active Development - Tool Integration Phase
 
 ---
 
@@ -19,29 +19,50 @@ AIDA is a conversational AI platform that creates multimedia content through spe
 ```
 D:\AIDA-NEW/
 ├── src/
+│   ├── shared/                  # 🆕 Shared AI Tools
+│   │   ├── memory/              # ChromaDB - Cross-agent memory
+│   │   ├── voice/               # Voice Router (FAL.AI + XTTS)
+│   │   └── monitoring/          # Langfuse - Pipeline tracing
 │   ├── ui/                      # UI Components (React + Tailwind)
 │   │   ├── Launchpad.tsx        # Main interface
 │   │   ├── StyleSelectorModal.tsx
 │   │   └── components/          # 96 shadcn UI components
 │   ├── agents/
 │   │   ├── orchestrator/        # Account Manager (100% complete)
+│   │   │   └── services/
+│   │   │       └── technical-planner-mock.ts  # 🆕 Mock for parallel dev
 │   │   └── style-selector/      # Art Director (95% complete)
 │   └── database/
 │       └── migrations/          # PostgreSQL/Supabase migrations
+├── client/                      # 🆕 Frontend Deploy Config
+│   ├── vercel.json              # Vercel configuration
+│   └── .env.production          # Production env vars
+├── docs/                        # 🆕 Deploy Documentation
+│   └── deploy/
+│       ├── README.md            # Deploy overview
+│       ├── vercel-setup.md      # Vercel guide
+│       ├── railway-setup.md     # Railway guide
+│       └── checklist.md         # Pre-deploy checklist
 ├── data/
 │   ├── sref_v2/                 # Style reference library
-│   └── AGENTI CONCEPT IDEA/     # Agent design documents
+│   ├── chroma/                  # 🆕 ChromaDB storage (gitignored)
+│   └── audio_cache/             # 🆕 Voice cache (gitignored)
 ├── architecture/
 │   └── 0-INDEX.md               # System architecture
 ├── .flow/                       # AIDA-FLOW micro-sprint files
 │   ├── current.md               # Active task
 │   ├── memory.md                # Critical decisions
 │   └── tests.json               # Test registry
-├── old/                         # Archived documentation
-│   ├── migration/               # Migration records
-│   ├── sessions/                # Historical sessions
-│   └── deprecated/              # Superseded files
-└── docs/                        # (Reserved for future)
+├── .github/                     # 🆕 CI/CD Pipeline
+│   └── workflows/
+│       └── deploy.yml           # Auto-deploy to Vercel + Railway
+├── railway.json                 # 🆕 Railway configuration
+├── Procfile                     # 🆕 Multi-service processes
+├── nixpacks.toml                # 🆕 Build configuration
+└── old/                         # Archived documentation
+    ├── migration/               # Migration records
+    ├── sessions/                # Historical sessions
+    └── deprecated/              # Superseded files
 ```
 
 ---
@@ -62,6 +83,9 @@ cp .env.example .env
 # - ANTHROPIC_API_KEY (Claude Sonnet 4.5)
 # - DATABASE_URL (Supabase PostgreSQL)
 # - FAL_KEY (Media generation)
+# - CHROMA_PERSIST_DIR (ChromaDB storage)
+# - TTS_CACHE_DIR (Voice cache)
+# - LANGFUSE_ENABLED (Monitoring)
 ```
 
 ### 3. Run Development
@@ -82,7 +106,9 @@ npm run dev
 ### 4. Run Tests
 
 ```bash
-npm test
+npm test                 # Run all tests
+npm run test:coverage    # With coverage report
+npm run deploy:check     # Pre-deploy validation
 ```
 
 ---
@@ -95,6 +121,12 @@ npm test
 2. **[FLOW-STATUS.md](FLOW-STATUS.md)** - Current project state (30 lines)
 3. **[PRD.md](PRD.md)** - Product requirements (94 capabilities)
 4. **[AIDA-FLOW.md](AIDA-FLOW.md)** - Detailed development methodology
+
+### New Documentation
+
+5. **[docs/deploy/README.md](docs/deploy/README.md)** - Complete deploy guide
+6. **[docs/deploy/vercel-setup.md](docs/deploy/vercel-setup.md)** - Frontend deploy
+7. **[docs/deploy/railway-setup.md](docs/deploy/railway-setup.md)** - Backend deploy
 
 ### Reference Documentation
 
@@ -116,12 +148,13 @@ npm test
 │   ORCHESTRATOR (Port 3003)          │
 │   Role: Account Manager             │
 │   Status: 100% Complete ✅          │
+│   + Technical Planner Mock 🆕       │
 └──────────────┬──────────────────────┘
                ↓ ProjectBrief
 ┌─────────────────────────────────────┐
 │   TECHNICAL PLANNER                 │
 │   Role: Project Manager             │
-│   Status: In Design 🟡              │
+│   Status: Mock Ready 🟢             │
 └──────────────┬──────────────────────┘
                ↓ ExecutionPlan
 ┌─────────────────────────────────────┐
@@ -132,22 +165,45 @@ npm test
 │   - Video Composer (0%)             │
 │   - Style Selector (95%) ✅         │
 └─────────────────────────────────────┘
+               ↕️
+┌─────────────────────────────────────┐
+│   SHARED TOOLS 🆕                   │
+│   - ChromaDB (Memory)               │
+│   - Voice Router (FAL.AI + XTTS)   │
+│   - Langfuse (Monitoring)           │
+└─────────────────────────────────────┘
 ```
 
 ---
 
 ## 🎨 Current Status
 
+### Core Agents
 | Agent | Status | Tests | Progress |
 |-------|--------|-------|----------|
 | Orchestrator | ✅ Complete | 31/31 | 100% |
 | Style Selector | ✅ Complete | - | 95% |
+| Technical Planner | 🟢 Mock Ready | 6/6 | Mock: 100% |
 | Writer | 🟡 In Progress | - | 40% |
 | Director | 🟡 In Progress | - | 40% |
 | Visual Creator | ⚪ Not Started | - | 0% |
 | Video Composer | ⚪ Not Started | - | 0% |
 
-**Current Focus:** Orchestrator V5 refactoring (multi-agent architecture)
+### Shared Tools (NEW!)
+| Tool | Status | Tests | Purpose |
+|------|--------|-------|---------|
+| ChromaDB | ✅ Ready | 5/5 | Cross-agent memory |
+| Voice Router | ✅ Ready | 4/4 | FAL.AI + XTTS fallback |
+| Langfuse | ✅ Ready | 5/5 | Pipeline monitoring |
+
+### Deploy Infrastructure (NEW!)
+| Component | Status | Config | Platform |
+|-----------|--------|--------|----------|
+| Frontend | ✅ Configured | vercel.json | Vercel |
+| Backend | ✅ Configured | railway.json | Railway |
+| CI/CD | ✅ Active | deploy.yml | GitHub Actions |
+
+**Current Focus:** Tool integration testing + parallel agent development
 
 ---
 
@@ -170,6 +226,16 @@ npm test
 - **FAL.AI** (52+ media generation models)
 - **KIE.AI** (Midjourney, Udio access)
 - **Supabase** (database, auth, storage)
+
+### Shared AI Tools (NEW!)
+- **ChromaDB** (vector database for agent memory)
+- **XTTS-v2** (local voice generation backup)
+- **Langfuse** (LLM observability & tracing)
+
+### Deploy & DevOps (NEW!)
+- **Vercel** (frontend hosting, CDN)
+- **Railway** (backend multi-service hosting)
+- **GitHub Actions** (CI/CD pipeline)
 
 ---
 
@@ -194,6 +260,28 @@ See [PROJECT-INSTRUCTIONS.md](PROJECT-INSTRUCTIONS.md) for complete methodology.
 
 ---
 
+## 🆕 Recent Updates (October 17, 2025)
+
+### Shared Tools Integration
+- ✅ **MS-011:** ChromaDB shared memory system
+- ✅ **MS-012:** Voice router with XTTS fallback
+- ✅ **MS-013:** Langfuse monitoring pipeline
+- ✅ **MS-014:** Technical Planner mock for parallel development
+
+### Deploy Infrastructure
+- ✅ **MS-015:** Vercel frontend configuration
+- ✅ **MS-016:** Railway backend multi-service setup
+- ✅ GitHub Actions auto-deploy pipeline
+- ✅ Complete deploy documentation
+
+### Architecture Improvements
+- Multi-agent communication via shared memory
+- Voice generation with automatic fallback
+- Complete pipeline observability
+- Production-ready deploy configuration
+
+---
+
 ## 📦 What Was Archived
 
 Historical documentation moved to `/old`:
@@ -207,14 +295,15 @@ See [old/README.md](old/README.md) for details.
 
 ## 🚧 Active Development
 
-**Current Sprint:** Orchestrator V5 Refactoring
-- Multi-language support (IT, EN, ES, FR, DE)
-- Proactive style guidance
-- Technical Planner integration
-- Context engineering optimization
+**Completed This Week:**
+- ✅ Shared AI tools infrastructure
+- ✅ Technical Planner mock
+- ✅ Deploy automation setup
+
+**Current Sprint:** Integration testing & documentation
 
 **Next Up:**
-- Complete Technical Planner design
+- Technical Planner real implementation (research phase)
 - Writer Agent completion
 - Director Agent completion
 
@@ -226,8 +315,36 @@ See [old/README.md](old/README.md) for details.
 - **Supported Languages:** 5 (IT, EN, ES, FR, DE)
 - **AI Models:** 52+ (via FAL.AI + KIE.AI)
 - **Active Agents:** 2 (Orchestrator, Style Selector)
+- **Shared Tools:** 3 (Memory, Voice, Monitoring) 🆕
 - **In Development:** 2 (Writer, Director)
 - **Planned:** 2 (Visual Creator, Video Composer)
+- **Deploy Platforms:** 2 (Vercel, Railway) 🆕
+
+---
+
+## 🚀 Deploy & Production
+
+### Quick Deploy
+```bash
+# Pre-deploy check
+npm run deploy:check
+
+# Deploy frontend
+npm run deploy:frontend
+
+# Deploy backend
+npm run deploy:backend
+
+# Or push to main for auto-deploy
+git push origin main
+```
+
+### URLs
+- **Frontend:** https://aida-new.vercel.app
+- **Backend API:** https://aida-gateway-production.up.railway.app
+- **Monitoring:** http://localhost:3004 (Langfuse, local dev)
+
+See [docs/deploy/README.md](docs/deploy/README.md) for complete guide.
 
 ---
 
@@ -240,6 +357,35 @@ Follow the AIDA-FLOW methodology:
 4. Write test first, then code
 5. Commit with `[FLOW-XXX]` tag
 
+**New Contributors:** Start by reading the deploy documentation to understand the full stack.
+
+---
+
+## 🔐 Environment Variables
+
+Required in `.env`:
+```bash
+# Core AI
+ANTHROPIC_API_KEY=sk-ant-api03-...
+FAL_KEY=...
+KIE_API_KEY=...
+
+# Database
+DATABASE_URL=postgresql://...
+SUPABASE_URL=https://...
+SUPABASE_ANON_KEY=...
+
+# Shared Tools (NEW!)
+CHROMA_PERSIST_DIR=./data/chroma
+TTS_CACHE_DIR=./data/audio_cache
+LANGFUSE_ENABLED=true
+LANGFUSE_HOST=http://localhost:3004
+
+# Deploy (for production)
+VERCEL_TOKEN=...
+RAILWAY_TOKEN=...
+```
+
 ---
 
 ## 📝 License
@@ -248,6 +394,7 @@ Follow the AIDA-FLOW methodology:
 
 ---
 
-**Last Updated:** 2025-10-15  
+**Last Updated:** 2025-10-17  
 **Location:** D:\AIDA-NEW  
-**Methodology:** AIDA-FLOW v2.0
+**Methodology:** AIDA-FLOW v2.0  
+**Phase:** Shared Tools Integration + Deploy Setup

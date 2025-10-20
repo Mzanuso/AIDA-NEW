@@ -6,8 +6,8 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { createLogger } from '@backend/utils/logger';
-import { ContextAnalyzer, ConversationContext, Message } from '../services/context-analyzer';
+import { createLogger } from '../../../../utils/logger';
+import { ContextAnalyzer, ConversationContext, Message } from '../services/context-analyzer-mock';
 import { IntentAnalyzer } from '../services/intent-analyzer';
 import { UniversalModelSelector, UserIntent, CreativeCapability } from '../services/model-selector';
 import { CostCalculator } from '../utils/cost-calculator';
@@ -31,6 +31,7 @@ import {
 } from '../types/technical-planner.types';
 import { ContextOptimizer } from '../services/context-optimizer';
 import { ErrorHandler, CategorizedError } from '../services/error-handler';
+import { fetchURLContent, containsURL, extractURLs } from '../utils/url-fetcher';
 
 const logger = createLogger('ConversationalOrchestrator');
 
@@ -112,10 +113,12 @@ export class ConversationalOrchestrator {
   ): Promise<OrchestratorResponse> {
     logger.info('Processing message', { message, userId, sessionId });
 
+    // Declare context outside try block so it's accessible in catch
+    let context: ConversationContext | undefined;
+    let isNewSession = false;
+
     try {
       // 1. Load or create conversation context
-      let context: ConversationContext;
-      let isNewSession = false;
 
       if (!sessionId) {
         // New conversation - create session
@@ -167,28 +170,78 @@ export class ConversationalOrchestrator {
         languageConfidence: languageDetection.confidence
       };
 
+      // 2.5. Check for URLs in message and fetch content
+      let enrichedMessage = message;
+      if (containsURL(message)) {
+        const urls = extractURLs(message);
+        logger.info('URLs detected in message', { count: urls.length, urls });
+
+        // Fetch content from all URLs
+        const urlContents = await Promise.all(
+          urls.map(async (url) => {
+            const result = await fetchURLContent(url);
+            if (result.success) {
+              logger.info('URL content fetched', {
+                url: result.url,
+                title: result.title,
+                contentLength: result.content?.length || 0
+              });
+              return {
+                url: result.url,
+                title: result.title,
+                content: result.content,
+                excerpt: result.excerpt
+              };
+            } else {
+              logger.warn('URL fetch failed', { url, error: result.error });
+              return null;
+            }
+          })
+        );
+
+        // Append fetched content to message
+        const successfulFetches = urlContents.filter(c => c !== null);
+        if (successfulFetches.length > 0) {
+          const urlContentText = successfulFetches
+            .map(c => `\n\n--- Content from ${c!.url} ---\nTitle: ${c!.title || 'N/A'}\n\n${c!.content}`)
+            .join('\n\n');
+
+          enrichedMessage = message + '\n\n[SYSTEM: User provided URL(s). Content fetched below:]' + urlContentText;
+
+          logger.info('Message enriched with URL content', {
+            originalLength: message.length,
+            enrichedLength: enrichedMessage.length,
+            urlsFetched: successfulFetches.length
+          });
+        }
+      }
+
       // 3. Detect conversation mode (therapy, direct answer, or task)
-      const conversationMode = this.detectConversationMode(message, context, detectedLanguage);
+      const conversationMode = this.detectConversationMode(enrichedMessage, context, detectedLanguage);
 
       // 3. Handle special modes early (before intent analysis)
       if (conversationMode === 'therapy') {
-        return await this.handleTherapyMode(message, context, sessionId);
+        return await this.handleTherapyMode(enrichedMessage, context, sessionId);
       }
 
       if (conversationMode === 'direct_answer') {
-        return await this.handleDirectAnswer(message, context, sessionId);
+        return await this.handleDirectAnswer(enrichedMessage, context, sessionId);
       }
 
       // 4. Analyze user message for intent (task mode)
-      const analysisResult = await this.intentAnalyzer.analyze(message, context);
+      const analysisResult = await this.intentAnalyzer.analyze(enrichedMessage, context);
 
       // 5. Update context with new message and intent
       context = await this.contextAnalyzer.updateContext(
         sessionId,
         {
           role: 'user',
-          content: message,
-          metadata: { originalIntent: analysisResult }
+          content: enrichedMessage, // Use enriched message with URL content
+          metadata: {
+            originalIntent: analysisResult,
+            originalMessage: message, // Keep original for display
+            hasURLContent: enrichedMessage !== message
+          }
         },
         {
           purpose: analysisResult.purpose,
@@ -291,8 +344,11 @@ export class ConversationalOrchestrator {
       .filter(m => m.role === 'user')
       .pop();
 
-    const asksForStyles = lastUserMessage &&
-      /(mostra|suggerisci|proponi|vedi|quali).*(stile|stili|style)/i.test(lastUserMessage.content);
+    const asksForStyles = lastUserMessage && (
+      /(mostra|suggerisci|proponi|vedi|vedere|quali|fammi vedere|far vedere|mostrami).*(stile|stili|style)/i.test(lastUserMessage.content) ||
+      /(stile|stili|style).*(visual|fotografic|immagine|video)/i.test(lastUserMessage.content) ||
+      /fammi vedere.*stile/i.test(lastUserMessage.content)
+    );
 
     if (asksForStyles) {
       logger.info('User explicitly asked for style suggestions');
@@ -310,19 +366,21 @@ export class ConversationalOrchestrator {
 
       logger.info('Style recommendations received', { count: styles.length });
 
-      if (styles.length > 0) {
-        return {
-          message: 'Ti mostro alcuni stili visivi che potrebbero funzionare per il tuo progetto. Seleziona quello che preferisci dalla galleria!',
-          sessionId,
-          phase: 'discovery',
-          needsUserInput: true,
-          metadata: {
-            showStyleModal: true, // 🔑 Frontend flag to trigger modal
-            suggestedStyles: styles.map(s => ({ id: s.id, name: s.name, category: s.category, code: s.code })),
-            detectedIntent: context.detectedIntent
-          }
-        };
-      }
+      // Always show modal when user asks for styles, even if we have 0 results
+      // The modal UI will handle the empty state
+      return {
+        message: styles.length > 0
+          ? 'Ti mostro alcuni stili visivi che potrebbero funzionare per il tuo progetto. Seleziona quello che preferisci dalla galleria!'
+          : 'Sto aprendo la galleria degli stili per te. Dai un\'occhiata e seleziona quello che preferisci!',
+        sessionId,
+        phase: 'discovery',
+        needsUserInput: true,
+        metadata: {
+          showStyleModal: true, // 🔑 Frontend flag to trigger modal - always set when user asks for styles
+          suggestedStyles: Array.isArray(styles) ? styles.map(s => ({ id: s.id, name: s.name, category: s.category, code: s.code })) : [],
+          detectedIntent: context.detectedIntent
+        }
+      };
     }
 
     // Check if we have enough info to move to refinement
@@ -1348,3 +1406,4 @@ export class ConversationalOrchestrator {
 const PERSONALITY_PROMPT = getPersonalityPrompt('it');
 const THERAPY_MODE_PROMPT = getTherapyModePrompt('it');
 const DIRECT_ANSWER_PROMPT = getDirectAnswerPrompt('it');
+

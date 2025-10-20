@@ -1,18 +1,39 @@
-// Load environment variables FIRST
-import dotenv from 'dotenv';
-import path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
-
 import { Router } from 'express';
 import { ConversationalOrchestrator } from '../agents/conversational-orchestrator';
-import { ContextAnalyzer } from '../services/context-analyzer';
-import { createLogger } from '@backend/utils/logger';
+import { ContextAnalyzer } from '../services/context-analyzer-mock';
+import { createLogger } from '../../../../utils/logger';
+import { orchestratorRequestSchema, validate } from '../../../../shared/schemas';
 
 const router = Router();
 const logger = createLogger('OrchestratorRoutes');
 
-const orchestrator = new ConversationalOrchestrator();
-const contextAnalyzer = new ContextAnalyzer();
+// Lazy initialization - create orchestrator when first needed (after env vars are loaded)
+let orchestrator: ConversationalOrchestrator | null = null;
+let contextAnalyzer: ContextAnalyzer | null = null;
+
+function getOrchestrator(): ConversationalOrchestrator {
+  if (!orchestrator) {
+    logger.info('Initializing orchestrator with config', {
+      hasAnthropicKey: !!process.env.ANTHROPIC_API_KEY,
+      anthropicKeyLength: process.env.ANTHROPIC_API_KEY?.length,
+      hasOpenAIKey: !!process.env.OPENAI_API_KEY
+    });
+
+    orchestrator = new ConversationalOrchestrator({
+      anthropicApiKey: process.env.ANTHROPIC_API_KEY,
+      openaiApiKey: process.env.OPENAI_API_KEY,
+      styleSelectorUrl: process.env.STYLE_SERVICE_URL || 'http://localhost:3002'
+    });
+  }
+  return orchestrator;
+}
+
+function getContextAnalyzer(): ContextAnalyzer {
+  if (!contextAnalyzer) {
+    contextAnalyzer = new ContextAnalyzer();
+  }
+  return contextAnalyzer;
+}
 
 /**
  * POST /api/orchestrator/chat
@@ -22,14 +43,28 @@ const contextAnalyzer = new ContextAnalyzer();
  */
 router.post('/chat', async (req, res) => {
   try {
-    const { message, sessionId, userId } = req.body;
+    // Validate request with Zod
+    const validationResult = validate(orchestratorRequestSchema, req.body);
 
-    if (!message || !userId) {
+    if (!validationResult.success) {
+      logger.warn('Invalid request payload', {
+        errors: validationResult.error.errors.map(e => ({
+          path: e.path.join('.'),
+          message: e.message
+        }))
+      });
+
       return res.status(400).json({
         success: false,
-        error: 'Missing required fields: message, userId'
+        error: 'Invalid request payload',
+        details: validationResult.error.errors.map(e => ({
+          field: e.path.join('.'),
+          message: e.message
+        }))
       });
     }
+
+    const { message, sessionId, userId } = validationResult.data;
 
     logger.info('Chat message received', {
       userId,
@@ -38,7 +73,7 @@ router.post('/chat', async (req, res) => {
     });
 
     // Process message through orchestrator
-    const response = await orchestrator.processMessage(message, userId, sessionId || undefined);
+    const response = await getOrchestrator().processMessage(message, userId || 'anonymous', sessionId);
 
     res.json({
       success: true,
@@ -64,7 +99,7 @@ router.get('/session/:sessionId', async (req, res) => {
 
     logger.info('Session details requested', { sessionId });
 
-    const context = await contextAnalyzer.loadContext(sessionId);
+    const context = await getContextAnalyzer().loadContext(sessionId);
 
     res.json({
       success: true,
@@ -114,7 +149,7 @@ router.post('/session/:sessionId/approve', async (req, res) => {
 
     if (approved) {
       // Send approval message through orchestrator
-      const response = await orchestrator.processMessage(
+      const response = await getOrchestrator().processMessage(
         'Sì, procediamo',
         sessionId,
         '' // userId will be loaded from session
@@ -126,7 +161,7 @@ router.post('/session/:sessionId/approve', async (req, res) => {
       });
     } else {
       // User declined, ask for alternative
-      const response = await orchestrator.processMessage(
+      const response = await getOrchestrator().processMessage(
         'No, preferirei qualcosa di diverso',
         sessionId,
         ''
@@ -158,7 +193,7 @@ router.get('/user/:userId/history', async (req, res) => {
 
     logger.info('User history requested', { userId, limit });
 
-    const history = await contextAnalyzer.getUserHistory(userId, limit);
+    const history = await getContextAnalyzer().getUserHistory(userId, limit);
 
     res.json({
       success: true,
@@ -184,7 +219,7 @@ router.post('/session/:sessionId/abandon', async (req, res) => {
 
     logger.info('Session abandonment', { sessionId });
 
-    await contextAnalyzer.abandonSession(sessionId);
+    await getContextAnalyzer().abandonSession(sessionId);
 
     res.json({
       success: true,

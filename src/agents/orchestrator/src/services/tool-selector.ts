@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
-import { db } from '@backend/utils/db';
+import { db } from '../../../../utils/db';
 import { sql } from 'drizzle-orm';
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import { Intent, InferredSpecs } from './context-analyzer';
 import { ToolPlan, CostCalculator } from '../utils/cost-calculator';
 

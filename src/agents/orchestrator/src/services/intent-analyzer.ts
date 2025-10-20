@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import { ConversationContext, Intent, InferredSpecs } from './context-analyzer';
 import { INTENT_ANALYSIS_PROMPT } from '../config/personality-prompt';
 

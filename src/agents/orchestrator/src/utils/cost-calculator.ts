@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('CostCalculator');
 

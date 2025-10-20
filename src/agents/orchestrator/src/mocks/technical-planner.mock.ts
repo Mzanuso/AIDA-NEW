@@ -12,7 +12,7 @@
  * Used until real Technical Planner agent is implemented.
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import {
   ITechnicalPlanner,
   ProjectBrief,

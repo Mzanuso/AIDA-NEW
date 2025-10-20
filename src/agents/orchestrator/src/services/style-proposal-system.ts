@@ -9,7 +9,7 @@
  * Integrates with Style Selector service for fetching style galleries.
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import { StyleSelectorClient } from '../clients/style-selector-client';
 import { Language } from './language-detector';
 import { CreativeCapability } from './model-selector';

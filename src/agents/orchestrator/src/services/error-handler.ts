@@ -11,7 +11,7 @@
  * Based on production-grade error handling best practices.
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { createLogger } from '../../../../utils/logger';
 import { Language } from './language-detector';
 
 const logger = createLogger('ErrorHandler');

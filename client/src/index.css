@@ -1,0 +1,435 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Utility classes per componenti speciali */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animazioni per la landing page */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Animazione per i tre puntini di "sta scrivendo" */
+@keyframes typing-dots {
+  0%, 60%, 100% {
+    transform: initial;
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+.typing-indicator {
+  display: inline-block;
+}
+
+.typing-indicator::after {
+  content: '•••';
+  animation: typing-dots 1.4s infinite;
+  animation-fill-mode: both;
+}
+
+@keyframes movingGlow {
+  0% {
+    transform: translate(-50%, -50%) translateX(-10vw) translateY(-5vh);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateX(5vw) translateY(-10vh);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(10vw) translateY(5vh);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateX(-5vw) translateY(10vh);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(-10vw) translateY(-5vh);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.ambient-glow {
+  animation: movingGlow 30s ease-in-out infinite, pulse 8s ease-in-out infinite;
+}
+
+/* Stili per il carosello in stile Luma */
+.carousel-container {
+  scroll-behavior: smooth;
+}
+
+.carousel-container:hover {
+  cursor: grab;
+}
+
+.carousel-container:active {
+  cursor: grabbing;
+}
+
+/* Utility class for ultra-low opacity */
+.opacity-ultra-low {
+  opacity: 0.01;
+}
+
+/* Hide scrollbar but keep scrolling functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 198 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 316 71% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 88%;
+
+    --accent: 316 71% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 198 100% 45%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 198 100% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 316 71% 55%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 198 100% 45%;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-aida-dark text-aida-white font-sans antialiased overflow-x-hidden;
+  }
+  
+  /* Global scrollbars hiding */
+  html, body, div, main, section {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  html::-webkit-scrollbar, 
+  body::-webkit-scrollbar, 
+  div::-webkit-scrollbar, 
+  main::-webkit-scrollbar, 
+  section::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Common gradient background - versione migliorata senza divisioni */
+  .aida-gradient-bg {
+    @apply relative overflow-hidden;
+  }
+  
+  .aida-gradient-bg::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-b from-aida-dark via-[#141414] to-[#181818] z-0;
+  }
+  
+  .aida-gradient-bg::after {
+    content: "";
+    @apply absolute inset-0 opacity-15 z-0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(0, 146, 227, 0.25), transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(221, 57, 176, 0.25), transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(30, 30, 30, 0.1), transparent 70%);
+  }
+  
+  /* Glass morphism effect */
+  .glass-panel {
+    @apply bg-aida-dark/50 backdrop-blur-md border border-aida-light-gray/10 shadow-lg;
+  }
+  
+  .font-display {
+    font-family: 'SF Pro Display', 'Montserrat', sans-serif;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-aida-blue to-aida-magenta bg-clip-text text-transparent;
+  }
+  
+  /* Gradient buttons */
+  .gradient-button {
+    @apply bg-gradient-to-r from-aida-blue to-aida-magenta hover:opacity-90 rounded-full text-white transition-all;
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Add subtle animation to everything */
+  .hover-scale {
+    @apply transition-transform duration-300 ease-out hover:scale-105;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-glow:hover {
+    @apply shadow-lg;
+    box-shadow: 0 0 15px rgba(0, 146, 227, 0.5), 0 0 30px rgba(221, 57, 176, 0.3);
+  }
+  
+  .shadow-glow {
+    box-shadow: 0 0 5px 0px rgba(255, 255, 255, 0.1), 
+                0 0 10px 1px rgba(255, 255, 255, 0.05);
+  }
+}
+
+@layer components {
+  .vertical-swipe-container {
+    @apply h-screen w-full overflow-y-auto snap-y snap-mandatory hide-scrollbar;
+  }
+
+  .horizontal-swipe-container {
+    @apply w-full overflow-x-auto snap-x snap-mandatory hide-scrollbar;
+  }
+
+  .swipe-item {
+    @apply snap-start min-h-screen w-full shrink-0;
+  }
+
+  .horizontal-swipe-item {
+    @apply snap-start h-full shrink-0;
+  }
+
+  .side-panel {
+    @apply fixed top-0 h-screen w-3/4 bg-aida-gray p-4 shadow-lg transition-transform duration-300 ease-out z-30;
+  }
+
+  .ken-burns-effect {
+    @apply overflow-hidden;
+  }
+
+  .ken-burns-effect img {
+    @apply object-cover w-full h-full animate-ken-burns;
+  }
+
+  .progress-bar {
+    @apply flex w-full gap-1 px-4 absolute top-3 z-10;
+  }
+
+  .progress-segment {
+    @apply h-1 rounded-full bg-aida-white/30 flex-1;
+  }
+
+  .progress-segment.active {
+    @apply bg-aida-white;
+  }
+
+  .onboarding-card {
+    @apply flex flex-col items-center justify-center px-8 py-12 glass-panel rounded-xl text-center;
+  }
+
+  .style-card {
+    @apply relative flex flex-col items-start justify-end p-6 h-screen w-full overflow-hidden;
+  }
+
+  .story-card {
+    @apply relative flex flex-col items-start justify-end p-6 h-screen w-full overflow-hidden;
+  }
+
+  .style-info {
+    @apply w-full z-10 mb-20;
+  }
+
+  .style-actions {
+    @apply flex flex-col gap-3 absolute right-5 bottom-32 z-20;
+  }
+
+  .action-button {
+    @apply flex items-center justify-center rounded-full bg-aida-gray/50 backdrop-blur-sm p-3 w-12 h-12 hover-scale;
+  }
+
+  .primary-button {
+    @apply gradient-button py-3 px-6 font-semibold hover-scale;
+  }
+
+  .secondary-button {
+    @apply bg-aida-magenta text-aida-white rounded-full py-3 px-6 font-semibold hover-scale;
+  }
+
+  .text-input {
+    @apply bg-aida-gray border border-aida-gray rounded-lg py-3 px-4 text-aida-white w-full focus:outline-none focus:ring-2 focus:ring-aida-blue;
+  }
+
+  .phase-indicator {
+    @apply fixed top-5 left-1/2 transform -translate-x-1/2 z-50 glass-panel rounded-full px-5 py-2 text-sm font-semibold;
+  }
+
+  .audio-waveform {
+    @apply h-16 w-full bg-aida-gray/50 rounded-lg overflow-hidden;
+  }
+  
+  /* Card components */
+  .aida-card {
+    @apply glass-panel rounded-xl p-6 hover-scale hover-glow;
+  }
+  
+  /* Titoli con stile coerente */
+  .section-title {
+    @apply text-3xl md:text-5xl font-bold mb-6 gradient-text relative z-30;
+  }
+  
+  .subsection-title {
+    @apply text-2xl md:text-4xl font-bold mb-4 text-white relative z-20;
+  }
+  
+  .card-title {
+    @apply text-xl font-bold mb-3 text-white relative z-20;
+  }
+  
+  /* Paragrafi con stile coerente */
+  .section-description {
+    @apply text-lg md:text-xl text-aida-light-gray max-w-3xl mx-auto relative z-20;
+  }
+  
+  .card-description {
+    @apply text-aida-light-gray;
+  }
+  
+  /* Decorazioni */
+  .gradient-divider {
+    @apply h-1 w-24 bg-gradient-to-r from-aida-blue to-aida-magenta rounded-full;
+  }
+  
+  /* Sezioni con transizione fluida */
+  .aida-section {
+    @apply relative py-20 md:py-28 overflow-hidden;
+  }
+  
+  .aida-section.with-overlap {
+    @apply -mt-20 pt-40 md:-mt-32 md:pt-56;
+  }
+  
+  /* Sfondo con sfumatura graduale */
+  .gradient-fade-background {
+    @apply absolute inset-0 z-0;
+    background: linear-gradient(to bottom, 
+      rgba(18, 18, 18, 0) 0%, 
+      rgba(20, 20, 20, 0.6) 20%, 
+      rgba(24, 24, 24, 0.8) 50%, 
+      rgba(20, 20, 20, 0.6) 80%, 
+      rgba(18, 18, 18, 0) 100%
+    );
+  }
+  
+  /* Stili ispirati da lumalabs.ai per transizioni fluide */
+  .full-page-container {
+    @apply relative min-h-screen w-full overflow-x-hidden;
+  }
+  
+  .smooth-section {
+    @apply relative min-h-screen w-full overflow-hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+  
+  .smooth-section-content {
+    @apply relative z-10 w-full h-full;
+  }
+  
+  /* Sfondo parallax per sezioni */
+  .parallax-bg {
+    @apply absolute inset-0 z-0;
+    transform: translateZ(-10px) scale(2);
+  }
+  
+  /* Gradiente con transizione fluida */
+  .gradient-flow-bg {
+    @apply absolute inset-0 z-0;
+    background: linear-gradient(180deg, 
+      var(--gradient-start, rgba(18, 18, 18, 1)) 0%,
+      var(--gradient-middle, rgba(24, 24, 24, 1)) 50%,
+      var(--gradient-end, rgba(18, 18, 18, 1)) 100%
+    );
+  }
+  
+  /* Carosello orizzontale con drag */
+  .horizontal-carousel {
+    @apply flex overflow-x-auto snap-x snap-mandatory hide-scrollbar;
+    scrollbar-width: none;
+  }
+  
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

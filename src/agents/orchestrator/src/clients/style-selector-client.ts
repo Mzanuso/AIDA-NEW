@@ -1,10 +1,12 @@
 /**
  * Style Selector Client
  *
- * Client to communicate with the Style Selector service
+ * Client to fetch styles from Supabase database
+ * Replaces old REST API client with direct Supabase queries
  */
 
-import { createLogger } from '@backend/utils/logger';
+import { supabaseStylesClient } from './supabase-styles-client';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('StyleSelectorClient');
 
@@ -58,11 +60,8 @@ export interface StyleMatch {
 }
 
 export class StyleSelectorClient {
-  private baseUrl: string;
-
-  constructor(baseUrl: string = 'http://localhost:3002') {
-    this.baseUrl = baseUrl;
-    logger.info('StyleSelectorClient initialized', { baseUrl });
+  constructor() {
+    logger.info('StyleSelectorClient initialized (using Supabase)');
   }
 
   /**
@@ -70,19 +69,8 @@ export class StyleSelectorClient {
    */
   async getAllStyles(limit: number = 10): Promise<StyleReference[]> {
     try {
-      const url = `${this.baseUrl}/api/styles?limit=${limit}`;
-      logger.info('Fetching all styles', { url, limit });
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Style Selector API error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      logger.info('Received styles response', { success: data.success, count: data.data?.length || 0 });
-
-      return data.data || [];
+      logger.info('Fetching all styles from Supabase', { limit });
+      return await supabaseStylesClient.getAllStyles(limit);
     } catch (error) {
       logger.error('Failed to get all styles', { error });
       return [];
@@ -162,52 +150,13 @@ export class StyleSelectorClient {
     style?: string;
     mood?: string;
   }, limit: number = 5): Promise<StyleReference[]> {
-    logger.info('getRecommendations called', { intent, limit });
-
-    // Build search query based on intent
-    const keywords: string[] = [];
-    const tags: string[] = [];
-
-    if (intent.style && intent.style !== 'unknown') {
-      keywords.push(intent.style);
+    try {
+      logger.info('getRecommendations called', { intent, limit });
+      return await supabaseStylesClient.getRecommendations(intent, limit);
+    } catch (error) {
+      logger.error('Failed to get recommendations', { error });
+      return [];
     }
-
-    if (intent.mood) {
-      keywords.push(intent.mood);
-    }
-
-    if (intent.purpose && intent.purpose !== 'unknown') {
-      tags.push(intent.purpose);
-    }
-
-    if (intent.platform && intent.platform !== 'unknown') {
-      tags.push(intent.platform);
-    }
-
-    logger.info('Parsed intent', { keywords, tags });
-
-    // If we have keywords, search by keyword
-    if (keywords.length > 0) {
-      logger.info('Using keyword search');
-      return this.searchStyles({
-        keyword: keywords.join(' '),
-        tags: tags.length > 0 ? tags : undefined,
-        limit
-      });
-    }
-
-    // If we only have tags, search by tags
-    if (tags.length > 0) {
-      logger.info('Using tags search');
-      return this.searchStyles({
-        tags,
-        limit
-      });
-    }
-
-    // Fallback: return popular styles
-    logger.info('Using fallback - getAllStyles');
-    return this.getAllStyles(limit);
   }
 
   /**
