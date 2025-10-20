@@ -10,8 +10,8 @@
 import { ConversationState, StateContext, isValidTransition } from '../types/conversation-state';
 import { Language } from '../utils/language-detector-simple';
 import { getTemplate } from '../config/messages';
-import { GallerySelection } from '../../../../../shared/types/project-brief.types';
-import { createLogger } from '../../../../../utils/logger';
+import { GallerySelection } from '../../../../shared/types/project-brief.types';
+import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('ImageFlowService');
 
