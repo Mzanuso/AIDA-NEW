@@ -1,10 +1,10 @@
 /**
- * Visual Creator Bridge Tests
- * 
- * Test the bridge between Technical Planner's ExecutionPlan
- * and Visual Creator's workflow system.
- * 
- * @module __tests__/visual-creator-bridge
+ * Execution Bridge Tests
+ *
+ * Tests the bridge between Technical Planner's ExecutionPlan
+ * and Visual Creator Executor's WorkflowExecutionPlan.
+ *
+ * @module __tests__/execution-bridge
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
