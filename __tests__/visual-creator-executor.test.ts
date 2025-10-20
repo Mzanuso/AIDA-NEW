@@ -99,7 +99,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await executor.execute(mockSingleShotPlan);
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls).toHaveLength(1);
       expect(result.allImageUrls[0]).toContain('generated-image.jpg');
     });
@@ -125,7 +125,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await executor.execute(seedreamPlan);
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls[0]).toContain('seedream-image.jpg');
     });
 
@@ -150,7 +150,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await executor.execute(ideogramPlan);
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls).toHaveLength(1);
     });
   });
@@ -191,7 +191,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await resultPromise;
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls[0]).toContain('midjourney-result.jpg');
 
       vi.useRealTimers();
@@ -239,7 +239,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await resultPromise;
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       // Should have called fetch 3 times (1 submit + 2 polls)
       expect(global.fetch).toHaveBeenCalledTimes(3);
 
@@ -261,7 +261,7 @@ describe('VisualCreatorExecutor', () => {
       const result = await executor.execute(mockSingleShotPlan);
 
       expect(result.workflowId).toBe('workflow-001');
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls).toHaveLength(1);
       expect(result.stepResults).toHaveLength(1);
     });
@@ -286,7 +286,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await executor.execute(mockMultiStepPlan);
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(result.allImageUrls).toHaveLength(3);
       expect(result.stepResults).toHaveLength(3);
       
@@ -344,7 +344,7 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await resultPromise;
 
-      expect(result.status).toBe('success');
+      expect(result.status).toBe('completed');
       expect(global.fetch).toHaveBeenCalledTimes(3);
 
       vi.useRealTimers();

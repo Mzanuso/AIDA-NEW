@@ -374,7 +374,7 @@ export class VisualCreatorExecutor {
     const failed = stepResults.filter(r => r.status === 'failed').length;
 
     if (failed === 0) {
-      return 'success';
+      return 'completed';
     } else if (completed > 0) {
       return 'partial_success' as WorkflowStatus;
     } else {
