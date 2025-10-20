@@ -10,6 +10,7 @@ import cors from 'cors';
 import { createLogger } from '../../utils/logger';
 import chatRoutes from './src/routes/chat.routes';
 import mediaAnalysisRoutes from './src/routes/media-analysis.routes';
+import visualCreatorRoutes from './src/routes/visual-creator.routes';
 
 const logger = createLogger('OrchestratorServer');
 
@@ -30,6 +31,11 @@ app.use('/api/orchestrator', chatRoutes);
 // MEDIA ANALYSIS ROUTES (Image, Video, Audio, Text)
 // =============================================================================
 app.use('/api/ai-agent', mediaAnalysisRoutes);
+
+// =============================================================================
+// AGENT ROUTES - Visual Creator
+// =============================================================================
+app.use('/api/agents/visual-creator', visualCreatorRoutes);
 
 // =============================================================================
 // LEGACY ENDPOINTS (Deprecated - will be removed)

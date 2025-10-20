@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { VisualCreatorBridge } from '../../src/agents/visual-creator/visual-creator-bridge';
+import { VisualCreatorBridge } from '../../src/shared/coordination/execution-bridge';
 import { VisualCreatorExecutor } from '../../src/agents/visual-creator/visual-creator-executor';
 import { ExecutionPlan } from '../../src/shared/types/execution-plan.types';
 

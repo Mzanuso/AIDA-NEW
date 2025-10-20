@@ -25,6 +25,13 @@ export interface WorkflowStep {
   model: string;
 
   /**
+   * Fallback models to try if primary model fails
+   * Tried in order until one succeeds
+   * @example ["flux-schnell", "seedream-4.0"]
+   */
+  fallbackModels?: string[];
+
+  /**
    * Model-specific optimized prompt (already translated by Prompt Adapter)
    */
   prompt: string;
@@ -123,6 +130,12 @@ export interface WorkflowStepResult {
    * Step identifier
    */
   stepId: string;
+
+  /**
+   * Model actually used (may be fallback if primary failed)
+   * @example "flux-schnell" (when FLUX Pro failed)
+   */
+  modelUsed?: string;
 
   /**
    * Execution status

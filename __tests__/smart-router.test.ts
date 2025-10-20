@@ -9,8 +9,8 @@
  */
 
 import { describe, test, expect, beforeEach } from 'vitest';
-import { SmartRouter } from '../src/agents/visual-creator/smart-router';
-import type { ProjectBrief } from '../shared/types/project-brief.types';
+import { SmartRouter } from '../src/shared/coordination/smart-router';
+import type { ProjectBrief } from '../src/shared/types/project-brief.types';
 
 /**
  * ModelSelectionStrategy - Expected output from SmartRouter.selectModel()

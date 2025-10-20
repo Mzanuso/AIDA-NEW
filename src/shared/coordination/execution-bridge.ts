@@ -11,8 +11,8 @@ import type {
   ExecutionPlan,
   WorkflowExecutionPlan,
   ModelConfig
-} from '../../shared/types';
-import type { UniversalPrompt } from './prompt-adapter.interface';
+} from '../types';
+import type { UniversalPrompt } from '../../agents/visual-creator/prompt-adapter.interface';
 import { SmartRouter } from './smart-router';
 import { WorkflowOrchestrator } from './workflow-orchestrator';
 

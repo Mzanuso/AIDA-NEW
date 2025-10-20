@@ -16,19 +16,19 @@ import type {
   ModelConfig,
   WorkflowExecutionPlan,
   WorkflowStep
-} from '../../shared/types';
-import type { UniversalPrompt } from './prompt-adapter.interface';
-import type { PromptAdapter } from './prompt-adapter.interface';
+} from '../types';
+import type { UniversalPrompt } from '../../agents/visual-creator/prompt-adapter.interface';
+import type { PromptAdapter } from '../../agents/visual-creator/prompt-adapter.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 // Import adapters
-import { MidjourneyAdapter } from './adapters/midjourney-adapter';
-import { FluxProAdapter } from './adapters/flux-pro-adapter';
-import { FluxSchnellAdapter } from './adapters/flux-schnell-adapter';
-import { SeedreamAdapter } from './adapters/seedream-adapter';
-import { HunyuanAdapter } from './adapters/hunyuan-adapter';
-import { RecraftAdapter } from './adapters/recraft-adapter';
-import { IdeogramAdapter } from './adapters/ideogram-adapter';
+import { MidjourneyAdapter } from '../../agents/visual-creator/adapters/midjourney-adapter';
+import { FluxProAdapter } from '../../agents/visual-creator/adapters/flux-pro-adapter';
+import { FluxSchnellAdapter } from '../../agents/visual-creator/adapters/flux-schnell-adapter';
+import { SeedreamAdapter } from '../../agents/visual-creator/adapters/seedream-adapter';
+import { HunyuanAdapter } from '../../agents/visual-creator/adapters/hunyuan-adapter';
+import { RecraftAdapter } from '../../agents/visual-creator/adapters/recraft-adapter';
+import { IdeogramAdapter } from '../../agents/visual-creator/adapters/ideogram-adapter';
 
 /**
  * Adapter registry mapping model IDs to adapter instances

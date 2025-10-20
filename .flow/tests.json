@@ -1,6 +1,18 @@
 {
   "tests": [
     {
+      "file": "utils\\logger.test.ts",
+      "tests": 10,
+      "suites": 3,
+      "path": "D:\\AIDA-NEW\\utils\\logger.test.ts"
+    },
+    {
+      "file": "__tests__\\visual-creator-executor.test.ts",
+      "tests": 14,
+      "suites": 8,
+      "path": "D:\\AIDA-NEW\\__tests__\\visual-creator-executor.test.ts"
+    },
+    {
       "file": "__tests__\\visual-creator-bridge.test.ts",
       "tests": 18,
       "suites": 8,
@@ -17,6 +29,12 @@
       "tests": 14,
       "suites": 1,
       "path": "D:\\AIDA-NEW\\__tests__\\smart-router.test.ts"
+    },
+    {
+      "file": "__tests__\\integration\\visual-creator-pipeline.test.ts",
+      "tests": 7,
+      "suites": 5,
+      "path": "D:\\AIDA-NEW\\__tests__\\integration\\visual-creator-pipeline.test.ts"
     },
     {
       "file": "__tests__\\adapters\\ideogram-adapter.test.ts",
@@ -164,9 +182,9 @@
     }
   ],
   "stats": {
-    "total": 317,
-    "files": 27,
-    "suites": 142
+    "total": 348,
+    "files": 30,
+    "suites": 158
   },
-  "lastScan": "2025-10-20T19:53:52.180Z"
+  "lastScan": "2025-10-20T21:24:02.287Z"
 }

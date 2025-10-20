@@ -39,7 +39,14 @@
       "Bash(git fetch origin)",
       "Bash(git push origin main --force-with-lease)",
       "Bash(git push origin main --force-with-lease --no-verify)",
-      "Bash(git push origin main --no-verify)"
+      "Bash(git push origin main --no-verify)",
+      "Bash(npm run test:run -- __tests__/visual-creator-executor.test.ts)",
+      "Bash(npm run test:run -- __tests__/integration/visual-creator-pipeline.test.ts)",
+      "Bash(git mv src/agents/visual-creator/visual-creator-bridge.ts src/shared/coordination/execution-bridge.ts)",
+      "Bash(git mv src/agents/visual-creator/smart-router.ts src/shared/coordination/smart-router.ts)",
+      "Bash(git mv src/agents/visual-creator/workflow-orchestrator.ts src/shared/coordination/workflow-orchestrator.ts)",
+      "Bash(git mv src/agents/visual-creator/model-catalog.ts src/shared/coordination/model-catalog.ts)",
+      "Bash(git mv shared/types/project-brief.types.ts src/shared/types/project-brief.types.ts)"
     ],
     "deny": [],
     "ask": []

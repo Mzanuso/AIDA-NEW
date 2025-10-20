@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { WorkflowOrchestrator } from '../src/agents/visual-creator/workflow-orchestrator';
+import { WorkflowOrchestrator } from '../src/shared/coordination/workflow-orchestrator';
 import type { ModelSelectionStrategy, ModelConfig } from '../src/shared/types/model-strategy.types';
 import type { UniversalPrompt } from '../src/agents/visual-creator/prompt-adapter.interface';
 

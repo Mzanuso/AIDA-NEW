@@ -10,8 +10,8 @@
  * @module agents/visual-creator/smart-router
  */
 
-import type { ProjectBrief } from '../../shared/types/project-brief.types';
-import type { ModelSelectionStrategy } from '../../shared/types/model-strategy.types';
+import type { ProjectBrief } from '../types/project-brief.types';
+import type { ModelSelectionStrategy } from '../types/model-strategy.types';
 import { MODEL_CATALOG, type ModelSpec, QUALITY_TIERS } from './model-catalog';
 
 /**
