@@ -87,6 +87,16 @@ export interface UniversalPrompt {
   }>;
 
   /**
+   * Single text overlay (optional, simpler alternative to textElements)
+   * Used for single-text composite workflows
+   */
+  textOverlay?: {
+    content: string;
+    position: 'top' | 'center' | 'bottom' | 'custom';
+    style?: string;
+  };
+
+  /**
    * Reference images for character/object consistency (optional)
    * Used by Seedream, Nano Banana
    */

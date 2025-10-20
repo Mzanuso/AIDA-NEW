@@ -12,6 +12,9 @@
 import { CreativeCapability } from '../services/model-selector';
 import { Language } from '../services/language-detector';
 
+// Re-export CreativeCapability for external use
+export { CreativeCapability };
+
 // =============================================================================
 // PROJECT BRIEF (Orchestrator → Technical Planner)
 // =============================================================================

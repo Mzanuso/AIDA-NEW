@@ -7,6 +7,12 @@
       "path": "D:\\AIDA-NEW\\__tests__\\smart-router.test.ts"
     },
     {
+      "file": "__tests__\\adapters\\flux-pro-adapter.test.ts",
+      "tests": 16,
+      "suites": 9,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\flux-pro-adapter.test.ts"
+    },
+    {
       "file": "__tests__\\adapters\\midjourney-adapter.test.ts",
       "tests": 15,
       "suites": 7,
@@ -116,9 +122,9 @@
     }
   ],
   "stats": {
-    "total": 194,
-    "files": 19,
-    "suites": 73
+    "total": 210,
+    "files": 20,
+    "suites": 82
   },
-  "lastScan": "2025-10-20T17:33:36.878Z"
+  "lastScan": "2025-10-20T17:51:25.350Z"
 }

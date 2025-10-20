@@ -58,7 +58,36 @@ export type CreativeCapability =
   | 'LIP_SYNC' | 'MOTION_TRACKING' | 'OBJECT_REMOVAL_VIDEO'
   | 'DEPTH_MAP' | 'SEGMENTATION' | 'POSE_ESTIMATION'
   | 'STYLE_TRANSFER_VIDEO' | 'SUPER_RESOLUTION' | 'FRAME_INTERPOLATION'
-  | 'VIDEO_INPAINTING';
+  | 'VIDEO_INPAINTING'
+
+  // Design & Print (11)
+  | 'POSTER_DESIGN' | 'FLYER_DESIGN' | 'BANNER_DESIGN'
+  | 'BUSINESS_CARD' | 'SOCIAL_POST' | 'MENU_DESIGN'
+  | 'INVITATION' | 'BOOK_COVER' | 'ALBUM_COVER'
+  | 'GENERATE_STORYBOARD' | 'GENERATE_THUMBNAIL'
+
+  // Publishing & Editorial (5)
+  | 'COMIC_BOOK' | 'PHOTO_BOOK' | 'PORTFOLIO'
+  | 'CATALOG' | 'MAGAZINE'
+
+  // Writing & Text Creation (10)
+  | 'WRITE_STORY' | 'WRITE_SCRIPT' | 'WRITE_BLOG_POST'
+  | 'WRITE_SOCIAL_COPY' | 'WRITE_POETRY' | 'WRITE_BOOK'
+  | 'WRITE_EMAIL' | 'WRITE_SPEECH' | 'EDIT_TEXT'
+  | 'SUMMARIZE_TEXT'
+
+  // Translation & Localization (2)
+  | 'TRANSLATE' | 'LOCALIZE'
+
+  // Audio Extended (3)
+  | 'EXTEND_MUSIC' | 'REMIX_MUSIC' | 'TEXT_TO_PODCAST'
+
+  // Content Repurposing (5)
+  | 'LONG_TO_SHORT' | 'VIDEO_TO_BLOG' | 'PODCAST_TO_SOCIAL'
+  | 'PRESENTATION_TO_VIDEO' | 'EBOOK_TO_COURSE'
+
+  // Meeting & Productivity (1)
+  | 'MEETING_SUMMARY';
 
 export interface UserIntent {
   capability: CreativeCapability;

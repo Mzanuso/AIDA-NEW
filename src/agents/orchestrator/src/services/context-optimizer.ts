@@ -77,7 +77,7 @@ export interface ContextOptimizerConfig {
  */
 export interface OptimizedSystemPrompt {
   /** System prompt blocks with cache control */
-  systemBlocks: Anthropic.Messages.SystemMessageParam;
+  systemBlocks: string | Anthropic.Messages.TextBlockParam[];
   /** Whether caching is used */
   cachingEnabled: boolean;
   /** Estimated token savings */
@@ -170,7 +170,7 @@ export class ContextOptimizer {
       // Use prompt caching for static parts
       // Cache personality + cost transparency (changes rarely)
       // Don't cache phase instruction (changes frequently) or user context (always unique)
-      const systemBlocks: Anthropic.Messages.SystemMessageParam = [
+      const systemBlocks: Anthropic.Messages.TextBlockParam[] = [
         {
           type: 'text',
           text: personalityPrompt + '\n\n' + costPrompt,
@@ -199,7 +199,7 @@ export class ContextOptimizer {
       };
     } else {
       // No caching - single text block
-      const systemBlocks: Anthropic.Messages.SystemMessageParam =
+      const systemBlocks: string =
         personalityPrompt + '\n\n' + costPrompt + phaseInstruction + userContext;
 
       return {
@@ -436,7 +436,7 @@ export class ContextOptimizer {
     language: Language,
     optimizedMessages: OptimizedMessages
   ): {
-    system: Anthropic.Messages.SystemMessageParam;
+    system: string | Anthropic.Messages.TextBlockParam[];
     messages: Anthropic.MessageParam[];
     metadata: {
       cachingEnabled: boolean;
