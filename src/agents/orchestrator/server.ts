@@ -11,6 +11,7 @@ import { createLogger } from '../../utils/logger';
 import chatRoutes from './src/routes/chat.routes';
 import mediaAnalysisRoutes from './src/routes/media-analysis.routes';
 import visualCreatorRoutes from './src/routes/visual-creator.routes';
+import technicalPlannerRoutes from '../technical-planner/technical-planner.routes';
 
 const logger = createLogger('OrchestratorServer');
 
@@ -31,6 +32,11 @@ app.use('/api/orchestrator', chatRoutes);
 // MEDIA ANALYSIS ROUTES (Image, Video, Audio, Text)
 // =============================================================================
 app.use('/api/ai-agent', mediaAnalysisRoutes);
+
+// =============================================================================
+// AGENT ROUTES - Technical Planner
+// =============================================================================
+app.use('/api/agents/technical-planner', technicalPlannerRoutes);
 
 // =============================================================================
 // AGENT ROUTES - Visual Creator
