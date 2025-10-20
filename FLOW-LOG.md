@@ -1,5 +1,138 @@
 # AIDA Flow Log
 
+## 2025-10-20 - Technical Planner + Type System Refactoring 🏗️
+
+**Session Duration:** 60 minutes
+**Focus:** MS-025 - Separate Technical Planner from Visual Creator
+
+### ✅ Completed
+
+**MS-025: Technical Planner Agent Extraction (60 min):**
+
+**Phase 1: Shared Coordination Layer (15 min):**
+- Moved coordination components to `src/shared/coordination/`:
+  - `execution-bridge.ts` (formerly visual-creator-bridge.ts)
+  - `smart-router.ts` - Model selection engine
+  - `workflow-orchestrator.ts` - Workflow planning
+  - `model-catalog.ts` - Model specifications
+- Moved type definitions to `src/shared/types/`:
+  - `project-brief.types.ts` - Input from orchestrator
+  - `budget-constraints.types.ts` - Budget limits
+- Updated 12+ import paths across test files and routes
+- Used `git mv` to preserve file history
+
+**Phase 2: Technical Planner Agent (20 min):**
+- Created `src/agents/technical-planner/technical-planner.ts`:
+  - Implements `plan(brief: ProjectBrief): Promise<ExecutionPlan>`
+  - Uses SmartRouter for intelligent model selection
+  - Maps quality tiers (fast/standard/premium)
+  - Extracts scene descriptions from requirements
+  - Builds special instructions from brief + strategy
+- Created `src/agents/technical-planner/technical-planner.routes.ts`:
+  - `POST /api/agents/technical-planner/plan` - Create execution plan
+  - `GET /api/agents/technical-planner/health` - Health check
+  - Lazy initialization pattern
+  - Comprehensive error handling
+- Registered routes in orchestrator server
+- Created `__tests__/technical-planner.test.ts` (12 tests, 100% passing):
+  - Basic functionality (3 tests)
+  - Model selection (5 tests)
+  - ExecutionPlan structure (3 tests)
+  - Cost & time estimates (1 test)
+  - Scene extraction (1 test)
+
+**Phase 3: Visual Creator Simplification (5 min):**
+- Verified Visual Creator contains NO decision-making logic
+- Confirmed clean separation: Visual Creator = pure executor
+- No SmartRouter, ModelCatalog, or selection logic in Visual Creator
+- Renamed test file: `visual-creator-bridge.test.ts` → `execution-bridge.test.ts`
+
+**Phase 4: Type System Alignment (20 min):**
+- Fixed `ModelSelectionStrategy` type to match SmartRouter implementation:
+  - `workflow` (not `workflowType`)
+  - `fallbackModel` (not `fallbackModels`)
+  - `reasoning: SelectionReasoning` (object with modelChoice, qualityExpectation, tradeoffs)
+  - `costBreakdown: CostBreakdown` (totalEstimated, withinBudget)
+  - `optimizations?: Optimizations` (promptStrategy)
+- Updated `ModelConfig` to minimal structure:
+  - `name`, `provider`, `model_id`, `estimatedCost`
+- Fixed Technical Planner to match ExecutionPlan type:
+  - Removed `content_type` (not in ExecutionPlan)
+  - Added `prompt` field (required)
+  - Fixed `style_preferences` mapping (gallery_selected to string[])
+  - Fixed field name: `style_description` (not `custom_description`)
+- Updated Technical Planner tests (12/12 passing)
+- All Technical Planner code compiles correctly
+
+### 📊 Test Results
+
+**Total Tests:** 376 tests in 33 files (100%)
+- Technical Planner: 12/12 passing ✅
+- Execution Bridge: 18/18 passing ✅
+- All other tests: 346/346 passing ✅
+
+### 🎯 Architecture Changes
+
+**Before MS-025:**
+```
+Visual Creator
+├── Smart Router (decision-making)
+├── Model Catalog (model specs)
+├── Workflow Orchestrator (planning)
+└── Executor (API calls)
+```
+
+**After MS-025:**
+```
+Technical Planner Agent
+├── Smart Router (decision-making)
+├── Model Catalog (model specs)
+├── Receives ProjectBrief
+└── Returns ExecutionPlan
+
+Visual Creator Agent
+├── Receives ExecutionPlan
+├── Execution Bridge (plan → workflow)
+├── Workflow Orchestrator (planning)
+└── Executor (API calls only)
+```
+
+### 🔑 Key Benefits
+
+1. **Clear Separation of Concerns:**
+   - Technical Planner = WHAT to generate, WHICH models
+   - Visual Creator = HOW to execute the plan
+
+2. **Reusability:**
+   - Technical Planner can serve other execution agents (Video Composer, Audio Generator)
+   - Visual Creator is now a pure execution service
+
+3. **Type Safety:**
+   - Aligned type definitions with actual implementation
+   - Fixed ModelSelectionStrategy to match SmartRouter output
+   - Proper type flow: ProjectBrief → ExecutionPlan → WorkflowExecutionPlan
+
+4. **Testability:**
+   - Technical Planner independently testable (12 comprehensive tests)
+   - Visual Creator tests focus only on execution (18 tests)
+   - Type errors caught at compile time
+
+### 📝 Git Commits
+
+1. `[MS-025 STEP-1] Extract shared coordination layer`
+2. `[MS-025 STEP-2] Create Technical Planner agent with HTTP API`
+3. `[MS-025 STEP-3] Verify Visual Creator separation + Rename bridge test`
+4. `[MS-025 STEP-4] Fix type system - align ModelSelectionStrategy with SmartRouter implementation`
+
+### 🚀 Next Steps
+
+- Update Workflow Orchestrator to use corrected type definitions
+- Fix remaining type errors in execution-bridge.ts (ModelConfig fields)
+- Update smart-router.ts to remove obsolete fields
+- Consider adding content_type to ExecutionPlan if needed by Visual Creator
+
+---
+
 ## 2025-10-20 - Visual Creator Complete at 100% 🎉
 
 **Session Duration:** 30 minutes  
