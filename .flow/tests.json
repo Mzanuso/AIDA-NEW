@@ -1,10 +1,52 @@
 {
   "tests": [
     {
+      "file": "__tests__\\visual-creator-bridge.test.ts",
+      "tests": 18,
+      "suites": 8,
+      "path": "D:\\AIDA-NEW\\__tests__\\visual-creator-bridge.test.ts"
+    },
+    {
+      "file": "__tests__\\workflow-orchestrator.test.ts",
+      "tests": 12,
+      "suites": 6,
+      "path": "D:\\AIDA-NEW\\__tests__\\workflow-orchestrator.test.ts"
+    },
+    {
       "file": "__tests__\\smart-router.test.ts",
       "tests": 14,
       "suites": 1,
       "path": "D:\\AIDA-NEW\\__tests__\\smart-router.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\ideogram-adapter.test.ts",
+      "tests": 16,
+      "suites": 10,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\ideogram-adapter.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\recraft-adapter.test.ts",
+      "tests": 17,
+      "suites": 9,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\recraft-adapter.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\hunyuan-adapter.test.ts",
+      "tests": 15,
+      "suites": 9,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\hunyuan-adapter.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\seedream-adapter.test.ts",
+      "tests": 14,
+      "suites": 10,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\seedream-adapter.test.ts"
+    },
+    {
+      "file": "__tests__\\adapters\\flux-schnell-adapter.test.ts",
+      "tests": 15,
+      "suites": 8,
+      "path": "D:\\AIDA-NEW\\__tests__\\adapters\\flux-schnell-adapter.test.ts"
     },
     {
       "file": "__tests__\\adapters\\flux-pro-adapter.test.ts",
@@ -122,9 +164,9 @@
     }
   ],
   "stats": {
-    "total": 210,
-    "files": 20,
-    "suites": 82
+    "total": 317,
+    "files": 27,
+    "suites": 142
   },
-  "lastScan": "2025-10-20T17:51:25.350Z"
+  "lastScan": "2025-10-20T19:50:29.916Z"
 }

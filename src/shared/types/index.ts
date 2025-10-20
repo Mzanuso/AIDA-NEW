@@ -22,3 +22,15 @@ export type {
   WorkflowStepResult,
   WorkflowResult,
 } from './workflow-orchestrator.types';
+
+// Execution Plan Types
+export type {
+  QualityTier,
+  ContentType,
+  TargetAgent,
+  ExecutionApproach,
+  ModelSelection,
+  ExecutionStep,
+  ExecutionPlan,
+  ExecutionResult,
+} from './execution-plan.types';

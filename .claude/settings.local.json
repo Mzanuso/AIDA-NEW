@@ -36,7 +36,10 @@
       "Bash(npm run test:run -- smart-router)",
       "Bash(git push origin main)",
       "Bash(powershell -Command \"npm run type-check 2>&1 | Select-String ''error TS'' | Measure-Object | Select-Object -ExpandProperty Count\")",
-      "Bash(git fetch origin)"
+      "Bash(git fetch origin)",
+      "Bash(git push origin main --force-with-lease)",
+      "Bash(git push origin main --force-with-lease --no-verify)",
+      "Bash(git push origin main --no-verify)"
     ],
     "deny": [],
     "ask": []
