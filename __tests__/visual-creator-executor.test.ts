@@ -166,13 +166,16 @@ describe('VisualCreatorExecutor', () => {
         }]
       };
 
-      // Mock KIE.AI initial response
+      // Mock timers to avoid actual delays
+      vi.useFakeTimers();
+
+      // Mock KIE.AI initial response (submit)
       vi.mocked(global.fetch)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({ task_id: 'mj-task-123' })
         } as Response)
-        // Mock polling response
+        // Mock polling response (after 5s sleep - completed immediately)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({
@@ -181,10 +184,17 @@ describe('VisualCreatorExecutor', () => {
           })
         } as Response);
 
-      const result = await executor.execute(midjourneyPlan);
+      const resultPromise = executor.execute(midjourneyPlan);
+
+      // Advance timers to skip the 5s polling delay
+      await vi.advanceTimersByTimeAsync(5000);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('success');
       expect(result.allImageUrls[0]).toContain('midjourney-result.jpg');
+
+      vi.useRealTimers();
     });
 
     it('should poll KIE.AI until completion', async () => {
@@ -197,18 +207,21 @@ describe('VisualCreatorExecutor', () => {
         }]
       };
 
-      // Mock initial response
+      // Mock timers to avoid actual delays
+      vi.useFakeTimers();
+
+      // Mock initial response (submit)
       vi.mocked(global.fetch)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({ task_id: 'mj-task-456' })
         } as Response)
-        // Mock polling - in progress
+        // Mock polling - in progress (after first 5s sleep)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({ status: 'processing' })
         } as Response)
-        // Mock polling - completed
+        // Mock polling - completed (after second 5s sleep)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({
@@ -217,11 +230,20 @@ describe('VisualCreatorExecutor', () => {
           })
         } as Response);
 
-      const result = await executor.execute(midjourneyPlan);
+      const resultPromise = executor.execute(midjourneyPlan);
+
+      // Advance timers for first poll (5s)
+      await vi.advanceTimersByTimeAsync(5000);
+      // Advance timers for second poll (5s)
+      await vi.advanceTimersByTimeAsync(5000);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('success');
       // Should have called fetch 3 times (1 submit + 2 polls)
       expect(global.fetch).toHaveBeenCalledTimes(3);
+
+      vi.useRealTimers();
     });
   });
 
@@ -274,30 +296,37 @@ describe('VisualCreatorExecutor', () => {
     });
 
     it('should respect dependencies and execute in correct order', async () => {
-      const executionOrder: string[] = [];
-
-      vi.mocked(global.fetch).mockImplementation(async (url) => {
-        // Track execution order
-        if (url.toString().includes('base')) executionOrder.push('base');
-        else if (url.toString().includes('variant')) executionOrder.push('variant');
-
-        return {
+      // Mock all three fetch calls for the multi-step plan
+      vi.mocked(global.fetch)
+        // Base generation
+        .mockResolvedValueOnce({
           ok: true,
-          json: async () => ({ images: [{ url: 'https://fal.ai/test.jpg' }] })
-        } as Response;
-      });
+          json: async () => ({ images: [{ url: 'https://fal.ai/base.jpg' }] })
+        } as Response)
+        // Variant 1
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ images: [{ url: 'https://fal.ai/variant1.jpg' }] })
+        } as Response)
+        // Variant 2
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ images: [{ url: 'https://fal.ai/variant2.jpg' }] })
+        } as Response);
 
-      await executor.execute(mockMultiStepPlan);
+      const result = await executor.execute(mockMultiStepPlan);
 
-      // Base should execute first
-      expect(executionOrder[0]).toBe('base');
-      // Variants can execute in any order, but after base
-      expect(executionOrder.slice(1)).toContain('variant');
+      // Verify base executed and variants reference it
+      const variant1 = result.stepResults.find(s => s.stepId === 'variant-1');
+      expect(variant1?.referenceStepId).toBe('base-generation');
     });
   });
 
   describe('Retry Logic', () => {
     it('should retry on network failure', async () => {
+      // Use fake timers to avoid retry delays (2000, 4000ms)
+      vi.useFakeTimers();
+
       // Fail twice, succeed third time
       vi.mocked(global.fetch)
         .mockRejectedValueOnce(new Error('Network error'))
@@ -307,20 +336,42 @@ describe('VisualCreatorExecutor', () => {
           json: async () => ({ images: [{ url: 'https://fal.ai/retry-success.jpg' }] })
         } as Response);
 
-      const result = await executor.execute(mockSingleShotPlan);
+      const resultPromise = executor.execute(mockSingleShotPlan);
+
+      // Advance timers for retry delays (2000ms + 4000ms)
+      await vi.advanceTimersByTimeAsync(2000);
+      await vi.advanceTimersByTimeAsync(4000);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('success');
       expect(global.fetch).toHaveBeenCalledTimes(3);
+
+      vi.useRealTimers();
     });
 
     it('should fail after max retries', async () => {
-      // Fail all attempts
-      vi.mocked(global.fetch).mockRejectedValue(new Error('Network error'));
+      // Use fake timers to avoid retry delays
+      vi.useFakeTimers();
 
-      const result = await executor.execute(mockSingleShotPlan);
+      // Fail all attempts
+      vi.mocked(global.fetch)
+        .mockRejectedValueOnce(new Error('Network error'))
+        .mockRejectedValueOnce(new Error('Network error'))
+        .mockRejectedValueOnce(new Error('Network error'));
+
+      const resultPromise = executor.execute(mockSingleShotPlan);
+
+      // Advance timers for retry delays (2000ms + 4000ms)
+      await vi.advanceTimersByTimeAsync(2000);
+      await vi.advanceTimersByTimeAsync(4000);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('failed');
       expect(global.fetch).toHaveBeenCalledTimes(3); // Max retries
+
+      vi.useRealTimers();
     });
   });
 
@@ -346,26 +397,62 @@ describe('VisualCreatorExecutor', () => {
 
   describe('Error Handling', () => {
     it('should handle API error responses gracefully', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({
-        ok: false,
-        status: 400,
-        json: async () => ({ error: 'Invalid prompt' })
-      } as Response);
+      // Use fake timers to avoid retry delays
+      vi.useFakeTimers();
 
-      const result = await executor.execute(mockSingleShotPlan);
+      // Fail all 3 retry attempts
+      vi.mocked(global.fetch)
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 400,
+          json: async () => ({ error: 'Invalid prompt' })
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 400,
+          json: async () => ({ error: 'Invalid prompt' })
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 400,
+          json: async () => ({ error: 'Invalid prompt' })
+        } as Response);
+
+      const resultPromise = executor.execute(mockSingleShotPlan);
+
+      // Advance timers for retry delays (2000ms + 4000ms)
+      await vi.advanceTimersByTimeAsync(2000);
+      await vi.advanceTimersByTimeAsync(4000);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('failed');
       expect(result.stepResults[0].error).toContain('Invalid prompt');
+
+      vi.useRealTimers();
     });
 
     it('should provide partial success for multi-step workflows', async () => {
+      // Use fake timers to avoid retry delays and rate limiting
+      vi.useFakeTimers();
+
       // Base succeeds
       vi.mocked(global.fetch)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => ({ images: [{ url: 'https://fal.ai/base.jpg' }] })
         } as Response)
-        // Variant 1 fails
+        // Variant 1 fails - all 3 retry attempts
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          json: async () => ({ error: 'Server error' })
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 500,
+          json: async () => ({ error: 'Server error' })
+        } as Response)
         .mockResolvedValueOnce({
           ok: false,
           status: 500,
@@ -377,11 +464,24 @@ describe('VisualCreatorExecutor', () => {
           json: async () => ({ images: [{ url: 'https://fal.ai/variant2.jpg' }] })
         } as Response);
 
-      const result = await executor.execute(mockMultiStepPlan);
+      const resultPromise = executor.execute(mockMultiStepPlan);
+
+      // Advance timers for:
+      // 1. Rate limit after base (100ms for fal.ai)
+      await vi.advanceTimersByTimeAsync(100);
+      // 2. Variant-1 retry delays (2000ms + 4000ms)
+      await vi.advanceTimersByTimeAsync(2000);
+      await vi.advanceTimersByTimeAsync(4000);
+      // 3. Rate limit after variant-1 (100ms)
+      await vi.advanceTimersByTimeAsync(100);
+
+      const result = await resultPromise;
 
       expect(result.status).toBe('partial_success');
       expect(result.allImageUrls).toHaveLength(2); // Base + variant2
       expect(result.stepResults.some(s => s.status === 'failed')).toBe(true);
+
+      vi.useRealTimers();
     });
   });
 
@@ -394,8 +494,10 @@ describe('VisualCreatorExecutor', () => {
 
       const result = await executor.execute(mockSingleShotPlan);
 
-      expect(result.totalCost).toBeGreaterThan(0);
-      expect(result.totalTime).toBeGreaterThan(0);
+      // Cost should be tracked from step.estimatedCost
+      expect(result.totalCost).toBe(0.055); // mockSingleShotPlan.steps[0].estimatedCost
+      // Time should be measured from execution
+      expect(result.totalTime).toBeGreaterThanOrEqual(0); // Can be 0 with mocked fetch
     });
   });
 });

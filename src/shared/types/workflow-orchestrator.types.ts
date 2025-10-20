@@ -108,11 +108,12 @@ export interface WorkflowExecutionPlan {
  * Status of workflow execution
  */
 export type WorkflowStatus = 
-  | 'pending'      // Waiting to start
-  | 'running'      // Currently executing
-  | 'completed'    // Successfully finished
-  | 'failed'       // Encountered error
-  | 'cancelled';   // Manually stopped
+  | 'pending'          // Waiting to start
+  | 'running'          // Currently executing
+  | 'completed'        // Successfully finished all steps
+  | 'partial_success'  // Some steps succeeded, some failed
+  | 'failed'           // All steps failed or critical error
+  | 'cancelled';       // Manually stopped
 
 /**
  * Result of a completed workflow step
@@ -142,6 +143,12 @@ export interface WorkflowStepResult {
    * Actual cost incurred (USD)
    */
   actualCost?: number;
+
+  /**
+   * Reference step ID for dependency tracking
+   * Points to the step this one depends on
+   */
+  referenceStepId?: string;
 
   /**
    * Error message if failed
