@@ -7,16 +7,16 @@
       "path": "D:\\AIDA-NEW\\utils\\logger.test.ts"
     },
     {
+      "file": "__tests__\\execution-bridge.test.ts",
+      "tests": 18,
+      "suites": 8,
+      "path": "D:\\AIDA-NEW\\__tests__\\execution-bridge.test.ts"
+    },
+    {
       "file": "__tests__\\technical-planner.test.ts",
       "tests": 12,
       "suites": 6,
       "path": "D:\\AIDA-NEW\\__tests__\\technical-planner.test.ts"
-    },
-    {
-      "file": "__tests__\\visual-creator-bridge.test.ts",
-      "tests": 18,
-      "suites": 8,
-      "path": "D:\\AIDA-NEW\\__tests__\\visual-creator-bridge.test.ts"
     },
     {
       "file": "__tests__\\workflow-orchestrator.test.ts",
@@ -204,5 +204,5 @@
     "files": 33,
     "suites": 171
   },
-  "lastScan": "2025-10-20T23:39:02.171Z"
+  "lastScan": "2025-10-20T23:53:33.136Z"
 }

@@ -39,10 +39,10 @@ describe('TechnicalPlanner', () => {
       expect(plan.id).toMatch(/^plan-/);
       expect(plan.brief_id).toBe('brief-001');
       expect(plan.target_agent).toBe('visual_creator');
-      expect(plan.content_type).toBe('image');
       expect(plan.primary_model).toBeDefined();
       expect(plan.primary_model.name).toBeTruthy();
       expect(plan.scene_descriptions).toHaveLength(1);
+      expect(plan.prompt).toBeTruthy();
     });
 
     it('should throw error for invalid ProjectBrief (missing ID)', async () => {
@@ -164,7 +164,7 @@ describe('TechnicalPlanner', () => {
       expect(plan.id).toBeDefined();
       expect(plan.brief_id).toBe('brief-006');
       expect(plan.target_agent).toBe('visual_creator');
-      expect(plan.content_type).toBe('image');
+      expect(plan.prompt).toBeTruthy();
       expect(plan.scene_descriptions).toBeDefined();
       expect(plan.quality_tier).toBeDefined();
       expect(plan.primary_model).toBeDefined();
@@ -206,7 +206,7 @@ describe('TechnicalPlanner', () => {
 
       expect(plan.style_preferences).toBeDefined();
       expect(plan.style_preferences?.gallery_selected).toHaveLength(1);
-      expect(plan.style_preferences?.gallery_selected?.[0].name).toBe('Cinematic');
+      expect(plan.style_preferences?.gallery_selected?.[0]).toBe('style-001');
     });
 
     it('should include special instructions in plan', async () => {

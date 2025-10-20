@@ -1,30 +1,25 @@
 /**
  * Model Selection Strategy Types
- * 
+ *
  * Defines output from Smart Router for model selection and workflow planning.
  * Used as input by Workflow Orchestrator.
- * 
+ *
  * @module shared/types/model-strategy
  */
 
 /**
  * Workflow execution types
  */
-export type WorkflowType = 
+export type WorkflowType =
   | 'single-shot'        // Generate 1 image, return immediately
   | 'consistency'        // Generate 3-5 variants with same character/style
   | 'text-composite'     // Generate base + text overlay (2 steps)
   | 'parallel-explore';  // Generate 4 variants with different models
 
 /**
- * Model configuration details
+ * Model configuration details (minimal structure from SmartRouter)
  */
 export interface ModelConfig {
-  /**
-   * Model identifier (e.g., "flux-pro", "seedream-4.0")
-   */
-  id: string;
-
   /**
    * Human-readable model name
    */
@@ -36,39 +31,53 @@ export interface ModelConfig {
   provider: string;
 
   /**
-   * Quality tier classification
+   * Model identifier (e.g., "flux-pro-1.1", "seedream-4.0")
    */
-  tier: 'budget' | 'standard' | 'premium';
+  model_id: string;
 
   /**
-   * Cost per generation (USD)
+   * Estimated cost per generation (USD)
    */
-  costPerGeneration: number;
+  estimatedCost: number;
+}
 
-  /**
-   * Average generation time (seconds)
-   */
-  averageTime: number;
+/**
+ * Workflow step definition
+ */
+export interface WorkflowStep {
+  step_number: number;
+  model: string;
+  description: string;
+  output_usage: string;
+}
 
-  /**
-   * Supported aspect ratios
-   */
-  supportedAspectRatios: string[];
+/**
+ * Cost breakdown information
+ */
+export interface CostBreakdown {
+  totalEstimated: number;
+  withinBudget: boolean;
+}
 
-  /**
-   * Model-specific capabilities
-   */
-  capabilities: {
-    textRendering?: boolean;
-    characterConsistency?: boolean;
-    vectorOutput?: boolean;
-    style3D?: boolean;
-  };
+/**
+ * Optimization recommendations
+ */
+export interface Optimizations {
+  promptStrategy: string[];
+}
+
+/**
+ * Selection reasoning details
+ */
+export interface SelectionReasoning {
+  modelChoice: string;
+  qualityExpectation: 'acceptable' | 'good' | 'high' | 'premium';
+  tradeoffs?: string[];
 }
 
 /**
  * Complete model selection strategy from Smart Router
- * 
+ *
  * This is the output of Smart Router and input to Workflow Orchestrator.
  */
 export interface ModelSelectionStrategy {
@@ -78,30 +87,32 @@ export interface ModelSelectionStrategy {
   primaryModel: ModelConfig;
 
   /**
-   * Fallback models if primary fails (ordered by preference)
+   * Fallback model if primary fails (optional)
    */
-  fallbackModels: ModelConfig[];
+  fallbackModel?: ModelConfig;
 
   /**
    * Workflow type to execute
    */
-  workflowType: WorkflowType;
+  workflow: WorkflowType;
 
   /**
-   * Human-readable explanation of selection reasoning
-   * 
-   * @example "Premium portrait requires FLUX Pro for photorealism"
-   * @example "Budget constraint: downgraded from FLUX Pro to FLUX Schnell"
+   * Detailed workflow steps (for multi-step workflows)
    */
-  reasoning: string;
+  steps?: WorkflowStep[];
 
   /**
-   * Quality tier determined by Smart Router
+   * Cost breakdown
    */
-  qualityTier: 'budget' | 'standard' | 'premium';
+  costBreakdown: CostBreakdown;
 
   /**
-   * Whether budget constraints forced a downgrade
+   * Optimization recommendations
    */
-  wasDowngraded?: boolean;
+  optimizations?: Optimizations;
+
+  /**
+   * Detailed selection reasoning
+   */
+  reasoning: SelectionReasoning;
 }

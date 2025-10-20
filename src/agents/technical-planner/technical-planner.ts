@@ -59,10 +59,12 @@ export class TechnicalPlanner {
       id: `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       brief_id: brief.id,
       target_agent: 'visual_creator',
-      content_type: brief.content_type,
 
       // Extract scene descriptions from requirements
       scene_descriptions: this.extractScenes(brief),
+
+      // Build primary prompt from scene descriptions
+      prompt: this.extractScenes(brief)[0] || '',
 
       // Quality tier mapping
       quality_tier: this.mapQualityTier(strategy),
@@ -71,7 +73,7 @@ export class TechnicalPlanner {
       primary_model: {
         name: strategy.primaryModel.name,
         model_id: strategy.primaryModel.model_id,
-        provider: strategy.primaryModel.provider,
+        provider: strategy.primaryModel.provider as any,
         reason: strategy.reasoning.modelChoice,
         estimated_cost: strategy.primaryModel.estimatedCost,
         estimated_time: 12 // Default, will be refined by Visual Creator
@@ -81,9 +83,9 @@ export class TechnicalPlanner {
       fallback_models: strategy.fallbackModel ? [{
         name: strategy.fallbackModel.name,
         model_id: strategy.fallbackModel.model_id,
-        provider: strategy.fallbackModel.provider,
+        provider: strategy.fallbackModel.provider as any,
         reason: 'Fallback if primary unavailable',
-        estimated_cost: 0.04, // Default
+        estimated_cost: strategy.fallbackModel.estimatedCost || 0.04,
         estimated_time: 12
       }] : [],
 
@@ -96,16 +98,19 @@ export class TechnicalPlanner {
       total_estimated_cost: strategy.costBreakdown.totalEstimated,
       total_estimated_time: 15, // Base estimate
 
-      // Style preferences (pass through from brief)
-      style_preferences: brief.style_preferences,
+      // Style preferences (map from brief to execution plan format)
+      style_preferences: brief.style_preferences ? {
+        gallery_selected: brief.style_preferences.gallery_selected?.map(g => g.id),
+        custom_description: brief.style_preferences.style_description
+      } : undefined,
 
       // Special instructions
       special_instructions: this.buildSpecialInstructions(brief, strategy),
 
-      // Parameters
+      // Parameters (defaults, as ProjectBrief doesn't include these yet)
       parameters: {
-        aspect_ratio: brief.parameters?.aspect_ratio || '1:1',
-        output_format: brief.parameters?.output_format || 'png'
+        aspect_ratio: '1:1',
+        output_format: 'png'
       },
 
       created_at: new Date().toISOString()
