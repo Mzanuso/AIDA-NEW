@@ -46,7 +46,8 @@
       "Bash(git mv src/agents/visual-creator/smart-router.ts src/shared/coordination/smart-router.ts)",
       "Bash(git mv src/agents/visual-creator/workflow-orchestrator.ts src/shared/coordination/workflow-orchestrator.ts)",
       "Bash(git mv src/agents/visual-creator/model-catalog.ts src/shared/coordination/model-catalog.ts)",
-      "Bash(git mv shared/types/project-brief.types.ts src/shared/types/project-brief.types.ts)"
+      "Bash(git mv shared/types/project-brief.types.ts src/shared/types/project-brief.types.ts)",
+      "Bash(git mv shared/types/budget-constraints.types.ts src/shared/types/budget-constraints.types.ts)"
     ],
     "deny": [],
     "ask": []
