@@ -177,36 +177,36 @@ export class WorkflowOrchestrator {
     const baseModel = strategy.primaryModel;
     
     // Find Ideogram in fallbacks or use primary for text overlay
-    const textModel = strategy.fallbackModels.find(m => 
+    const textModel = strategy.fallbackModels.find(m =>
       m.capabilities.textRendering
     ) || this.getIdeogramModel() || baseModel;
 
     // Step 1: Generate base image (without text)
     const basePrompt = { ...prompt };
     delete basePrompt.textOverlay;
-    const translatedBase = await this.translatePrompt(baseModel.id, basePrompt);
+    const translatedBase = await this.translatePrompt(baseModel.model_id, basePrompt);
 
     // Step 2: Add text overlay using text specialist
-    const translatedText = await this.translatePrompt(textModel.id, prompt);
+    const translatedText = await this.translatePrompt(textModel.model_id, prompt);
 
     return [
       {
         stepId: 'base-generation',
-        model: baseModel.id,
+        model: baseModel.model_id,
         prompt: translatedBase,
         parameters: this.extractParameters(translatedBase),
-        estimatedTime: baseModel.averageTime,
-        estimatedCost: baseModel.costPerGeneration
+        estimatedTime: 30,
+        estimatedCost: baseModel.estimatedCost
       },
       {
         stepId: 'text-overlay',
-        model: textModel.id,
+        model: textModel.model_id,
         prompt: translatedText,
         parameters: this.extractParameters(translatedText),
         dependencies: ['base-generation'], // Sequential: wait for base
         referenceImages: ['base-generation'], // Use base as reference
-        estimatedTime: textModel.averageTime,
-        estimatedCost: textModel.costPerGeneration
+        estimatedTime: 30,
+        estimatedCost: textModel.estimatedCost
       }
     ];
   }
@@ -230,18 +230,18 @@ export class WorkflowOrchestrator {
 
     // Generate step for each model (all parallel, no dependencies)
     const steps: WorkflowStep[] = [];
-    
+
     for (let i = 0; i < 4; i++) {
       const model = models[i];
-      const translatedPrompt = await this.translatePrompt(model.id, prompt);
+      const translatedPrompt = await this.translatePrompt(model.model_id, prompt);
 
       steps.push({
         stepId: `parallel-${i + 1}`,
-        model: model.id,
+        model: model.model_id,
         prompt: translatedPrompt,
         parameters: this.extractParameters(translatedPrompt),
-        estimatedTime: model.averageTime,
-        estimatedCost: model.costPerGeneration
+        estimatedTime: 30,
+        estimatedCost: model.estimatedCost
       });
     }
 
@@ -253,13 +253,10 @@ export class WorkflowOrchestrator {
    */
   private getIdeogramModel(): ModelConfig | null {
     return {
-      id: 'ideogram-v2',
+      model_id: 'ideogram-v2',
       name: 'Ideogram v2',
       provider: 'fal.ai',
-      tier: 'premium',
-      costPerGeneration: 0.08,
-      averageTime: 15,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '4:3', '3:4'],
+      estimatedCost: 0.08,
       capabilities: {
         textRendering: true
       }

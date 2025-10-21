@@ -79,7 +79,7 @@ export class RagTools {
       
       // Vector search with pgvector
       const results = await db.execute(sql`
-        SELECT 
+        SELECT
           p.id,
           p.title,
           p.brief,
@@ -96,8 +96,8 @@ export class RagTools {
         ORDER BY distance ASC
         LIMIT ${limit}
       `);
-      
-      return results.map((r: any) => ({
+
+      return results.rows.map((r: any) => ({
         id: r.id,
         title: r.title,
         brief: r.brief,
@@ -132,7 +132,7 @@ export class RagTools {
       const typeFilter = fileType ? sql`AND "fileType" = ${fileType}` : sql``;
       
       const results = await db.execute(sql`
-        SELECT 
+        SELECT
           id,
           "fileName",
           "fileType",
@@ -146,8 +146,8 @@ export class RagTools {
         ORDER BY distance ASC
         LIMIT 5
       `);
-      
-      return results.map((r: any) => ({
+
+      return results.rows.map((r: any) => ({
         id: r.id,
         fileName: r.fileName,
         fileType: r.fileType,
@@ -170,7 +170,7 @@ export class RagTools {
     
     try {
       const results = await db.execute(sql`
-        SELECT 
+        SELECT
           c.id,
           c.name,
           c.theme,
@@ -182,8 +182,8 @@ export class RagTools {
         GROUP BY c.id
         ORDER BY c."createdAt" DESC
       `);
-      
-      return results.map((r: any) => ({
+
+      return results.rows.map((r: any) => ({
         id: r.id,
         name: r.name,
         theme: r.theme,
@@ -214,13 +214,13 @@ export class RagTools {
         AND LOWER(name) LIKE ${`%${campaignName.toLowerCase()}%`}
         LIMIT 1
       `);
-      
-      if (campaignResults.length === 0) {
+
+      if (campaignResults.rows.length === 0) {
         logger.warn('Campaign not found', { campaignName });
         return null;
       }
-      
-      const campaign = campaignResults[0] as any;
+
+      const campaign = campaignResults.rows[0] as any;
       
       // Load all projects in campaign
       const projectResults = await db.execute(sql`
@@ -309,7 +309,7 @@ export class RagTools {
         : sql``;
       
       const results = await db.execute(sql`
-        SELECT 
+        SELECT
           id,
           category,
           "preferredStyleId",
@@ -321,9 +321,9 @@ export class RagTools {
         ${categoryFilter}
         ORDER BY "confidenceScore" DESC
       `);
-      
-      if (results.length > 0) {
-        return results as unknown as UserPreferences[];
+
+      if (results.rows.length > 0) {
+        return results.rows as unknown as UserPreferences[];
       }
       
       // No explicit preferences - learn from history
@@ -345,7 +345,7 @@ export class RagTools {
     
     try {
       const results = await db.execute(sql`
-        SELECT 
+        SELECT
           p."styleId",
           p.duration,
           COUNT(*) as usage_count
@@ -355,12 +355,12 @@ export class RagTools {
         ORDER BY usage_count DESC
         LIMIT 1
       `);
-      
-      if (results.length === 0) {
+
+      if (results.rows.length === 0) {
         return [];
       }
-      
-      const mostUsed = results[0] as any;
+
+      const mostUsed = results.rows[0] as any;
       const totalProjects = parseInt(mostUsed.usage_count) || 0;
       
       // Save learned preference
