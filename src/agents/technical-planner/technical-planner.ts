@@ -119,7 +119,7 @@ export class TechnicalPlanner {
     logger.info('Execution plan created', {
       planId: plan.id,
       model: plan.primary_model.name,
-      scenes: plan.scene_descriptions.length,
+      scenes: plan.scene_descriptions?.length || 0,
       cost: plan.total_estimated_cost
     });
 

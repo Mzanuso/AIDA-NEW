@@ -67,37 +67,37 @@ export class WorkflowOrchestrator {
     // Route to appropriate workflow generator
     let steps: WorkflowStep[];
     
-    switch (strategy.workflowType) {
+    switch (strategy.workflow) {
       case 'single-shot':
         steps = await this.generateSingleShotWorkflow(strategy, prompt);
         break;
-      
+
       case 'consistency':
         steps = await this.generateConsistencyWorkflow(strategy, prompt);
         break;
-      
+
       case 'text-composite':
         steps = await this.generateTextCompositeWorkflow(strategy, prompt);
         break;
-      
+
       case 'parallel-explore':
         steps = await this.generateParallelExploreWorkflow(strategy, prompt);
         break;
-      
+
       default:
-        throw new Error(`Unsupported workflow type: ${strategy.workflowType}`);
+        throw new Error(`Unsupported workflow type: ${strategy.workflow}`);
     }
 
     // Calculate totals
     const { estimatedTime, estimatedCost } = this.calculateTotals(
       steps,
-      strategy.workflowType
+      strategy.workflow
     );
 
     // Build final plan
     return {
       workflowId,
-      workflowType: strategy.workflowType,
+      workflowType: strategy.workflow,
       steps,
       estimatedTime,
       estimatedCost,
@@ -114,15 +114,15 @@ export class WorkflowOrchestrator {
     prompt: UniversalPrompt
   ): Promise<WorkflowStep[]> {
     const model = strategy.primaryModel;
-    const translatedPrompt = await this.translatePrompt(model.id, prompt);
+    const translatedPrompt = await this.translatePrompt(model.model_id, prompt);
 
     return [{
       stepId: 'step-001',
-      model: model.id,
+      model: model.model_id,
       prompt: translatedPrompt,
       parameters: this.extractParameters(translatedPrompt),
-      estimatedTime: model.averageTime,
-      estimatedCost: model.costPerGeneration
+      estimatedTime: 30, // Default 30s
+      estimatedCost: model.estimatedCost
     }];
   }
 
@@ -138,29 +138,29 @@ export class WorkflowOrchestrator {
     const steps: WorkflowStep[] = [];
 
     // Step 1: Generate base/reference image
-    const basePrompt = await this.translatePrompt(model.id, prompt);
+    const basePrompt = await this.translatePrompt(model.model_id, prompt);
     steps.push({
       stepId: 'base-generation',
-      model: model.id,
+      model: model.model_id,
       prompt: basePrompt,
       parameters: this.extractParameters(basePrompt),
-      estimatedTime: model.averageTime,
-      estimatedCost: model.costPerGeneration
+      estimatedTime: 30,
+      estimatedCost: model.estimatedCost
     });
 
     // Steps 2-N: Generate variants using step-1 as reference
     for (let i = 2; i <= variantCount; i++) {
-      const variantPrompt = await this.translatePrompt(model.id, prompt);
-      
+      const variantPrompt = await this.translatePrompt(model.model_id, prompt);
+
       steps.push({
         stepId: `variant-${i}`,
-        model: model.id,
+        model: model.model_id,
         prompt: variantPrompt,
         parameters: this.extractParameters(variantPrompt),
         dependencies: ['base-generation'], // Wait for reference image
         referenceImages: ['base-generation'], // Reference to base step
-        estimatedTime: model.averageTime,
-        estimatedCost: model.costPerGeneration
+        estimatedTime: 30,
+        estimatedCost: model.estimatedCost
       });
     }
 

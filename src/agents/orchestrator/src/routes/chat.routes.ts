@@ -48,7 +48,7 @@ router.post('/chat', async (req, res) => {
 
     if (!validationResult.success) {
       logger.warn('Invalid request payload', {
-        errors: validationResult.error.errors.map(e => ({
+        errors: validationResult.error.issues.map((e: any) => ({
           path: e.path.join('.'),
           message: e.message
         }))
@@ -57,7 +57,7 @@ router.post('/chat', async (req, res) => {
       return res.status(400).json({
         success: false,
         error: 'Invalid request payload',
-        details: validationResult.error.errors.map(e => ({
+        details: validationResult.error.issues.map((e: any) => ({
           field: e.path.join('.'),
           message: e.message
         }))

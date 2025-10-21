@@ -77,12 +77,18 @@ export class VisualCreatorBridge {
         // Create ModelSelectionStrategy manually (bypass Smart Router for now)
         const strategy = {
           primaryModel: modelConfig,
-          fallbackModels: plan.fallback_models?.map(m => 
-            this.executionModelToModelConfig(m)
-          ) || [],
-          workflowType,
-          reasoning: plan.primary_model.reason,
-          qualityTier: plan.quality_tier
+          fallbackModel: plan.fallback_models && plan.fallback_models.length > 0
+            ? this.executionModelToModelConfig(plan.fallback_models[0])
+            : undefined,
+          workflow: workflowType,
+          costBreakdown: {
+            totalEstimated: plan.total_cost || 0,
+            withinBudget: true
+          },
+          reasoning: {
+            modelChoice: plan.primary_model.reason,
+            qualityExpectation: plan.quality_tier as 'acceptable' | 'good' | 'high' | 'premium'
+          }
         };
 
         // Generate workflow plan
@@ -262,14 +268,10 @@ export class VisualCreatorBridge {
    */
   private executionModelToModelConfig(model: any): ModelConfig {
     return {
-      id: model.model_id,
       name: model.name,
       provider: model.provider.toLowerCase().replace('.', ''),
-      tier: this.inferTierFromCost(model.estimated_cost),
-      costPerGeneration: model.estimated_cost,
-      averageTime: model.estimated_time,
-      supportedAspectRatios: ['1:1', '16:9', '9:16', '4:3', '3:4'], // Default set
-      capabilities: {}
+      model_id: model.model_id,
+      estimatedCost: model.estimated_cost
     };
   }
 

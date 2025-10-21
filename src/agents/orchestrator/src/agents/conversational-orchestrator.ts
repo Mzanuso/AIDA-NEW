@@ -1280,9 +1280,8 @@ export class ConversationalOrchestrator {
       capability,
       type: contentType,
       requirements: {
-        description: this.extractDescription(context),
+        // description and mood fields removed - not in ProjectRequirements type
         style: context.detectedIntent.style !== 'unknown' ? context.detectedIntent.style : undefined,
-        mood: context.detectedIntent.style !== 'unknown' ? context.detectedIntent.style : undefined,
         duration: context.inferredSpecs.duration,
         aspectRatio: context.inferredSpecs.aspectRatio,
         resolution: context.inferredSpecs.resolution,

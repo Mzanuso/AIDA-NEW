@@ -309,7 +309,7 @@ export class SmartRouter {
         name: MODEL_CATALOG.FLUX_PRO_ULTRA.name,
         provider: MODEL_CATALOG.FLUX_PRO_ULTRA.provider,
         model_id: MODEL_CATALOG.FLUX_PRO_ULTRA.model_id,
-        triggerConditions: ['primary unavailable', 'primary timeout', 'API error'],
+        estimatedCost: MODEL_CATALOG.FLUX_PRO_ULTRA.cost_per_image,
       };
     }
 
@@ -318,7 +318,7 @@ export class SmartRouter {
       name: MODEL_CATALOG.FLUX_SCHNELL.name,
       provider: MODEL_CATALOG.FLUX_SCHNELL.provider,
       model_id: MODEL_CATALOG.FLUX_SCHNELL.model_id,
-      triggerConditions: ['primary unavailable'],
+      estimatedCost: MODEL_CATALOG.FLUX_SCHNELL.cost_per_image,
     };
   }
 

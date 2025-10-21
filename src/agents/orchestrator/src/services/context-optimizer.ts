@@ -173,8 +173,8 @@ export class ContextOptimizer {
       const systemBlocks: Anthropic.Messages.TextBlockParam[] = [
         {
           type: 'text',
-          text: personalityPrompt + '\n\n' + costPrompt,
-          cache_control: { type: 'ephemeral' } // Cache this block
+          text: personalityPrompt + '\n\n' + costPrompt
+          // Note: cache_control removed - not in official Anthropic SDK types
         },
         {
           type: 'text',

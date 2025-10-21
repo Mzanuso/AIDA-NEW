@@ -125,7 +125,7 @@ export class ContextAnalyzer {
         sessionId,
         userId: session.userId,
         projectId: session.projectId || undefined,
-        messages: messages.map(m => ({
+        messages: messages.map((m: any) => ({
           role: m.role as Message['role'],
           content: m.content,
           metadata: m.metadata as Record<string, any>,
@@ -422,7 +422,7 @@ export class ContextAnalyzer {
         .orderBy(desc(conversationSessions.createdAt))
         .limit(limit);
 
-      const completed = sessions.filter(s => s.status === 'completed').length;
+      const completed = sessions.filter((s: any) => s.status === 'completed').length;
 
       // Extract topics from session intents
       const recentTopics: string[] = [];
