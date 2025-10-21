@@ -177,9 +177,9 @@ export class WorkflowOrchestrator {
     const baseModel = strategy.primaryModel;
     
     // Find Ideogram in fallbacks or use primary for text overlay
-    const textModel = strategy.fallbackModels.find(m =>
-      m.capabilities.textRendering
-    ) || this.getIdeogramModel() || baseModel;
+    // Note: fallbackModel is single, and ModelConfig doesn't have capabilities
+    // So we hardcode Ideogram for text rendering
+    const textModel = this.getIdeogramModel() || baseModel;
 
     // Step 1: Generate base image (without text)
     const basePrompt = { ...prompt };
@@ -218,10 +218,12 @@ export class WorkflowOrchestrator {
     strategy: ModelSelectionStrategy,
     prompt: UniversalPrompt
   ): Promise<WorkflowStep[]> {
-    const models: ModelConfig[] = [
-      strategy.primaryModel,
-      ...strategy.fallbackModels.slice(0, 3) // Take up to 3 fallbacks
-    ];
+    const models: ModelConfig[] = [strategy.primaryModel];
+
+    // Add fallback if available
+    if (strategy.fallbackModel) {
+      models.push(strategy.fallbackModel);
+    }
 
     // Ensure we have exactly 4 models (pad with primary if needed)
     while (models.length < 4) {
@@ -256,10 +258,7 @@ export class WorkflowOrchestrator {
       model_id: 'ideogram-v2',
       name: 'Ideogram v2',
       provider: 'fal.ai',
-      estimatedCost: 0.08,
-      capabilities: {
-        textRendering: true
-      }
+      estimatedCost: 0.08
     };
   }
 
@@ -345,7 +344,7 @@ export class WorkflowOrchestrator {
   ): string {
     const modelName = strategy.primaryModel.name;
     const stepCount = steps.length;
-    const workflowType = strategy.workflowType;
+    const workflowType = strategy.workflow;
 
     const descriptions: Record<string, string> = {
       'single-shot': `Single image generation using ${modelName}`,
@@ -354,7 +353,7 @@ export class WorkflowOrchestrator {
       'parallel-explore': `4 parallel explorations using ${stepCount} different models for comparison`
     };
 
-    return descriptions[workflowType] || strategy.reasoning;
+    return descriptions[workflowType] || (typeof strategy.reasoning === 'string' ? strategy.reasoning : '');
   }
 
   /**
@@ -372,13 +371,13 @@ export class WorkflowOrchestrator {
       throw new Error('Invalid UniversalPrompt: missing subject');
     }
 
-    if (!strategy.workflowType) {
-      throw new Error('Invalid ModelSelectionStrategy: missing workflowType');
+    if (!strategy.workflow) {
+      throw new Error('Invalid ModelSelectionStrategy: missing workflow');
     }
 
     const validWorkflowTypes = ['single-shot', 'consistency', 'text-composite', 'parallel-explore'];
-    if (!validWorkflowTypes.includes(strategy.workflowType)) {
-      throw new Error(`Invalid workflow type: ${strategy.workflowType}`);
+    if (!validWorkflowTypes.includes(strategy.workflow)) {
+      throw new Error(`Invalid workflow type: ${strategy.workflow}`);
     }
   }
 }

@@ -240,8 +240,8 @@ export class RagTools {
         WHERE pc."campaignId" = ${campaign.id}
         ORDER BY p."createdAt" DESC
       `);
-      
-      const projects = projectResults as any[];
+
+      const projects = projectResults.rows as any[];
       
       // Aggregate common parameters
       const styleCounts: Record<string, number> = {};
