@@ -1,11 +1,10 @@
 /**
  * Style Selector Client
  *
- * Client to fetch styles from Supabase database
- * Replaces old REST API client with direct Supabase queries
+ * HTTP Client to communicate with Style Selector microservice (port 3002)
+ * Replaces direct Supabase calls with HTTP API calls
  */
 
-import { supabaseStylesClient } from './supabase-styles-client';
 import { createLogger } from '../../../../utils/logger';
 
 const logger = createLogger('StyleSelectorClient');
@@ -59,9 +58,18 @@ export interface StyleMatch {
   reason: string;
 }
 
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+}
+
 export class StyleSelectorClient {
-  constructor() {
-    logger.info('StyleSelectorClient initialized (using Supabase)');
+  private readonly baseUrl: string;
+
+  constructor(baseUrl: string = 'http://localhost:3002') {
+    this.baseUrl = baseUrl;
+    logger.info('StyleSelectorClient initialized', { baseUrl });
   }
 
   /**
@@ -69,8 +77,22 @@ export class StyleSelectorClient {
    */
   async getAllStyles(limit: number = 10): Promise<StyleReference[]> {
     try {
-      logger.info('Fetching all styles from Supabase', { limit });
-      return await supabaseStylesClient.getAllStyles(limit);
+      logger.info('Fetching all styles from Style Selector API', { limit });
+      
+      const response = await fetch(`${this.baseUrl}/api/styles`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const result: ApiResponse<StyleReference[]> = await response.json();
+      
+      if (!result.success || !result.data) {
+        throw new Error(result.error || 'Failed to fetch styles');
+      }
+
+      // Apply limit if more styles returned than requested
+      return result.data.slice(0, limit);
     } catch (error) {
       logger.error('Failed to get all styles', { error });
       return [];
@@ -80,19 +102,27 @@ export class StyleSelectorClient {
   /**
    * Get style by ID
    */
-  async getStyleById(id: number): Promise<StyleReference | null> {
+  async getStyleById(id: string): Promise<StyleReference | null> {
     try {
+      logger.info('Fetching style by ID from Style Selector API', { id });
+      
       const response = await fetch(`${this.baseUrl}/api/styles/${id}`);
-
+      
+      if (response.status === 404) {
+        return null;
+      }
+      
       if (!response.ok) {
-        if (response.status === 404) {
-          return null;
-        }
-        throw new Error(`Style Selector API error: ${response.statusText}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return data.data || null;
+      const result: ApiResponse<StyleReference> = await response.json();
+      
+      if (!result.success || !result.data) {
+        throw new Error(result.error || 'Failed to fetch style');
+      }
+
+      return result.data;
     } catch (error) {
       logger.error('Failed to get style by ID', { id, error });
       return null;
@@ -104,23 +134,30 @@ export class StyleSelectorClient {
    */
   async searchStyles(params: StyleSearchParams): Promise<StyleReference[]> {
     try {
+      logger.info('Searching styles in Style Selector API', { params });
+      
       const queryParams = new URLSearchParams();
 
       if (params.keyword) queryParams.append('keyword', params.keyword);
       if (params.category) queryParams.append('category', params.category);
       if (params.limit) queryParams.append('limit', params.limit.toString());
       if (params.tags && params.tags.length > 0) {
-        params.tags.forEach(tag => queryParams.append('tags', tag));
+        queryParams.append('tags', params.tags.join(','));
       }
 
       const response = await fetch(`${this.baseUrl}/api/styles/search?${queryParams.toString()}`);
-
+      
       if (!response.ok) {
-        throw new Error(`Style Selector API error: ${response.statusText}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return data.data || [];
+      const result: ApiResponse<StyleReference[]> = await response.json();
+      
+      if (!result.success || !result.data) {
+        throw new Error(result.error || 'Failed to search styles');
+      }
+
+      return result.data;
     } catch (error) {
       logger.error('Failed to search styles', { params, error });
       return [];
@@ -143,6 +180,9 @@ export class StyleSelectorClient {
 
   /**
    * Get style recommendations based on user intent
+   *
+   * Note: This is a client-side implementation since Style Selector API
+   * doesn't have a /recommendations endpoint. Uses search as fallback.
    */
   async getRecommendations(intent: {
     purpose?: string;
@@ -152,7 +192,21 @@ export class StyleSelectorClient {
   }, limit: number = 5): Promise<StyleReference[]> {
     try {
       logger.info('getRecommendations called', { intent, limit });
-      return await supabaseStylesClient.getRecommendations(intent, limit);
+      
+      // Build search query from intent
+      const keywords: string[] = [];
+      if (intent.style) keywords.push(intent.style);
+      if (intent.mood) keywords.push(intent.mood);
+      if (intent.purpose) keywords.push(intent.purpose);
+      
+      const keyword = keywords.join(' ');
+      
+      if (!keyword) {
+        // No keywords, return popular styles
+        return this.getAllStyles(limit);
+      }
+      
+      return this.searchStyles({ keyword, limit });
     } catch (error) {
       logger.error('Failed to get recommendations', { error });
       return [];
@@ -300,13 +354,8 @@ export class StyleSelectorClient {
    */
   async getStyleDetails(styleId: string): Promise<StyleReference | null> {
     try {
-      const id = parseInt(styleId);
-      if (isNaN(id)) {
-        logger.warn('Invalid style ID', { styleId });
-        return null;
-      }
-
-      return await this.getStyleById(id);
+      logger.info('Getting style details', { styleId });
+      return await this.getStyleById(styleId);
     } catch (error) {
       logger.error('Failed to get style details', { error, styleId });
       return null;
@@ -351,7 +400,7 @@ export class StyleSelectorClient {
       }
     });
 
-    return [...new Set(keywords)]; // Remove duplicates
+    return Array.from(new Set(keywords)); // Remove duplicates
   }
 
   /**

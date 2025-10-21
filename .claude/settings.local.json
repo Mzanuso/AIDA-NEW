@@ -49,7 +49,8 @@
       "Bash(git mv shared/types/project-brief.types.ts src/shared/types/project-brief.types.ts)",
       "Bash(git mv shared/types/budget-constraints.types.ts src/shared/types/budget-constraints.types.ts)",
       "Bash(npm run test:run -- __tests__/technical-planner.test.ts)",
-      "Bash(git mv __tests__/visual-creator-bridge.test.ts __tests__/execution-bridge.test.ts)"
+      "Bash(git mv __tests__/visual-creator-bridge.test.ts __tests__/execution-bridge.test.ts)",
+      "Bash(npm run test:run:*)"
     ],
     "deny": [],
     "ask": []

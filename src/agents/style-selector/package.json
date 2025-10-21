@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "import-styles": "tsx scripts/import-styles.ts",
+    "verify-db": "tsx scripts/verify-db.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.75.0",

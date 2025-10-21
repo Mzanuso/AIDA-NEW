@@ -37,19 +37,31 @@ Creative Brief → Analysis → Model Selection → Execution Plan → Delegatio
 
 ### 1.2 Position in AIDA Architecture
 
+**UPDATED (Oct 21, 2025):** Corrected architecture flow.
+
 ```yaml
 User Input
     ↓
-Orchestrator (Conversational Agent)
+Orchestrator (Conversational Agent - Account Manager)
     ↓
-Director (Creative Planner) [optional for complex projects]
+Technical Planner (Project Manager) ← YOU ARE HERE
     ↓
-Technical Planner ← YOU ARE HERE
+    ├─→ Writer Agent (Copywriter)
+    ├─→ Director Agent (Art Director)
+    ├─→ Visual Creator Agent (Designer)
+    ├─→ Video Composer Agent (Video Editor)
+    └─→ Audio Generator Agent (Sound Engineer)
     ↓
-Visual Creator / Video Composer / Audio Generator
-    ↓
-Final Output
+Final Output → back to Orchestrator → User
 ```
+
+**Key Points:**
+- Technical Planner coordinates ALL execution agents
+- Director is an execution agent (NOT a layer between Orchestrator and TP)
+- Centralized orchestration: All agents report back to Technical Planner
+- No peer-to-peer communication between execution agents
+
+**Reference:** See `AIDA-ARCHITECTURE-FINAL.md` for complete validated architecture.
 
 ### 1.3 Design Philosophy
 
@@ -4096,9 +4108,34 @@ The Technical Planner is AIDA's decision engine - the bridge between creative vi
 - **V1.0** (Oct 10, 2025): Initial document
 - **V2.0** (Oct 15, 2025): Added workflows, corrected model catalog
 - **V3.0** (Oct 18, 2025): Complete rewrite with verified info, detailed workflows, prompting guides, and comprehensive examples
+- **V3.1** (Oct 21, 2025): Architecture corrections - Director is execution agent, not intermediate layer
+
+---
+
+## ⚠️ IMPORTANT UPDATE (Oct 21, 2025)
+
+**This document focuses on MODEL SELECTION and AI model catalog.**
+
+**For complete ARCHITECTURE and WORKFLOW COORDINATION, see:**
+📚 **[AIDA-ARCHITECTURE-FINAL.md](./AIDA-ARCHITECTURE-FINAL.md)**
+
+The final architecture document includes:
+- ✅ Complete sequence diagrams
+- ✅ All TypeScript interfaces
+- ✅ State management patterns
+- ✅ Error handling strategies
+- ✅ Workflow coordination implementation
+- ✅ 8 micro-sprints implementation plan (MS-025 to MS-033)
+
+**Key Architecture Clarifications:**
+1. **Director Agent** is an EXECUTION AGENT (like Writer, Visual Creator), NOT an intermediate layer
+2. **Technical Planner** coordinates all execution agents centrally (no peer-to-peer communication)
+3. **Prompt optimization** is done by execution agents (Visual Creator, Video Composer), NOT by Director
+4. **Workflow is stateful** with PostgreSQL persistence for crash recovery
+5. **Parallelization strategy:** Visual Creator (all scenes) + Audio/Video when possible
 
 ---
 
 **Maintained by:** AIDA Development Team  
-**Last Updated:** October 18, 2025  
-**Status:** Production Ready ✅
+**Last Updated:** October 21, 2025  
+**Status:** Production Ready ✅ (Model Selection) | Architecture Finalized ✅ (See AIDA-ARCHITECTURE-FINAL.md)
