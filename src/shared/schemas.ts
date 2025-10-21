@@ -92,7 +92,7 @@ export const projectSchema = z.object({
   styleId: z.string().optional(),
   status: z.enum(['draft', 'in_progress', 'completed', 'archived']).default('draft'),
   videoUrl: z.string().url().optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -115,7 +115,7 @@ export const conversationSessionSchema = z.object({
   userId: z.string().uuid(),
   projectId: z.string().uuid().optional(),
   status: z.enum(['active', 'completed', 'abandoned']).default('active'),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -134,7 +134,7 @@ export const conversationMessageSchema = z.object({
   sessionId: z.string().uuid(),
   role: z.enum(['user', 'assistant', 'system']),
   content: z.string().min(1),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   createdAt: z.date(),
 });
 
@@ -156,7 +156,7 @@ export const detectedIntentSchema = z.object({
   budgetSensitivity: z.enum(['low', 'medium', 'high', 'unknown']).optional(),
   hasScript: z.boolean().default(false),
   hasVisuals: z.boolean().default(false),
-  inferredSpecs: z.record(z.any()).optional(),
+  inferredSpecs: z.record(z.string(), z.any()).optional(),
   confidence: z.number().min(0).max(1).default(0),
   updatedAt: z.date(),
 });
@@ -202,7 +202,7 @@ export const orchestratorRequestSchema = z.object({
   message: z.string().min(1),
   sessionId: z.string().uuid().optional(),
   userId: z.string().uuid().optional(),
-  context: z.record(z.any()).optional(),
+  context: z.record(z.string(), z.any()).optional(),
 });
 
 export const orchestratorResponseSchema = z.object({
@@ -210,7 +210,7 @@ export const orchestratorResponseSchema = z.object({
   sessionId: z.string().uuid(),
   phase: z.enum(['discovery', 'planning', 'execution', 'review']),
   needsUserInput: z.boolean(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 export type OrchestratorRequest = z.infer<typeof orchestratorRequestSchema>;
