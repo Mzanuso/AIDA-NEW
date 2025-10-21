@@ -46,7 +46,8 @@ router.post('/chat', async (req, res) => {
     // Validate request with Zod
     const validationResult = validate(orchestratorRequestSchema, req.body);
 
-    if (!validationResult.success) {
+    if (validationResult.success === false) {
+      // Type guard: when success is false, error exists
       logger.warn('Invalid request payload', {
         errors: validationResult.error.issues.map((e: any) => ({
           path: e.path.join('.'),

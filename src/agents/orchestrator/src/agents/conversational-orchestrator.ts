@@ -1285,7 +1285,9 @@ export class ConversationalOrchestrator {
         duration: context.inferredSpecs.duration,
         aspectRatio: context.inferredSpecs.aspectRatio,
         resolution: context.inferredSpecs.resolution,
-        quality: context.inferredSpecs.qualityLevel,
+        qualityLevel: context.inferredSpecs.qualityLevel === 'high' ? 'premium' :
+                       context.inferredSpecs.qualityLevel === 'medium' ? 'standard' :
+                       context.inferredSpecs.qualityLevel as 'fast' | 'standard' | 'premium',
         budget: context.detectedIntent.budgetSensitivity === 'high' ? 'low' : 'medium',
         deadline: undefined // Could be extracted from conversation
       },

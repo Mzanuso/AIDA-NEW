@@ -201,50 +201,50 @@ export class StyleProposalSystem {
       // ==========================================
       conditional: new Map<CreativeCapability, (context: ProposalContext) => boolean>([
         // Image to Video - only if no style specified
-        ['IMAGE_TO_VIDEO', (ctx: ProposalContext) => !ctx.hasExistingStyle],
+        ['IMAGE_TO_VIDEO' as CreativeCapability, (ctx: ProposalContext) => !ctx.hasExistingStyle],
 
         // Video to Video - only if changing style
-        ['VIDEO_TO_VIDEO', (ctx: ProposalContext) =>
+        ['VIDEO_TO_VIDEO' as CreativeCapability, (ctx: ProposalContext) =>
           ctx.userMessage.toLowerCase().includes('stile') ||
           ctx.userMessage.toLowerCase().includes('style') ||
           ctx.userMessage.toLowerCase().includes('look')
         ],
 
         // Style Transfer - always propose target style
-        ['STYLE_TRANSFER', () => true],
+        ['STYLE_TRANSFER' as CreativeCapability, () => true],
 
         // Image Editing with new objects - propose style for new objects
-        ['ADD_OBJECT', (ctx: ProposalContext) =>
+        ['ADD_OBJECT' as CreativeCapability, (ctx: ProposalContext) =>
           ctx.userMessage.toLowerCase().includes('add') ||
           ctx.userMessage.toLowerCase().includes('aggiungi')
         ],
 
         // Change Background - propose background styles
-        ['CHANGE_BACKGROUND', (ctx: ProposalContext) =>
+        ['CHANGE_BACKGROUND' as CreativeCapability, (ctx: ProposalContext) =>
           !ctx.userMessage.toLowerCase().includes('remove') &&
           !ctx.userMessage.toLowerCase().includes('rimuovi')
         ],
 
         // Face Swap - only if creating new character
-        ['FACE_SWAP', (ctx: ProposalContext) =>
+        ['FACE_SWAP' as CreativeCapability, (ctx: ProposalContext) =>
           ctx.userMessage.toLowerCase().includes('character') ||
           ctx.userMessage.toLowerCase().includes('personaggio')
         ],
 
         // Change Outfit - propose outfit styles
-        ['CHANGE_OUTFIT', () => true],
+        ['CHANGE_OUTFIT' as CreativeCapability, () => true],
 
         // Presentation Deck - propose design styles
-        ['PRESENTATION_DECK', (ctx: ProposalContext) => !ctx.hasExistingStyle],
+        ['PRESENTATION_DECK' as CreativeCapability, (ctx: ProposalContext) => !ctx.hasExistingStyle],
 
         // Lip Sync Video - only if creating character
-        ['LIPSYNC_VIDEO', (ctx: ProposalContext) =>
+        ['LIPSYNC_VIDEO' as CreativeCapability, (ctx: ProposalContext) =>
           ctx.userMessage.toLowerCase().includes('character') ||
           ctx.userMessage.toLowerCase().includes('avatar')
         ],
 
         // Animate Character - propose character styles
-        ['ANIMATE_CHARACTER', (ctx: ProposalContext) => !ctx.hasExistingStyle]
+        ['ANIMATE_CHARACTER' as CreativeCapability, (ctx: ProposalContext) => !ctx.hasExistingStyle]
       ])
     };
   }

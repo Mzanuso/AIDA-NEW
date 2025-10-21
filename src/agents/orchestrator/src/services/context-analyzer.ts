@@ -90,11 +90,11 @@ export class ContextAnalyzer {
 
       // Load messages
       // @ts-ignore - TODO: Fix Drizzle ORM integration with utils/db
-      const messages = await db
+      const messages = (await db
         .select()
         .from(conversationMessages)
         .where(eq(conversationMessages.sessionId, sessionId))
-        .orderBy(conversationMessages.createdAt);
+        .orderBy(conversationMessages.createdAt)) as any[];
 
       // Load detected intent
       // @ts-ignore - TODO: Fix Drizzle ORM integration with utils/db

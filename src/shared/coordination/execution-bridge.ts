@@ -82,7 +82,7 @@ export class VisualCreatorBridge {
             : undefined,
           workflow: workflowType,
           costBreakdown: {
-            totalEstimated: plan.total_cost || 0,
+            totalEstimated: plan.total_estimated_cost || 0,
             withinBudget: true
           },
           reasoning: {
