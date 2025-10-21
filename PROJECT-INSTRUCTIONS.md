@@ -27,16 +27,25 @@ Orchestrator (3003) - 85% ✅
 
 ## 🚀 Session Start Protocol (MANDATORY)
 
-Every session, Claude MUST:
+Every session, Claude MUST follow `.flow/session-protocol.md`:
 
 ```
-1. Read FLOW-STATUS.md (30 lines max)
-2. Read .flow/current.md (50 lines max) 
-3. Read .flow/memory.md (20 lines max)
+1. Read .flow/current.md (ALL - ~500 tokens)
+2. Read .flow/memory.md (ALL - ~300 tokens)
+3. Read FLOW-STATUS.md (SECTIONS ONLY - ~950 tokens):
+   - Current Focus (lines 1-30)
+   - Agent Status table (lines 25-45)
+   - Recent Completions (last 2 entries, lines 59-103)
 4. Ask: "Continue current micro-sprint or start new?"
 ```
 
-**DO NOT** load entire files. Use MCP view ranges for everything else.
+**TOTAL START:** ~1,750 tokens ✅
+
+**Reference files** (read only when needed):
+- FLOW-LOG.md (last session only)
+- ROADMAP.md (specific phase only)
+
+See `.flow/session-protocol.md` for complete guidelines.
 
 ---
 
