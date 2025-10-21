@@ -47,6 +47,40 @@ Every session, Claude MUST follow `.flow/session-protocol.md`:
 
 See `.flow/session-protocol.md` for complete guidelines.
 
+### 🔧 Enforcement Tools
+
+**Session Start:** Run `.flow/session-start.sh` at beginning of each session
+- Displays mandatory reading checklist
+- Confirms protocol compliance
+- Reminds of token-optimized approach
+
+**Session End:** Run `.flow/session-end.sh` before ending session
+- Reviews files that need updates
+- Checks for uncommitted changes
+- Verifies mandatory files exist
+
+**Git Protection:** Install hooks with `.flow/install-hooks.sh` (one-time setup)
+- Prevents deletion of mandatory files
+- Verifies file content before commits
+- Protects project continuity
+
+**Installation (one-time):**
+```bash
+cd D:\AIDA-NEW
+bash .flow/install-hooks.sh
+```
+
+**Usage (every session):**
+```bash
+# Session start
+bash .flow/session-start.sh
+
+# ... work on tasks ...
+
+# Session end
+bash .flow/session-end.sh
+```
+
 ---
 
 ## 🔴 Core Rules (NEVER VIOLATE)
