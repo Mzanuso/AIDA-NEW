@@ -3,6 +3,26 @@
 ## 🎯 System Overview
 AIDA is an AI multimedia creation platform using AIDA-FLOW development methodology - a test-first, micro-sprint based approach designed to eliminate errors through systematic, incremental development.
 
+### Architecture (Updated Oct 21, 2025)
+**Pattern:** Centralized Orchestration with HTTP Microservices
+
+**Current Status (75% Complete):**
+```
+Orchestrator (3003) - 85% ✅
+  ├─→ Style Selector (3002) - 100% ✅ PRODUCTION READY
+  ├─→ Technical Planner (3004) - 100% ✅ PRODUCTION READY
+  │     └─→ Visual Creator (3005) - 100% ✅ PRODUCTION READY
+  ├─→ Writer Agent (3006) - 0% ⏳ Next Sprint
+  ├─→ Director Agent (3007) - 0% ⏳ Planned
+  ├─→ Video Composer (3008) - 0% ⏳ Planned
+  └─→ Audio Generator (3009) - 0% ⏳ Planned
+```
+
+**Communication:** All agents communicate via HTTP REST APIs (no peer-to-peer)
+
+📚 **Complete Architecture:** See `docs/AIDA-ARCHITECTURE-FINAL.md`
+🗺️ **Development Roadmap:** See `ROADMAP.md`
+
 ---
 
 ## 🚀 Session Start Protocol (MANDATORY)
@@ -179,8 +199,14 @@ AI Services:
 
 Ports:
   - 3000: API Gateway
-  - 3001: Auth Service
-  - 3003: Orchestrator
+  - 3003: Orchestrator (Account Manager)
+  - 3002: Style Selector ✅
+  - 3004: Technical Planner ✅
+  - 3005: Visual Creator ✅
+  - 3006: Writer Agent (planned)
+  - 3007: Director Agent (planned)
+  - 3008: Video Composer (planned)
+  - 3009: Audio Generator (planned)
   - 5173: Frontend (Vite)
 ```
 
@@ -189,12 +215,14 @@ Ports:
 ## 📊 Agent Development Status
 
 Always check `FLOW-STATUS.md` for current percentages:
-- Orchestrator: 80%
-- Style Selector: 60%
-- Writer: 40%
-- Director: 40%
-- Visual Creator: 0%
-- Video Composer: 0%
+- Orchestrator: 85% (57 TS errors to fix)
+- Style Selector: 100% ✅ PRODUCTION READY
+- Technical Planner: 100% ✅ PRODUCTION READY
+- Visual Creator: 100% ✅ PRODUCTION READY
+- Writer: 0% (planned - MS-028/029)
+- Director: 0% (planned - MS-030/031)
+- Video Composer: 0% (planned - MS-032/033)
+- Audio Generator: 0% (planned - MS-034/035)
 
 ---
 
