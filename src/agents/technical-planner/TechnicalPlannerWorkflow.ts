@@ -9,6 +9,9 @@
  */
 
 import { randomUUID } from 'crypto';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import * as dotenv from 'dotenv';
+import { join } from 'path';
 import type {
   ProjectBrief,
   WorkflowState,
@@ -20,6 +23,9 @@ import type {
   ExecutionStep,
   WorkflowStep
 } from './types';
+
+// Load environment variables
+dotenv.config({ path: join(__dirname, '../../../.env') });
 
 /**
  * TechnicalPlannerWorkflow
@@ -35,6 +41,20 @@ import type {
 export class TechnicalPlannerWorkflow {
   // Store ProjectBrief context for access throughout workflow
   private projectBriefContext: Map<string, ProjectBrief> = new Map();
+
+  // Supabase client for state persistence
+  private supabase: SupabaseClient;
+
+  constructor() {
+    const SUPABASE_URL = process.env.SUPABASE_URL!;
+    const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+      throw new Error('Missing Supabase credentials in environment');
+    }
+
+    this.supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+  }
 
   /**
    * Initialize a new workflow from ProjectBrief
@@ -372,5 +392,95 @@ export class TechnicalPlannerWorkflow {
     state = await this.selectModels(state);
     state = await this.estimateCosts(state);
     return state;
+  }
+
+  /**
+   * Save workflow state to Supabase
+   */
+  async saveState(state: WorkflowState): Promise<boolean> {
+    try {
+      const { error } = await this.supabase
+        .from('workflow_states')
+        .upsert({
+          workflow_id: state.id,
+          project_brief_id: state.project_brief_id,
+          user_id: state.user_id,
+          current_step: state.current_step,
+          progress_percentage: state.progress_percentage,
+          status: state.status,
+          technical_plan: state.technical_plan,
+          model_selections: state.model_selections,
+          cost_estimate: state.cost_estimate,
+          execution_steps: state.execution_steps,
+          created_at: state.created_at,
+          updated_at: new Date().toISOString(),
+          completed_at: state.completed_at,
+          error_message: state.error_message
+        });
+
+      if (error) {
+        console.error('Error saving workflow state:', error);
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Exception saving workflow state:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Load workflow state from Supabase
+   */
+  async loadState(workflowId: string): Promise<WorkflowState | null> {
+    try {
+      const { data, error } = await this.supabase
+        .from('workflow_states')
+        .select('*')
+        .eq('workflow_id', workflowId)
+        .single();
+
+      if (error || !data) {
+        return null;
+      }
+
+      return {
+        id: data.workflow_id,
+        project_brief_id: data.project_brief_id,
+        user_id: data.user_id,
+        current_step: data.current_step,
+        progress_percentage: data.progress_percentage,
+        status: data.status,
+        technical_plan: data.technical_plan,
+        model_selections: data.model_selections,
+        cost_estimate: data.cost_estimate,
+        execution_steps: data.execution_steps,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+        completed_at: data.completed_at,
+        error_message: data.error_message
+      };
+    } catch (error) {
+      console.error('Exception loading workflow state:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Delete workflow state (for testing/cleanup)
+   */
+  async deleteState(workflowId: string): Promise<boolean> {
+    try {
+      const { error } = await this.supabase
+        .from('workflow_states')
+        .delete()
+        .eq('workflow_id', workflowId);
+
+      return !error;
+    } catch (error) {
+      console.error('Exception deleting workflow state:', error);
+      return false;
+    }
   }
 }

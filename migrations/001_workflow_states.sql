@@ -4,7 +4,7 @@
 -- Date: 2025-10-21
 
 CREATE TABLE IF NOT EXISTS workflow_states (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  workflow_id TEXT PRIMARY KEY,
   project_brief_id TEXT NOT NULL,
   user_id TEXT NOT NULL,
 
