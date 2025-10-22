@@ -1,0 +1,449 @@
+{
+  "version": "1.0.0",
+  "description": "Visual storytelling reference database for rich, descriptive scene writing",
+  "categories": {
+    "composition_techniques": {
+      "description": "Visual composition and framing methods",
+      "references": [
+        {
+          "id": "rule_of_thirds",
+          "name": "Rule of Thirds",
+          "description": "Divide frame into 9 equal parts, place key elements along lines or intersections",
+          "visual_impact": "balanced, professional, naturally pleasing",
+          "best_for": ["landscape", "portrait", "product"],
+          "example_description": "Subject positioned at right third intersection, background at left third"
+        },
+        {
+          "id": "leading_lines",
+          "name": "Leading Lines",
+          "description": "Use natural or architectural lines to guide viewer's eye to subject",
+          "visual_impact": "directional, focused, dynamic",
+          "best_for": ["urban", "architectural", "nature"],
+          "example_description": "Railway tracks converging toward distant figure, road lines pulling into horizon"
+        },
+        {
+          "id": "symmetry",
+          "name": "Symmetry & Balance",
+          "description": "Mirror composition or perfect balance between elements",
+          "visual_impact": "harmonious, orderly, striking",
+          "best_for": ["architectural", "minimalist", "artistic"],
+          "example_description": "Perfectly centered subject, mirrored reflections in water or glass"
+        },
+        {
+          "id": "negative_space",
+          "name": "Negative Space",
+          "description": "Use empty space around subject to create emphasis and breathing room",
+          "visual_impact": "minimalist, elegant, focused",
+          "best_for": ["minimalist", "product", "portrait"],
+          "example_description": "Small subject in corner, vast empty sky or wall surrounding"
+        },
+        {
+          "id": "frame_within_frame",
+          "name": "Frame Within Frame",
+          "description": "Use natural elements to create secondary frame around subject",
+          "visual_impact": "layered, depth, cinematic",
+          "best_for": ["architectural", "urban", "nature"],
+          "example_description": "View through doorway, window, or archway framing distant subject"
+        },
+        {
+          "id": "foreground_interest",
+          "name": "Foreground Interest",
+          "description": "Add elements in foreground to create depth and context",
+          "visual_impact": "layered, immersive, three-dimensional",
+          "best_for": ["landscape", "cinematic", "storytelling"],
+          "example_description": "Blurred flowers in foreground, sharp mountain background"
+        },
+        {
+          "id": "dutch_angle",
+          "name": "Dutch Angle / Tilted Frame",
+          "description": "Deliberately tilt camera to create dynamic tension",
+          "visual_impact": "disorienting, dynamic, dramatic",
+          "best_for": ["action", "thriller", "experimental"],
+          "example_description": "Entire scene tilted 15-30 degrees, horizon at diagonal"
+        },
+        {
+          "id": "low_angle",
+          "name": "Low Angle Shot",
+          "description": "Camera positioned below subject, looking up",
+          "visual_impact": "powerful, imposing, heroic",
+          "best_for": ["portrait", "architectural", "dramatic"],
+          "example_description": "Looking up at skyscraper, subject towering above camera"
+        },
+        {
+          "id": "high_angle",
+          "name": "High Angle / Bird's Eye",
+          "description": "Camera positioned above subject, looking down",
+          "visual_impact": "vulnerable, overview, god-like perspective",
+          "best_for": ["urban", "pattern", "vulnerable character"],
+          "example_description": "Aerial view of city streets, subject small in vast landscape"
+        },
+        {
+          "id": "eye_level",
+          "name": "Eye Level",
+          "description": "Camera at natural human eye height",
+          "visual_impact": "neutral, relatable, conversational",
+          "best_for": ["documentary", "realistic", "dialogue"],
+          "example_description": "Straightforward view as if viewer standing facing subject"
+        }
+      ]
+    },
+
+    "lighting_atmosphere": {
+      "description": "Lighting techniques and atmospheric moods",
+      "references": [
+        {
+          "id": "golden_hour",
+          "name": "Golden Hour",
+          "description": "Warm, soft sunlight during first/last hour of sun",
+          "color_temperature": "warm (2500-3500K)",
+          "visual_impact": "romantic, nostalgic, cinematic",
+          "time_of_day": "sunrise or sunset",
+          "best_for": ["landscape", "portrait", "romantic"],
+          "example_description": "Warm orange-gold light, long soft shadows, glowing highlights"
+        },
+        {
+          "id": "blue_hour",
+          "name": "Blue Hour",
+          "description": "Cool twilight before sunrise or after sunset",
+          "color_temperature": "cool (7000-20000K)",
+          "visual_impact": "moody, mysterious, ethereal",
+          "time_of_day": "twilight",
+          "best_for": ["urban", "moody", "mystery"],
+          "example_description": "Deep blue sky, artificial lights starting to glow, soft ambient light"
+        },
+        {
+          "id": "harsh_midday",
+          "name": "Harsh Midday Sun",
+          "description": "Strong overhead sunlight creating hard shadows",
+          "color_temperature": "neutral (5000-6500K)",
+          "visual_impact": "stark, dramatic, contrasty",
+          "time_of_day": "noon",
+          "best_for": ["dramatic", "gritty", "desert"],
+          "example_description": "Sharp dark shadows, bright highlights, high contrast"
+        },
+        {
+          "id": "overcast_diffused",
+          "name": "Overcast / Diffused",
+          "description": "Soft even lighting from cloudy sky",
+          "color_temperature": "cool-neutral (6000-7000K)",
+          "visual_impact": "soft, even, melancholic",
+          "time_of_day": "any",
+          "best_for": ["portrait", "moody", "intimate"],
+          "example_description": "No harsh shadows, soft gradients, even exposure across scene"
+        },
+        {
+          "id": "neon_night",
+          "name": "Neon Night",
+          "description": "Artificial neon and LED lights in darkness",
+          "color_temperature": "mixed (various)",
+          "visual_impact": "cyberpunk, vibrant, urban",
+          "time_of_day": "night",
+          "best_for": ["urban", "cyberpunk", "modern"],
+          "example_description": "Pink, blue, purple neon signs reflecting on wet surfaces, deep shadows"
+        },
+        {
+          "id": "chiaroscuro",
+          "name": "Chiaroscuro / Dramatic Contrast",
+          "description": "Strong contrast between light and dark areas",
+          "color_temperature": "various",
+          "visual_impact": "dramatic, theatrical, mysterious",
+          "time_of_day": "any",
+          "best_for": ["dramatic", "noir", "portrait"],
+          "example_description": "Half face in light, half in shadow; bright subject against dark background"
+        },
+        {
+          "id": "silhouette",
+          "name": "Silhouette / Backlit",
+          "description": "Subject dark against bright background",
+          "color_temperature": "various",
+          "visual_impact": "mysterious, iconic, graphic",
+          "time_of_day": "any (sunset optimal)",
+          "best_for": ["dramatic", "iconic", "minimalist"],
+          "example_description": "Subject completely dark against bright sky or light source"
+        },
+        {
+          "id": "rim_light",
+          "name": "Rim Light / Edge Light",
+          "description": "Light from behind creating glowing outline around subject",
+          "color_temperature": "various",
+          "visual_impact": "ethereal, separated from background, glowing",
+          "time_of_day": "any",
+          "best_for": ["portrait", "dramatic", "fantasy"],
+          "example_description": "Glowing outline around hair and shoulders, subject separated from dark background"
+        },
+        {
+          "id": "ambient_soft",
+          "name": "Soft Ambient Indoor",
+          "description": "Gentle indoor lighting from windows or lamps",
+          "color_temperature": "warm (2700-3500K)",
+          "visual_impact": "intimate, cozy, natural",
+          "time_of_day": "any",
+          "best_for": ["intimate", "domestic", "realistic"],
+          "example_description": "Soft window light, warm lamp glow, gentle shadows"
+        },
+        {
+          "id": "volumetric_fog",
+          "name": "Volumetric / Fog & Haze",
+          "description": "Light rays visible through fog, smoke, or haze",
+          "color_temperature": "various",
+          "visual_impact": "atmospheric, dreamy, cinematic",
+          "time_of_day": "any",
+          "best_for": ["atmospheric", "forest", "industrial"],
+          "example_description": "Light beams cutting through fog, hazy atmosphere, visible light rays"
+        }
+      ]
+    },
+
+    "cinematic_styles": {
+      "description": "Cinematographic and artistic style references",
+      "references": [
+        {
+          "id": "blade_runner",
+          "name": "Blade Runner / Cyberpunk Noir",
+          "description": "Neon-lit dystopian urban environments with rain and reflections",
+          "visual_characteristics": ["neon colors", "rain and reflections", "dark shadows", "vertical architecture"],
+          "color_palette": ["cyan", "magenta", "deep blue", "orange neon"],
+          "mood": "dystopian, melancholic, futuristic",
+          "reference_films": ["Blade Runner", "Blade Runner 2049", "Ghost in the Shell"],
+          "example_description": "Rain-soaked streets reflecting neon signs, dark alleys with cyan and magenta lighting, dystopian atmosphere"
+        },
+        {
+          "id": "wes_anderson",
+          "name": "Wes Anderson Symmetry",
+          "description": "Perfect symmetry, pastel colors, whimsical production design",
+          "visual_characteristics": ["centered symmetry", "pastel palette", "flat compositions", "meticulous detail"],
+          "color_palette": ["pastel pink", "mint green", "cream", "powder blue"],
+          "mood": "whimsical, nostalgic, meticulous",
+          "reference_films": ["The Grand Budapest Hotel", "Moonrise Kingdom", "The French Dispatch"],
+          "example_description": "Perfectly centered composition, pastel color scheme, symmetrical architecture, whimsical details"
+        },
+        {
+          "id": "film_noir",
+          "name": "Film Noir",
+          "description": "High contrast black and white with dramatic shadows",
+          "visual_characteristics": ["hard shadows", "venetian blind patterns", "silhouettes", "femme fatale lighting"],
+          "color_palette": ["black", "white", "gray"],
+          "mood": "mysterious, dangerous, cynical",
+          "reference_films": ["The Maltese Falcon", "Double Indemnity", "Chinatown"],
+          "example_description": "Harsh shadows from venetian blinds, silhouetted figures, high contrast lighting, smoky atmosphere"
+        },
+        {
+          "id": "terrence_malick",
+          "name": "Terrence Malick Naturalism",
+          "description": "Natural light, golden hour, dreamy nature cinematography",
+          "visual_characteristics": ["natural light only", "golden hour", "wide angle nature", "flowing movement"],
+          "color_palette": ["golden yellow", "earthy green", "sky blue", "warm amber"],
+          "mood": "contemplative, spiritual, dreamy",
+          "reference_films": ["The Tree of Life", "The Thin Red Line", "Days of Heaven"],
+          "example_description": "Golden sunlight through wheat fields, natural flowing movement, wide angle landscapes, dreamy atmosphere"
+        },
+        {
+          "id": "christopher_nolan",
+          "name": "Christopher Nolan Realism",
+          "description": "IMAX scale, practical effects, architectural grandeur",
+          "visual_characteristics": ["IMAX scale", "architectural frames", "practical effects", "cool color grading"],
+          "color_palette": ["steel blue", "concrete gray", "cold white", "muted earth"],
+          "mood": "epic, intellectual, grounded",
+          "reference_films": ["Inception", "Interstellar", "Dunkirk"],
+          "example_description": "Epic architectural scale, IMAX-worthy composition, cool blue-gray color grading, grounded realism"
+        },
+        {
+          "id": "wong_kar_wai",
+          "name": "Wong Kar-wai Romance",
+          "description": "Saturated colors, motion blur, romantic neon-lit urbanism",
+          "visual_characteristics": ["saturated colors", "motion blur", "neon romance", "step-printing effect"],
+          "color_palette": ["saturated red", "electric green", "deep orange", "neon pink"],
+          "mood": "romantic, melancholic, sensory",
+          "reference_films": ["In the Mood for Love", "Chungking Express", "Fallen Angels"],
+          "example_description": "Saturated neon colors, romantic motion blur, intimate urban spaces, step-printing aesthetic"
+        },
+        {
+          "id": "kubrick_symmetry",
+          "name": "Kubrick Symmetry",
+          "description": "One-point perspective, perfect symmetry, wide angle distortion",
+          "visual_characteristics": ["one-point perspective", "centered symmetry", "wide angle lens", "clinical precision"],
+          "color_palette": ["bold primaries", "clinical white", "pastel institutional"],
+          "mood": "unsettling, precise, detached",
+          "reference_films": ["2001: A Space Odyssey", "The Shining", "A Clockwork Orange"],
+          "example_description": "Perfect one-point perspective, centered subject, wide angle lens distortion, clinical precision"
+        },
+        {
+          "id": "Studio_ghibli",
+          "name": "Studio Ghibli Fantasy",
+          "description": "Hand-drawn warmth, fantastical nature, gentle color palette",
+          "visual_characteristics": ["soft gradients", "fantastical nature", "gentle lighting", "hand-drawn quality"],
+          "color_palette": ["soft blue", "gentle green", "warm peach", "cloud white"],
+          "mood": "whimsical, gentle, nostalgic",
+          "reference_films": ["Spirited Away", "My Neighbor Totoro", "Howl's Moving Castle"],
+          "example_description": "Soft hand-painted sky, fantastical natural elements, gentle color palette, whimsical atmosphere"
+        },
+        {
+          "id": "david_fincher",
+          "name": "David Fincher Dark Precision",
+          "description": "Dark tones, precise composition, green-teal color grading",
+          "visual_characteristics": ["dark shadows", "precise framing", "green-teal grading", "clinical detail"],
+          "color_palette": ["dark teal", "shadow black", "sickly green", "cold gray"],
+          "mood": "clinical, dark, meticulous",
+          "reference_films": ["Se7en", "Fight Club", "Gone Girl"],
+          "example_description": "Dark teal color grading, precise clinical framing, deep shadows, meticulous detail"
+        },
+        {
+          "id": "roger_deakins",
+          "name": "Roger Deakins Mastery",
+          "description": "Perfect exposure, natural but enhanced lighting, painterly quality",
+          "visual_characteristics": ["perfect exposure", "natural enhancement", "painterly composition", "subtle gradients"],
+          "color_palette": ["natural enhanced", "subtle gradients", "perfect skin tones"],
+          "mood": "cinematic perfection, natural beauty",
+          "reference_films": ["1917", "Blade Runner 2049", "Skyfall"],
+          "example_description": "Perfectly exposed natural light, painterly composition, subtle color gradients, cinematographic perfection"
+        }
+      ]
+    },
+
+    "emotional_visual_mood": {
+      "description": "Visual techniques specifically for emotional impact and mood",
+      "references": [
+        {
+          "id": "isolation_loneliness",
+          "name": "Isolation & Loneliness",
+          "visual_technique": "Small subject in vast empty space, cool desaturated colors",
+          "composition_approach": "Subject small and off-center, surrounded by negative space",
+          "lighting_approach": "Cool, even, slightly desaturated",
+          "color_psychology": ["desaturated blue", "cold gray", "muted tones"],
+          "camera_movement": "static, distant",
+          "emotional_impact": "loneliness, isolation, vulnerability",
+          "example_description": "Tiny figure in vast snowy landscape, desaturated blue tones, empty space surrounding"
+        },
+        {
+          "id": "intimacy_warmth",
+          "name": "Intimacy & Warmth",
+          "visual_technique": "Close framing, warm lighting, soft focus background",
+          "composition_approach": "Tight framing on faces or hands, shallow depth of field",
+          "lighting_approach": "Warm golden or amber, soft shadows",
+          "color_psychology": ["warm amber", "golden yellow", "soft orange", "cream"],
+          "camera_movement": "gentle, close, handheld intimacy",
+          "emotional_impact": "warmth, connection, intimacy",
+          "example_description": "Close-up of faces in warm candlelight, soft focus background, amber glow, intimate proximity"
+        },
+        {
+          "id": "tension_anxiety",
+          "name": "Tension & Anxiety",
+          "visual_technique": "Claustrophobic framing, harsh shadows, tilted angles",
+          "composition_approach": "Tight uncomfortable framing, dutch angles, blocked exits",
+          "lighting_approach": "Harsh contrast, deep shadows, fluorescent coldness",
+          "color_psychology": ["sickly green", "harsh fluorescent", "shadow black"],
+          "camera_movement": "shaky, invasive, unstable",
+          "emotional_impact": "anxiety, tension, discomfort",
+          "example_description": "Claustrophobic tight framing, tilted angle, harsh fluorescent lighting, deep threatening shadows"
+        },
+        {
+          "id": "wonder_awe",
+          "name": "Wonder & Awe",
+          "visual_technique": "Epic scale, bright highlights, expansive composition",
+          "composition_approach": "Wide expansive frame, small human vs vast environment",
+          "lighting_approach": "Bright highlights, god rays, volumetric lighting",
+          "color_psychology": ["bright sky blue", "golden light", "vivid natural"],
+          "camera_movement": "slow reveal, rising crane, expansive pan",
+          "emotional_impact": "awe, wonder, inspiration",
+          "example_description": "Vast mountain landscape, tiny human figure, god rays breaking through clouds, epic scale"
+        },
+        {
+          "id": "nostalgia_memory",
+          "name": "Nostalgia & Memory",
+          "visual_technique": "Soft focus, warm vintage tones, gentle vignetting",
+          "composition_approach": "Centered subjects, gentle framing, classic composition",
+          "lighting_approach": "Soft diffused, warm amber, gentle glow",
+          "color_psychology": ["warm sepia", "faded pastels", "vintage amber", "soft cream"],
+          "camera_movement": "slow gentle movements, dreamy",
+          "emotional_impact": "nostalgia, bittersweet, memory",
+          "example_description": "Soft focus vintage aesthetic, warm sepia tones, gentle vignetting, dreamlike quality"
+        },
+        {
+          "id": "power_dominance",
+          "name": "Power & Dominance",
+          "visual_technique": "Low angle, bold lighting, strong symmetry",
+          "composition_approach": "Low angle looking up, centered symmetry, imposing scale",
+          "lighting_approach": "Dramatic directional, strong shadows, bold contrast",
+          "color_psychology": ["bold red", "deep black", "metallic silver", "royal gold"],
+          "camera_movement": "slow push-in, rising crane, powerful",
+          "emotional_impact": "power, dominance, authority",
+          "example_description": "Low angle shot of towering figure, dramatic lighting from below, bold symmetrical composition"
+        },
+        {
+          "id": "chaos_confusion",
+          "name": "Chaos & Confusion",
+          "visual_technique": "Unstable framing, rapid movement, fragmented composition",
+          "composition_approach": "Broken rule of thirds, multiple focal points, unstable",
+          "lighting_approach": "Flickering, mixed temperatures, harsh contrast",
+          "color_psychology": ["clashing colors", "neon chaos", "unstable mixed tones"],
+          "camera_movement": "handheld shaky, rapid whip pans, unstable",
+          "emotional_impact": "chaos, confusion, disorientation",
+          "example_description": "Shaky handheld camera, multiple light sources clashing, unstable composition, rapid movement"
+        },
+        {
+          "id": "serenity_peace",
+          "name": "Serenity & Peace",
+          "visual_technique": "Balanced composition, soft natural light, gentle colors",
+          "composition_approach": "Balanced symmetry or rule of thirds, harmonious",
+          "lighting_approach": "Soft natural diffused, gentle gradients",
+          "color_psychology": ["soft blue", "gentle green", "peaceful cream", "sky white"],
+          "camera_movement": "slow smooth, steady, contemplative",
+          "emotional_impact": "serenity, peace, calm",
+          "example_description": "Balanced natural composition, soft diffused morning light, gentle blue-green palette, still calm water"
+        },
+        {
+          "id": "mystery_intrigue",
+          "name": "Mystery & Intrigue",
+          "visual_technique": "Obscured elements, shadows hiding details, partial revelation",
+          "composition_approach": "Partial frames, shadows hiding subject, foreground obstruction",
+          "lighting_approach": "Rim lighting, selective focus, dramatic shadows",
+          "color_psychology": ["deep blue", "shadow black", "mysterious purple"],
+          "camera_movement": "slow creeping dolly, reveal through darkness",
+          "emotional_impact": "mystery, intrigue, curiosity",
+          "example_description": "Subject partially hidden in shadow, rim light revealing only silhouette, foreground elements obscuring view"
+        },
+        {
+          "id": "joy_celebration",
+          "name": "Joy & Celebration",
+          "visual_technique": "Bright saturated colors, dynamic movement, energetic composition",
+          "composition_approach": "Dynamic diagonals, movement and energy, vibrant subjects",
+          "lighting_approach": "Bright even, colorful gels, energetic",
+          "color_psychology": ["vibrant yellow", "joyful orange", "bright magenta", "electric blue"],
+          "camera_movement": "energetic handheld, dynamic movement, spinning",
+          "emotional_impact": "joy, celebration, energy",
+          "example_description": "Bright saturated colors, dynamic diagonal composition, energetic movement, celebratory atmosphere"
+        },
+        {
+          "id": "melancholy_sadness",
+          "name": "Melancholy & Sadness",
+          "visual_technique": "Desaturated colors, rain or fog, downward angles",
+          "composition_approach": "Subjects low in frame, looking down, heavy sky",
+          "lighting_approach": "Overcast gray, minimal contrast, soft shadows",
+          "color_psychology": ["desaturated blue", "gray", "muted purple", "pale"],
+          "camera_movement": "slow downward, static contemplation",
+          "emotional_impact": "melancholy, sadness, reflection",
+          "example_description": "Desaturated blue-gray palette, overcast sky, rain on windows, subject low in frame looking down"
+        },
+        {
+          "id": "danger_threat",
+          "name": "Danger & Threat",
+          "visual_technique": "Dark shadows, harsh red accents, unstable framing",
+          "composition_approach": "Trapped framing, shadows encroaching, unstable dutch angle",
+          "lighting_approach": "Harsh side lighting, deep shadows, red warning tones",
+          "color_psychology": ["danger red", "shadow black", "warning orange"],
+          "camera_movement": "invasive push-in, unstable, threatening",
+          "emotional_impact": "danger, threat, fear",
+          "example_description": "Deep shadows encroaching on subject, harsh red lighting accents, unstable dutch angle, claustrophobic framing"
+        }
+      ]
+    }
+  },
+
+  "usage_notes": {
+    "for_writer_agent": "Use these references to write rich, visually detailed scene descriptions. DO NOT write technical prompts - that's the Visual Creator's job. Your role is to describe scenes like a director explaining a shot to their cinematographer.",
+    "composition_techniques": "Describe camera angle, framing, and subject positioning using these references",
+    "lighting_atmosphere": "Describe the quality, direction, and mood of light in the scene",
+    "cinematic_styles": "Reference these styles to quickly communicate a complex visual aesthetic",
+    "emotional_visual_mood": "Select visual techniques that enhance the emotional intent of the scene"
+  }
+}

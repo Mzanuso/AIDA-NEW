@@ -20,6 +20,7 @@ import {
   WriterResult,
   WriterConfig,
   SceneDescription,
+  VisualDescription,
 } from "./types";
 
 // ES module compatibility
@@ -37,6 +38,13 @@ const narrativeTechniques = JSON.parse(
 const clicheBlacklist = JSON.parse(
   fs.readFileSync(
     path.join(__dirname, "knowledge", "cliche-blacklist.json"),
+    "utf-8"
+  )
+);
+
+const visualReferences = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "knowledge", "visual-references.json"),
     "utf-8"
   )
 );
@@ -290,6 +298,11 @@ OUTPUT FORMAT:
         duration_seconds: Math.floor(duration / estimatedScenes),
         voiceover: this.extractVoiceover(sceneText),
         visual_cues: this.extractVisualCues(sceneText),
+        // NEW: Generate rich visual description
+        visual_description: await this.generateVisualDescription(
+          sceneText,
+          request
+        ),
       };
 
       scenes.push(scene);
@@ -586,12 +599,12 @@ Your goal: Exceed expectations while remaining universally comprehensible.`;
 Surprise the audience subtly. This is the first attempt - balance creativity with broad appeal.`;
 
       case "bold":
-        return `Push boundaries. Be provocative and spiazzante (surprising/disorienting).
+        return `Push boundaries. Be provocative and surprising.
 Use anti-cliché techniques marked in your arsenal. Challenge assumptions.
 The first attempt was too safe - now take creative risks.`;
 
       case "radical":
-        return `Maximum creative freedom. Be irriverente (irreverent). Break conventions.
+        return `Maximum creative freedom. Be irreverent. Break conventions.
 This is the third attempt - the user wants something truly unconventional.
 Use experimental techniques. Embrace controlled chaos. Provoke thought.`;
 
@@ -698,17 +711,25 @@ ${request.key_messages?.length ? `KEY MESSAGES: ${request.key_messages.join(", "
 ${request.call_to_action && sceneNumber === totalScenes ? `CALL TO ACTION: ${request.call_to_action}` : ""}
 ${contextSection}
 
+VISUAL STORYTELLING:
+Think like a director. Describe the visuals in RICH DETAIL:
+- What do we SEE? (setting, subjects, composition)
+- What is the LIGHTING like? (quality, direction, mood)
+- What is the ATMOSPHERE? (emotional tone, mood)
+- What COLORS dominate the scene?
+- Any cinematic STYLE references? (optional)
+
 OUTPUT FORMAT:
 SCENE ${sceneNumber}:
-[Visual description - what we see on screen]
+[Detailed visual description - what we see on screen, including lighting, atmosphere, composition]
 
 VOICEOVER:
 [Exact words to be spoken]
 
 VISUAL CUES:
-[Specific shots, movements, text overlays]
+[Specific shots, camera movements, visual elements]
 
-MAKE IT: Cinematic, surprising, and emotionally resonant. Every word counts.`;
+MAKE IT: Visually rich, cinematic, surprising, and emotionally resonant. Every word counts.`;
   }
 
   private buildMarketingPrompt(request: WriterRequest): string {
@@ -890,6 +911,117 @@ MAKE IT: Ultra-concise, high-impact, conversion-focused. Every word must earn it
       headline: headlineMatch?.[1].trim() || text.split("\n")[0] || "",
       body: bodyMatch?.[1].trim() || text,
       cta: ctaMatch?.[1].trim(),
+    };
+  }
+
+  // ============================================================================
+  // VISUAL STORYTELLING
+  // ============================================================================
+
+  /**
+   * Generate rich visual description using visual references database
+   * This creates descriptive visual details for Visual Creator to translate into technical prompts
+   */
+  private async generateVisualDescription(
+    sceneText: string,
+    request: WriterRequest
+  ): Promise<VisualDescription> {
+    const visualPrompt = `You are a cinematographer and visual storytelling expert. Analyze this scene and create a RICH, DETAILED visual description.
+
+SCENE TEXT:
+${sceneText}
+
+BRIEF CONTEXT: ${request.brief}
+TONE: ${request.tone}
+${request.style?.style_name ? `VISUAL STYLE: ${request.style.style_name}` : ""}
+
+VISUAL REFERENCES DATABASE (use for inspiration):
+${JSON.stringify(visualReferences, null, 2)}
+
+YOUR TASK:
+Create a detailed visual description that a Visual Creator Agent can use to generate image prompts.
+Think like a director describing a shot to the cinematographer.
+
+IMPORTANT:
+- Be DESCRIPTIVE, not technical (e.g., "warm golden sunlight" not "color temperature 3200K")
+- Include sensory details (lighting quality, atmosphere, mood)
+- Suggest cinematic styles or references when relevant
+- Describe colors in natural terms ("deep blue", "neon pink", "warm amber")
+- Don't write technical prompt syntax - just rich descriptions
+
+OUTPUT FORMAT (JSON):
+{
+  "setting": "Physical location and environment",
+  "subjects": "Characters, objects, or focal points",
+  "lighting": "Quality, direction, and mood of light",
+  "atmosphere": "Overall feeling and mood",
+  "camera_suggestion": "Suggested angle and framing (descriptive, not technical)",
+  "composition_notes": "Visual composition guidance",
+  "emotional_tone": "The emotion this visual should evoke",
+  "color_palette_suggestion": ["color1", "color2", "color3"],
+  "style_reference": "Optional cinematic/artistic style reference"
+}
+
+RETURN ONLY THE JSON OBJECT, NO EXPLANATIONS.`;
+
+    try {
+      const response = await this.anthropic.messages.create({
+        model: this.config.model,
+        max_tokens: 1500,
+        temperature: 0.75, // Creative but controlled
+        messages: [{ role: "user", content: visualPrompt }],
+      });
+
+      const responseText =
+        response.content[0].type === "text" ? response.content[0].text : "{}";
+
+      // Extract JSON from response
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        const parsed = JSON.parse(jsonMatch[0]);
+
+        return {
+          setting: parsed.setting || "Unspecified setting",
+          subjects: parsed.subjects || "No specific subject",
+          lighting: parsed.lighting || "Natural lighting",
+          atmosphere: parsed.atmosphere || "Neutral atmosphere",
+          camera_suggestion: parsed.camera_suggestion || "Eye-level shot",
+          composition_notes: parsed.composition_notes || "Balanced composition",
+          emotional_tone: parsed.emotional_tone || "Neutral",
+          color_palette_suggestion: parsed.color_palette_suggestion || [
+            "natural",
+          ],
+          style_reference: parsed.style_reference,
+        };
+      }
+
+      // Fallback if parsing fails
+      return this.createFallbackVisualDescription(sceneText);
+    } catch (error) {
+      console.error(
+        "[WriterExecutor] Visual description generation failed:",
+        error
+      );
+      return this.createFallbackVisualDescription(sceneText);
+    }
+  }
+
+  /**
+   * Create fallback visual description when AI generation fails
+   */
+  private createFallbackVisualDescription(
+    sceneText: string
+  ): VisualDescription {
+    return {
+      setting: "Generic environment matching scene context",
+      subjects: "Scene subjects as described",
+      lighting: "Natural, balanced lighting",
+      atmosphere: "Appropriate to scene mood",
+      camera_suggestion: "Medium shot, eye-level",
+      composition_notes: "Balanced, rule of thirds",
+      emotional_tone: "Contextually appropriate",
+      color_palette_suggestion: ["natural tones"],
+      style_reference: undefined,
     };
   }
 

@@ -105,13 +105,46 @@ export type WriterRequest = z.infer<typeof WriterRequestSchema>;
 // ============================================================================
 
 /**
+ * Visual Description for detailed scene visualization
+ * Used by Writer Agent to create rich visual descriptions
+ * Visual Creator Agent will translate this into technical prompts
+ */
+export interface VisualDescription {
+  // Setting & Environment
+  setting: string; // Physical location and environment description
+  subjects: string; // Characters, objects, or focal points in scene
+
+  // Lighting & Atmosphere
+  lighting: string; // Quality, direction, and mood of light
+  atmosphere: string; // Overall mood and feeling of the scene
+
+  // Camera & Composition (suggestions, not technical specs)
+  camera_suggestion: string; // Suggested camera angle and movement
+  composition_notes: string; // Framing and visual composition guidance
+
+  // Mood & Emotion
+  emotional_tone: string; // The emotional feeling this visual should evoke
+
+  // Color & Style
+  color_palette_suggestion: string[]; // Suggested colors (descriptive, not hex codes)
+  style_reference?: string; // Optional cinematic or artistic style reference
+}
+
+/**
  * Scene for video scripts
  */
 export interface SceneDescription {
   scene_number: number;
-  description: string;
+  description: string; // General narrative description
   duration_seconds: number;
+
+  // Audio/Narrative
   voiceover?: string;
+
+  // Visual Storytelling (NEW)
+  visual_description?: VisualDescription; // Rich visual details for Visual Creator
+
+  // Legacy fields (kept for backward compatibility)
   visual_cues: string[];
   camera_notes?: string;
 }
