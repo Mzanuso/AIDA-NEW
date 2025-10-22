@@ -1,0 +1,164 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-10-22",
+  "description": "Universal clichés to avoid in ALL contexts. AI reasoning handles contextual clichés.",
+  "categories": {
+    "tired_openings": {
+      "name": "Tired Opening Phrases",
+      "patterns": [
+        "sei stanco di",
+        "are you tired of",
+        "immagina se",
+        "imagine if",
+        "cosa succederebbe se",
+        "what if you could",
+        "ti sei mai chiesto",
+        "have you ever wondered",
+        "in un mondo dove",
+        "in a world where",
+        "c'era una volta",
+        "once upon a time"
+      ]
+    },
+    "fake_urgency": {
+      "name": "Fake Urgency & Scarcity",
+      "patterns": [
+        "non crederai",
+        "you won't believe",
+        "il segreto che",
+        "the secret that",
+        "quello che [X] non vuole che tu sappia",
+        "what [X] doesn't want you to know",
+        "questo cambierà la tua vita",
+        "this will change your life",
+        "dottori odiano questo",
+        "doctors hate this",
+        "un semplice trucco",
+        "one simple trick"
+      ]
+    },
+    "empty_superlatives": {
+      "name": "Empty Superlatives",
+      "patterns": [
+        "rivoluzionario",
+        "revolutionary",
+        "mai visto prima",
+        "never seen before",
+        "il migliore di sempre",
+        "the best ever",
+        "incredibilmente",
+        "incredibly",
+        "assolutamente incredibile",
+        "absolutely amazing",
+        "game changer",
+        "game-changing"
+      ]
+    },
+    "vague_promises": {
+      "name": "Vague Promises",
+      "patterns": [
+        "risultati garantiti",
+        "guaranteed results",
+        "successo immediato",
+        "instant success",
+        "senza sforzo",
+        "effortlessly",
+        "senza fare nulla",
+        "without doing anything",
+        "soluzione definitiva",
+        "ultimate solution",
+        "la risposta che cercavi",
+        "the answer you've been looking for"
+      ]
+    },
+    "overused_metaphors": {
+      "name": "Overused Metaphors",
+      "patterns": [
+        "punta dell'iceberg",
+        "tip of the iceberg",
+        "cambiare il gioco",
+        "change the game",
+        "portare al prossimo livello",
+        "take to the next level",
+        "viaggio incredibile",
+        "incredible journey",
+        "salire a bordo",
+        "jump on board",
+        "non perdere il treno",
+        "don't miss the boat"
+      ]
+    },
+    "corporate_jargon": {
+      "name": "Corporate Jargon",
+      "patterns": [
+        "sinergia",
+        "synergy",
+        "pensare fuori dagli schemi",
+        "think outside the box",
+        "approccio olistico",
+        "holistic approach",
+        "best practice",
+        "best practices",
+        "ecosistema",
+        "ecosystem",
+        "scalabile",
+        "scalable",
+        "soluzione end-to-end",
+        "end-to-end solution",
+        "ottimizzare il flusso di lavoro",
+        "optimize workflow"
+      ]
+    },
+    "social_media_cringe": {
+      "name": "Social Media Cringe Phrases",
+      "patterns": [
+        "fai tap sul link",
+        "tap the link",
+        "segui per altro",
+        "follow for more",
+        "commenta se sei d'accordo",
+        "comment if you agree",
+        "chi è d'accordo?",
+        "who agrees?",
+        "doppio tap se",
+        "double tap if",
+        "tagga qualcuno che",
+        "tag someone who",
+        "questa è per te",
+        "this is for you"
+      ]
+    },
+    "filler_phrases": {
+      "name": "Filler Phrases & Weak Language",
+      "patterns": [
+        "fondamentalmente",
+        "basically",
+        "praticamente",
+        "literally",
+        "tipo",
+        "like",
+        "un po'",
+        "kind of",
+        "in qualche modo",
+        "sort of",
+        "sai",
+        "you know",
+        "ecco",
+        "so",
+        "beh",
+        "well"
+      ]
+    }
+  },
+  "detection_rules": {
+    "case_insensitive": true,
+    "partial_match": true,
+    "context_override": "AI can override blacklist if phrase is intentionally ironic or deconstructed",
+    "warning_threshold": "Any match triggers AI review, not automatic rejection"
+  },
+  "ai_reasoning_prompts": {
+    "contextual_check": "Beyond this blacklist, does this phrase feel cliché in THIS specific context? Consider: industry, audience sophistication, cultural moment, ironic intent.",
+    "freshness_test": "Would this phrase make an experienced creator roll their eyes? Has it been overused in similar content recently?",
+    "replacement_prompt": "If cliché detected, suggest 3 fresh alternatives that convey same intent with originality."
+  }
+}

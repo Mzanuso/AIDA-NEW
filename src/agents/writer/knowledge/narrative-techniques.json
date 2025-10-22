@@ -1,0 +1,711 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-10-22",
+  "categories": {
+    "story_structure": {
+      "name": "Story Structure Techniques",
+      "description": "Fundamental narrative frameworks for organizing content",
+      "techniques": [
+        {
+          "id": "three_act_structure",
+          "name": "Three-Act Structure",
+          "description": "Classic setup, confrontation, resolution arc",
+          "best_for": ["video_script", "storytelling", "educational"],
+          "emotional_impact": "balanced",
+          "complexity": "simple"
+        },
+        {
+          "id": "heros_journey",
+          "name": "Hero's Journey",
+          "description": "Character transformation through challenge",
+          "best_for": ["brand_storytelling", "product_narrative"],
+          "emotional_impact": "inspiring",
+          "complexity": "medium"
+        },
+        {
+          "id": "in_medias_res",
+          "name": "In Medias Res",
+          "description": "Start in middle of action, flashback to beginning",
+          "best_for": ["video_script", "entertainment", "social_media"],
+          "emotional_impact": "exciting",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "reverse_chronology",
+          "name": "Reverse Chronology",
+          "description": "Tell story from end to beginning",
+          "best_for": ["video_script", "mystery", "revelation"],
+          "emotional_impact": "intriguing",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "nested_narrative",
+          "name": "Nested Narrative",
+          "description": "Story within a story",
+          "best_for": ["blog_post", "long_form", "educational"],
+          "emotional_impact": "layered",
+          "complexity": "high"
+        },
+        {
+          "id": "circular_narrative",
+          "name": "Circular Narrative",
+          "description": "End where you began, showing transformation",
+          "best_for": ["video_script", "testimonial", "brand_storytelling"],
+          "emotional_impact": "satisfying",
+          "complexity": "medium"
+        },
+        {
+          "id": "episodic_structure",
+          "name": "Episodic Structure",
+          "description": "Series of loosely connected vignettes",
+          "best_for": ["social_media", "educational", "blog_post"],
+          "emotional_impact": "varied",
+          "complexity": "simple"
+        },
+        {
+          "id": "parallel_narrative",
+          "name": "Parallel Narrative",
+          "description": "Two or more storylines running simultaneously",
+          "best_for": ["video_script", "comparison", "testimonial"],
+          "emotional_impact": "dynamic",
+          "complexity": "high"
+        }
+      ]
+    },
+    "opening_hooks": {
+      "name": "Opening Hook Techniques",
+      "description": "Powerful ways to capture attention immediately",
+      "techniques": [
+        {
+          "id": "shock_opening",
+          "name": "Shock Opening",
+          "description": "Unexpected, jarring statement or visual",
+          "best_for": ["social_media", "ad_copy", "video_script"],
+          "emotional_impact": "startling",
+          "complexity": "simple",
+          "anti_cliche": true
+        },
+        {
+          "id": "question_hook",
+          "name": "Provocative Question",
+          "description": "Question that challenges assumptions",
+          "best_for": ["blog_post", "educational", "marketing_copy"],
+          "emotional_impact": "curious",
+          "complexity": "simple"
+        },
+        {
+          "id": "contradiction_hook",
+          "name": "Contradiction Hook",
+          "description": "Present two seemingly opposite truths",
+          "best_for": ["video_script", "blog_post", "ad_copy"],
+          "emotional_impact": "intriguing",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "silence_hook",
+          "name": "Silence Hook",
+          "description": "Start with pause, create tension through absence",
+          "best_for": ["video_script", "presentation"],
+          "emotional_impact": "anticipatory",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "failure_first",
+          "name": "Failure First",
+          "description": "Open with vulnerability/failure instead of success",
+          "best_for": ["testimonial", "brand_storytelling", "video_script"],
+          "emotional_impact": "authentic",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "micro_story_hook",
+          "name": "Micro-Story Hook",
+          "description": "3-5 second complete mini-story",
+          "best_for": ["social_media", "video_script"],
+          "emotional_impact": "engaging",
+          "complexity": "medium"
+        },
+        {
+          "id": "data_surprise",
+          "name": "Data Surprise",
+          "description": "Counterintuitive statistic or fact",
+          "best_for": ["educational", "blog_post", "presentation"],
+          "emotional_impact": "eye-opening",
+          "complexity": "simple"
+        },
+        {
+          "id": "sensory_immersion",
+          "name": "Sensory Immersion",
+          "description": "Drop audience into vivid sensory experience",
+          "best_for": ["video_script", "product_description"],
+          "emotional_impact": "immersive",
+          "complexity": "medium"
+        }
+      ]
+    },
+    "dramatic_devices": {
+      "name": "Dramatic Devices",
+      "description": "Techniques to create tension and emotional engagement",
+      "techniques": [
+        {
+          "id": "chekhov_gun",
+          "name": "Chekhov's Gun",
+          "description": "Every element must become essential",
+          "best_for": ["video_script", "storytelling"],
+          "emotional_impact": "satisfying",
+          "complexity": "high"
+        },
+        {
+          "id": "red_herring",
+          "name": "Red Herring",
+          "description": "Misleading clue or element",
+          "best_for": ["mystery", "video_script"],
+          "emotional_impact": "surprising",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "dramatic_irony",
+          "name": "Dramatic Irony",
+          "description": "Audience knows more than characters",
+          "best_for": ["video_script", "storytelling"],
+          "emotional_impact": "tense",
+          "complexity": "medium"
+        },
+        {
+          "id": "cliffhanger",
+          "name": "Cliffhanger",
+          "description": "Unresolved tension at end",
+          "best_for": ["social_media", "series", "video_script"],
+          "emotional_impact": "anticipatory",
+          "complexity": "simple"
+        },
+        {
+          "id": "macguffin",
+          "name": "MacGuffin",
+          "description": "Object/goal driving plot (actual nature unimportant)",
+          "best_for": ["storytelling", "video_script"],
+          "emotional_impact": "driving",
+          "complexity": "medium"
+        },
+        {
+          "id": "rising_tension",
+          "name": "Rising Tension",
+          "description": "Gradually escalating stakes",
+          "best_for": ["video_script", "blog_post", "storytelling"],
+          "emotional_impact": "building",
+          "complexity": "medium"
+        },
+        {
+          "id": "false_resolution",
+          "name": "False Resolution",
+          "description": "Seeming solution that leads to bigger problem",
+          "best_for": ["video_script", "storytelling"],
+          "emotional_impact": "surprising",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "ticking_clock",
+          "name": "Ticking Clock",
+          "description": "Time pressure creates urgency",
+          "best_for": ["ad_copy", "video_script", "marketing_copy"],
+          "emotional_impact": "urgent",
+          "complexity": "simple"
+        }
+      ]
+    },
+    "pacing_rhythm": {
+      "name": "Pacing & Rhythm Techniques",
+      "description": "Control tempo and flow of narrative",
+      "techniques": [
+        {
+          "id": "staccato_pacing",
+          "name": "Staccato Pacing",
+          "description": "Short, punchy sentences/cuts",
+          "best_for": ["social_media", "ad_copy", "action_sequence"],
+          "emotional_impact": "energetic",
+          "complexity": "simple"
+        },
+        {
+          "id": "rhythmic_variation",
+          "name": "Rhythmic Variation",
+          "description": "Mix fast and slow pacing for dynamic flow",
+          "best_for": ["video_script", "blog_post", "presentation"],
+          "emotional_impact": "dynamic",
+          "complexity": "medium"
+        },
+        {
+          "id": "beat_pause",
+          "name": "Beat Pause",
+          "description": "Strategic silence for emphasis",
+          "best_for": ["video_script", "presentation"],
+          "emotional_impact": "emphatic",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "compression",
+          "name": "Compression",
+          "description": "Condense time to show passage/transformation",
+          "best_for": ["video_script", "testimonial"],
+          "emotional_impact": "transformative",
+          "complexity": "medium"
+        },
+        {
+          "id": "expansion",
+          "name": "Expansion",
+          "description": "Slow down critical moment for impact",
+          "best_for": ["video_script", "storytelling"],
+          "emotional_impact": "dramatic",
+          "complexity": "medium"
+        },
+        {
+          "id": "syncopation",
+          "name": "Syncopation",
+          "description": "Unexpected rhythm breaks pattern",
+          "best_for": ["video_script", "social_media"],
+          "emotional_impact": "surprising",
+          "complexity": "high",
+          "anti_cliche": true
+        }
+      ]
+    },
+    "character_perspective": {
+      "name": "Character & Perspective Techniques",
+      "description": "Point of view and voice strategies",
+      "techniques": [
+        {
+          "id": "second_person_direct",
+          "name": "Second Person Direct Address",
+          "description": "Speak directly to audience as 'you'",
+          "best_for": ["marketing_copy", "ad_copy", "educational"],
+          "emotional_impact": "personal",
+          "complexity": "simple"
+        },
+        {
+          "id": "first_person_vulnerable",
+          "name": "First Person Vulnerable",
+          "description": "Share personal failure/struggle",
+          "best_for": ["testimonial", "brand_storytelling", "blog_post"],
+          "emotional_impact": "authentic",
+          "complexity": "medium"
+        },
+        {
+          "id": "multiple_perspectives",
+          "name": "Multiple Perspectives",
+          "description": "Show same event from different viewpoints",
+          "best_for": ["video_script", "blog_post", "testimonial"],
+          "emotional_impact": "comprehensive",
+          "complexity": "high"
+        },
+        {
+          "id": "unreliable_narrator",
+          "name": "Unreliable Narrator",
+          "description": "Voice that's later revealed as biased/wrong",
+          "best_for": ["storytelling", "video_script"],
+          "emotional_impact": "twist",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "collective_voice",
+          "name": "Collective Voice",
+          "description": "Speak as 'we' representing community",
+          "best_for": ["brand_storytelling", "manifesto", "social_cause"],
+          "emotional_impact": "unifying",
+          "complexity": "medium"
+        },
+        {
+          "id": "observer_perspective",
+          "name": "Observer Perspective",
+          "description": "Neutral third-party watching events",
+          "best_for": ["documentary", "educational", "case_study"],
+          "emotional_impact": "objective",
+          "complexity": "simple"
+        }
+      ]
+    },
+    "emotional_manipulation": {
+      "name": "Emotional Manipulation Techniques",
+      "description": "Psychological triggers for emotional response",
+      "techniques": [
+        {
+          "id": "contrast_principle",
+          "name": "Contrast Principle",
+          "description": "Show extreme opposite to heighten perception",
+          "best_for": ["ad_copy", "testimonial", "marketing_copy"],
+          "emotional_impact": "dramatic",
+          "complexity": "simple"
+        },
+        {
+          "id": "scarcity_trigger",
+          "name": "Scarcity Trigger",
+          "description": "Limited availability creates desire",
+          "best_for": ["ad_copy", "marketing_copy", "product_description"],
+          "emotional_impact": "urgent",
+          "complexity": "simple"
+        },
+        {
+          "id": "social_proof",
+          "name": "Social Proof",
+          "description": "Others have done it, so should you",
+          "best_for": ["testimonial", "marketing_copy", "ad_copy"],
+          "emotional_impact": "reassuring",
+          "complexity": "simple"
+        },
+        {
+          "id": "loss_aversion",
+          "name": "Loss Aversion",
+          "description": "Fear of missing out or losing something",
+          "best_for": ["ad_copy", "marketing_copy"],
+          "emotional_impact": "motivating",
+          "complexity": "simple"
+        },
+        {
+          "id": "nostalgic_trigger",
+          "name": "Nostalgic Trigger",
+          "description": "Reference shared cultural memory",
+          "best_for": ["brand_storytelling", "marketing_copy"],
+          "emotional_impact": "warm",
+          "complexity": "medium"
+        },
+        {
+          "id": "curiosity_gap",
+          "name": "Curiosity Gap",
+          "description": "Create knowledge gap audience wants filled",
+          "best_for": ["social_media", "headline", "video_script"],
+          "emotional_impact": "compelling",
+          "complexity": "simple"
+        },
+        {
+          "id": "empathy_bridge",
+          "name": "Empathy Bridge",
+          "description": "Show you understand their pain/desire",
+          "best_for": ["marketing_copy", "testimonial", "blog_post"],
+          "emotional_impact": "connecting",
+          "complexity": "medium"
+        },
+        {
+          "id": "authority_positioning",
+          "name": "Authority Positioning",
+          "description": "Establish credibility through expertise",
+          "best_for": ["educational", "blog_post", "thought_leadership"],
+          "emotional_impact": "trusting",
+          "complexity": "medium"
+        }
+      ]
+    },
+    "visual_cinematic": {
+      "name": "Visual & Cinematic Techniques",
+      "description": "Techniques specific to visual storytelling",
+      "techniques": [
+        {
+          "id": "show_dont_tell",
+          "name": "Show Don't Tell",
+          "description": "Visual demonstration instead of explanation",
+          "best_for": ["video_script", "product_demo"],
+          "emotional_impact": "clear",
+          "complexity": "medium"
+        },
+        {
+          "id": "visual_metaphor",
+          "name": "Visual Metaphor",
+          "description": "Symbolic imagery representing concept",
+          "best_for": ["video_script", "brand_storytelling"],
+          "emotional_impact": "layered",
+          "complexity": "high"
+        },
+        {
+          "id": "match_cut",
+          "name": "Match Cut",
+          "description": "Visual or thematic connection between scenes",
+          "best_for": ["video_script"],
+          "emotional_impact": "smooth",
+          "complexity": "medium"
+        },
+        {
+          "id": "montage_progression",
+          "name": "Montage Progression",
+          "description": "Series of quick shots showing transformation",
+          "best_for": ["video_script", "transformation_story"],
+          "emotional_impact": "dynamic",
+          "complexity": "simple"
+        },
+        {
+          "id": "color_symbolism",
+          "name": "Color Symbolism",
+          "description": "Strategic use of color to convey meaning",
+          "best_for": ["video_script", "brand_storytelling"],
+          "emotional_impact": "subconscious",
+          "complexity": "medium"
+        },
+        {
+          "id": "close_up_intimacy",
+          "name": "Close-Up Intimacy",
+          "description": "Extreme close shots for emotional connection",
+          "best_for": ["video_script", "testimonial"],
+          "emotional_impact": "intimate",
+          "complexity": "simple"
+        },
+        {
+          "id": "wide_shot_isolation",
+          "name": "Wide Shot Isolation",
+          "description": "Show subject small in vast space",
+          "best_for": ["video_script", "dramatic_moment"],
+          "emotional_impact": "lonely",
+          "complexity": "simple"
+        },
+        {
+          "id": "dutch_angle",
+          "name": "Dutch Angle Disorientation",
+          "description": "Tilted frame creates unease",
+          "best_for": ["video_script", "tension_scene"],
+          "emotional_impact": "unsettling",
+          "complexity": "simple",
+          "anti_cliche": true
+        }
+      ]
+    },
+    "linguistic_devices": {
+      "name": "Linguistic & Literary Devices",
+      "description": "Language-specific techniques for impact",
+      "techniques": [
+        {
+          "id": "power_words",
+          "name": "Power Words",
+          "description": "Emotionally charged vocabulary",
+          "best_for": ["ad_copy", "marketing_copy", "headline"],
+          "emotional_impact": "visceral",
+          "complexity": "simple"
+        },
+        {
+          "id": "alliteration",
+          "name": "Alliteration",
+          "description": "Repeated initial sounds",
+          "best_for": ["headline", "slogan", "product_description"],
+          "emotional_impact": "memorable",
+          "complexity": "simple"
+        },
+        {
+          "id": "metaphor",
+          "name": "Metaphor",
+          "description": "Direct comparison without 'like' or 'as'",
+          "best_for": ["blog_post", "video_script", "brand_storytelling"],
+          "emotional_impact": "evocative",
+          "complexity": "medium"
+        },
+        {
+          "id": "parallelism",
+          "name": "Parallelism",
+          "description": "Repeated sentence structure for rhythm",
+          "best_for": ["speech", "manifesto", "video_script"],
+          "emotional_impact": "powerful",
+          "complexity": "medium"
+        },
+        {
+          "id": "chiasmus",
+          "name": "Chiasmus",
+          "description": "Reversed parallel structure (AB BA)",
+          "best_for": ["slogan", "headline", "memorable_quote"],
+          "emotional_impact": "clever",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "anaphora",
+          "name": "Anaphora",
+          "description": "Repeated phrase at start of sentences",
+          "best_for": ["speech", "manifesto", "emotional_appeal"],
+          "emotional_impact": "emphatic",
+          "complexity": "medium"
+        },
+        {
+          "id": "concrete_specificity",
+          "name": "Concrete Specificity",
+          "description": "Ultra-specific details instead of generics",
+          "best_for": ["testimonial", "product_description", "storytelling"],
+          "emotional_impact": "credible",
+          "complexity": "simple"
+        },
+        {
+          "id": "sensory_language",
+          "name": "Sensory Language",
+          "description": "Engage all five senses",
+          "best_for": ["product_description", "video_script", "immersive_content"],
+          "emotional_impact": "immersive",
+          "complexity": "medium"
+        },
+        {
+          "id": "unexpected_juxtaposition",
+          "name": "Unexpected Juxtaposition",
+          "description": "Pair contradictory or surprising elements",
+          "best_for": ["headline", "ad_copy", "video_script"],
+          "emotional_impact": "striking",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "minimalist_restraint",
+          "name": "Minimalist Restraint",
+          "description": "Say more with less, strategic omission",
+          "best_for": ["slogan", "headline", "luxury_brand"],
+          "emotional_impact": "sophisticated",
+          "complexity": "high",
+          "anti_cliche": true
+        }
+      ]
+    },
+    "conversion_optimization": {
+      "name": "Conversion Optimization Techniques",
+      "description": "Copywriting patterns that drive action",
+      "techniques": [
+        {
+          "id": "benefit_over_feature",
+          "name": "Benefit Over Feature",
+          "description": "Focus on outcome, not mechanism",
+          "best_for": ["marketing_copy", "product_description", "ad_copy"],
+          "emotional_impact": "aspirational",
+          "complexity": "simple"
+        },
+        {
+          "id": "objection_handling",
+          "name": "Objection Handling",
+          "description": "Preemptively address concerns",
+          "best_for": ["marketing_copy", "product_description", "sales_page"],
+          "emotional_impact": "reassuring",
+          "complexity": "medium"
+        },
+        {
+          "id": "cta_specificity",
+          "name": "CTA Specificity",
+          "description": "Exact, clear action instead of vague 'click here'",
+          "best_for": ["ad_copy", "marketing_copy", "landing_page"],
+          "emotional_impact": "directing",
+          "complexity": "simple"
+        },
+        {
+          "id": "risk_reversal",
+          "name": "Risk Reversal",
+          "description": "Guarantee that removes buyer hesitation",
+          "best_for": ["marketing_copy", "product_description"],
+          "emotional_impact": "safe",
+          "complexity": "simple"
+        },
+        {
+          "id": "pattern_interrupt",
+          "name": "Pattern Interrupt",
+          "description": "Break expected flow to grab attention",
+          "best_for": ["ad_copy", "social_media", "video_script"],
+          "emotional_impact": "alerting",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "identity_appeal",
+          "name": "Identity Appeal",
+          "description": "Connect to who audience wants to become",
+          "best_for": ["brand_storytelling", "marketing_copy"],
+          "emotional_impact": "aspirational",
+          "complexity": "medium"
+        },
+        {
+          "id": "reciprocity_trigger",
+          "name": "Reciprocity Trigger",
+          "description": "Give value first to create obligation",
+          "best_for": ["educational", "lead_magnet", "content_marketing"],
+          "emotional_impact": "grateful",
+          "complexity": "medium"
+        }
+      ]
+    },
+    "experimental_advanced": {
+      "name": "Experimental & Advanced Techniques",
+      "description": "Unconventional, high-risk/high-reward approaches",
+      "techniques": [
+        {
+          "id": "stream_of_consciousness",
+          "name": "Stream of Consciousness",
+          "description": "Unfiltered thought flow",
+          "best_for": ["creative_experimental", "manifesto"],
+          "emotional_impact": "raw",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "oneiric_surrealism",
+          "name": "Oneiric Surrealism",
+          "description": "Dream-like, illogical connections",
+          "best_for": ["artistic_brand", "experimental_video"],
+          "emotional_impact": "disorienting",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "fourth_wall_break",
+          "name": "Fourth Wall Break",
+          "description": "Acknowledge artifice of content",
+          "best_for": ["video_script", "social_media", "meta_commentary"],
+          "emotional_impact": "clever",
+          "complexity": "medium",
+          "anti_cliche": true
+        },
+        {
+          "id": "anti_narrative",
+          "name": "Anti-Narrative",
+          "description": "Deliberately reject traditional structure",
+          "best_for": ["experimental", "artistic_brand"],
+          "emotional_impact": "challenging",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "hyperlink_structure",
+          "name": "Hyperlink Structure",
+          "description": "Multiple interconnected storylines",
+          "best_for": ["video_script", "complex_narrative"],
+          "emotional_impact": "complex",
+          "complexity": "high"
+        },
+        {
+          "id": "negative_space",
+          "name": "Negative Space",
+          "description": "Power of what's NOT said/shown",
+          "best_for": ["luxury_brand", "artistic_content", "sophisticated"],
+          "emotional_impact": "mysterious",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "meta_commentary",
+          "name": "Meta Commentary",
+          "description": "Content that comments on itself",
+          "best_for": ["social_media", "experimental", "comedy"],
+          "emotional_impact": "self_aware",
+          "complexity": "high",
+          "anti_cliche": true
+        },
+        {
+          "id": "controlled_chaos",
+          "name": "Controlled Chaos",
+          "description": "Intentional disorder with hidden structure",
+          "best_for": ["experimental", "youth_brand", "disruptive"],
+          "emotional_impact": "energetic",
+          "complexity": "high",
+          "anti_cliche": true
+        }
+      ]
+    }
+  },
+  "usage_notes": {
+    "selection_strategy": "AI should select 5-8 techniques per content piece based on: content_type, tone, audience, duration, and brand_identity",
+    "combination_rules": "Techniques from different categories can be layered. Avoid more than 2 'high complexity' techniques in short-form content.",
+    "anti_cliche_priority": "Techniques marked 'anti_cliche: true' should be preferred when user requests 'bold' or 'radical' rework",
+    "context_adaptation": "Always adapt technique to specific brief context rather than applying formulaically"
+  }
+}

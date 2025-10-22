@@ -61,6 +61,41 @@ export const WriterRequestSchema = z.object({
   target_audience: z.string().optional(),
   key_messages: z.array(z.string()).optional(),
   call_to_action: z.string().optional(),
+
+  // Brand Identity (tri-modal)
+  brand_identity: z
+    .object({
+      // 1. Parameters
+      brand_voice: z.string().optional(),
+      brand_values: z.array(z.string()).optional(),
+      target_persona: z.string().optional(),
+
+      // 2. Documents (URL to brand guidelines)
+      brand_guidelines_url: z.string().url().optional(),
+
+      // 3. Examples (few-shot learning)
+      example_content: z.array(z.string()).optional(),
+    })
+    .optional(),
+
+  // Platform-specific parameters
+  platform_specific: z
+    .object({
+      platform: z
+        .enum([
+          "twitter",
+          "instagram",
+          "linkedin",
+          "tiktok",
+          "facebook",
+          "youtube",
+          "general",
+        ])
+        .optional(),
+      character_limit: z.number().optional(),
+      ad_format: z.string().optional(),
+    })
+    .optional(),
 });
 
 export type WriterRequest = z.infer<typeof WriterRequestSchema>;
@@ -105,8 +140,13 @@ export interface WriterResult {
     word_count: number;
     estimated_reading_time_seconds?: number;
     estimated_speaking_time_seconds?: number;
+    estimated_reading_time_minutes?: number;
+    character_count?: number;
     generation_time_ms: number;
     model_used: string;
+    techniques_used?: string[]; // Narrative techniques applied
+    rework_level?: "safe" | "bold" | "radical"; // Current rework iteration
+    validation_score?: number; // Quality score (0-100)
   };
 
   // Error handling
@@ -117,10 +157,11 @@ export interface WriterResult {
  * Writer Executor Configuration
  */
 export interface WriterConfig {
-  model: "claude-3-5-sonnet" | "gpt-4" | "gpt-4-turbo";
+  model: string; // e.g. "claude-3-5-sonnet-20241022"
   max_tokens: number;
   temperature: number;
   use_cache: boolean;
+  maxTokens?: number; // Alias for max_tokens (legacy support)
 }
 
 /**
