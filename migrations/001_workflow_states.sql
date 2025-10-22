@@ -62,7 +62,6 @@ CREATE POLICY workflow_states_user_isolation ON workflow_states
 
 -- Grant permissions to authenticated users
 GRANT SELECT, INSERT, UPDATE ON workflow_states TO authenticated;
-GRANT USAGE ON SEQUENCE workflow_states_id_seq TO authenticated;
 
 COMMENT ON TABLE workflow_states IS 'Stores Technical Planner workflow state for crash recovery and progress tracking';
 COMMENT ON COLUMN workflow_states.current_step IS 'Current workflow step: initialized, analyzing, planning, selecting_models, estimating_cost, completed';
