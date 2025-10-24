@@ -69,11 +69,14 @@ export class WriterExecutor {
 
     this.anthropic = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY,
+      // Fix for Vitest test environment (detects as browser incorrectly)
+      // @ts-ignore - dangerouslyAllowBrowser is safe in Node.js test environment
+      dangerouslyAllowBrowser: process.env.NODE_ENV === 'test',
     });
 
     // Default configuration - Creative temperature for originality
     this.config = {
-      model: "claude-3-5-sonnet-20241022",
+      model: "claude-sonnet-4-20250514", // Sonnet 4.5 (latest, 2x faster than 3.5)
       max_tokens: 8192,
       temperature: 0.85, // High temperature for creativity
       use_cache: true,
