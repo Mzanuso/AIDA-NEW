@@ -1,7 +1,7 @@
 ---
 name: aida-session-manager
-description: AIDA project session initialization and management. Load project context from .flow/ directory, read current.md for status, propose next priority tasks. Use ALWAYS when user says "inizia sessione" or "fine sessione" or starts working on AIDA project. Critical for maintaining session continuity and preventing duplicate work.
-version: 1.0.0
+description: AIDA project session initialization and management. Load project context from .flow/ directory, read current.md for status, propose next priority tasks. Track file read patterns and signal when new skills are needed. Use ALWAYS when user says "inizia sessione" or "fine sessione" or starts working on AIDA project. Critical for maintaining session continuity and preventing duplicate work.
+version: 1.1.0
 allowed-tools: [read, edit, bash]
 ---
 
@@ -15,6 +15,7 @@ This skill manages AIDA project sessions to ensure:
 - No duplicate work is proposed
 - Git commits track session progress
 - Context is preserved across sessions
+- **NEW:** Track file read patterns and signal when new skills should be created
 
 ## When to Activate
 
@@ -36,12 +37,15 @@ When user says "inizia sessione", follow these steps EXACTLY:
 # Read these files in order:
 1. D:\AIDA-NEW\.flow\current.md (ENTIRE FILE - ~280 lines)
 2. D:\AIDA-NEW\.flow\memory.md (ENTIRE FILE - ~40 lines)
+3. D:\AIDA-NEW\.flow\skills-metrics.md (CURRENT SESSION section only - ~50 lines)
 ```
 
 **DO NOT:**
 - Skip reading these files
 - Ask "how can I help?"
 - Propose generic tasks
+
+**SKILLS METRICS:** Initialize mental tracking for this session (reset all counters to 0)
 
 #### STEP 2: Parse Status (MANDATORY)
 
@@ -80,6 +84,82 @@ Extract from `current.md`:
 #### STEP 4: Begin Work
 
 After proposing the task, immediately start working on it unless user interrupts.
+
+---
+
+### DURING SESSION: Skills Metrics Tracking
+
+**CRITICAL: Track file reads and signal user when patterns emerge**
+
+#### Mental Tracking (Keep Count in Memory)
+
+Track these metrics throughout the session:
+- File read counts (same file read multiple times)
+- Topic time spent (visual prompting, architecture, database, etc.)
+- Repeated searches/greps for same information
+
+#### Signaling Rules
+
+**🟡 YELLOW (2nd occurrence):**
+```markdown
+🟡 2nd read of [file/topic name]
+```
+Display this emoji in your response when reading same file/topic for 2nd time.
+
+**🔴 RED (3rd occurrence):**
+```markdown
+🔴 3rd read of [file/topic] - [skill-name] skill would save time. Create now?
+```
+Display this emoji + suggestion when reading same file/topic for 3rd time.
+
+**⏱️ TIME (> 10 minutes on topic):**
+```markdown
+⏱️ Spent 10+ minutes on [topic] - [skill-name] skill recommended. Create?
+```
+
+#### Examples
+
+**Example 1: Architecture Docs**
+```
+1st read: (no signal, normal)
+  Reading docs/AIDA-ARCHITECTURE-FINAL.md to understand agent ports...
+
+2nd read: (yellow signal)
+  🟡 2nd read of architecture docs (AIDA-ARCHITECTURE-FINAL.md)
+  Checking agent coordination patterns...
+
+3rd read: (red signal + recommendation)
+  🔴 3rd read of architecture docs - aida-agent-coordinator skill would save time. Create now?
+```
+
+**Example 2: Visual Prompting**
+```
+1st grep: (no signal)
+  Searching for visual prompting patterns in Visual Creator code...
+
+2nd grep: (yellow signal)
+  🟡 2nd search for visual prompting patterns
+
+3rd search: (red signal)
+  🔴 3rd search for visual prompting - aida-visual-prompting skill would save time. Create now?
+```
+
+#### Potential Skills to Monitor
+
+| Pattern | Skill Name | Trigger |
+|---------|------------|---------|
+| Architecture docs (agent ports, coordination) | aida-agent-coordinator | 3 reads or 10 min |
+| Visual prompting patterns | aida-visual-prompting | 3 reads or 10 min |
+| Database schema/queries | aida-database-schema | 3 reads or 10 min |
+| Brand guidelines lookup | client-brand-guidelines | 3 reads or 10 min |
+| Microservice API patterns | aida-microservice-api | 3 reads or 10 min |
+
+#### Important Notes
+
+- **Count only SAME topic/file**: Reading different files once each = no signal
+- **Reset each session**: Counter starts at 0 each "inizia sessione"
+- **User decides**: Signal only, don't auto-create skill
+- **Be honest**: Don't inflate counts, track accurately
 
 ---
 
@@ -138,14 +218,48 @@ Use Edit tool to update these sections:
 ### 2. [Second Task]...
 ```
 
-#### STEP 2: Commit and Push (MANDATORY)
+#### STEP 2: Update skills-metrics.md (MANDATORY)
+
+**If any patterns were tracked during session**, update skills-metrics.md:
+
+```markdown
+## 📈 Session: [DATE]
+
+### File Read Counts
+| File/Topic | Reads | Status |
+|------------|-------|--------|
+| docs/AIDA-ARCHITECTURE-FINAL.md | [X] | [🟢/🟡/🔴] |
+| Visual prompting patterns | [X] | [🟢/🟡/🔴] |
+
+### Time Spent
+| Topic | Minutes | Status |
+|-------|---------|--------|
+| Multi-agent coordination | [X] | [🟢/🟡/🔴] |
+
+### Repeated Questions
+[List any questions asked 2+ times]
+
+### Recommendations
+[List any skills recommended with 🔴 signal]
+```
+
+**If no patterns emerged** (all metrics at 0-1), add brief note:
+```markdown
+## Session: [DATE]
+No repeated patterns detected. All metrics below threshold.
+```
+
+#### STEP 3: Commit and Push (MANDATORY)
 
 ```bash
-git add .flow/current.md
+# Add both current.md and skills-metrics.md if updated
+git add .flow/current.md .flow/skills-metrics.md
 
 git commit -m "[FLOW] Update current.md - [Task Name] [STATUS]
 
 [Brief description of what was accomplished]
+
+Skills Metrics: [Summary of patterns if any]
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
@@ -154,7 +268,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 git push origin main --no-verify
 ```
 
-#### STEP 3: Give Summary to User (ONLY AFTER STEP 1-2)
+#### STEP 4: Give Summary to User (ONLY AFTER STEP 1-3)
 
 **Format:**
 
