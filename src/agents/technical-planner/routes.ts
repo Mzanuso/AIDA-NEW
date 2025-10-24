@@ -7,10 +7,13 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { TechnicalPlannerWorkflow } from './TechnicalPlannerWorkflow';
+import { DirectorClient } from './director-client';
 import type { ProjectBrief } from './types';
+import type { MultiVariantRequest } from '../director/types';
 
 const router = Router();
 const workflow = new TechnicalPlannerWorkflow();
+const directorClient = new DirectorClient();
 
 /**
  * POST /api/plan
@@ -158,6 +161,95 @@ router.delete('/plan/:workflowId', async (req: Request, res: Response) => {
     return res.status(500).json({
       success: false,
       error: error.message || 'Internal server error'
+    });
+  }
+});
+
+/**
+ * POST /api/concept-debate
+ * Feature 3: Multi-Agent Creative Debate
+ *
+ * Generate 3 diverse video concepts with different creative philosophies:
+ * - Emotional: Story-driven, human connection
+ * - Disruptive: Bold, unconventional, norm-breaking
+ * - Data-Driven: Metrics-backed, proven patterns
+ *
+ * Request body:
+ * {
+ *   brief: string;
+ *   product?: string;
+ *   target_audience?: string;
+ *   duration?: number;
+ *   synthesize_best?: boolean; // Optional: create 4th "best of all" concept
+ * }
+ *
+ * Response: Multi Variant Result with all 3 concepts + recommendation
+ */
+router.post('/concept-debate', async (req: Request, res: Response) => {
+  try {
+    const { brief, product, target_audience, duration, synthesize_best } =
+      req.body;
+
+    // Validation
+    if (!brief || typeof brief !== 'string') {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing or invalid "brief" field',
+      });
+    }
+
+    // Build multi-variant request
+    const request: MultiVariantRequest = {
+      brief,
+      product,
+      target_audience,
+      duration: duration || 30,
+      generate_all_variants: true,
+      synthesize_best: synthesize_best || false,
+    };
+
+    // Call Director Agent for multi-variant generation
+    const result = await directorClient.generateMultiVariant(request);
+
+    // Return result
+    return res.status(200).json({
+      success: true,
+      data: {
+        emotional_concept: {
+          summary: result.variants.emotional.concept_summary,
+          reasoning: result.variants.emotional.reasoning,
+          storyboard: result.variants.emotional.storyboard,
+          impact: result.variants.emotional.estimated_impact,
+        },
+        disruptive_concept: {
+          summary: result.variants.disruptive.concept_summary,
+          reasoning: result.variants.disruptive.reasoning,
+          storyboard: result.variants.disruptive.storyboard,
+          impact: result.variants.disruptive.estimated_impact,
+        },
+        dataDriven_concept: {
+          summary: result.variants.dataDriven.concept_summary,
+          reasoning: result.variants.dataDriven.reasoning,
+          storyboard: result.variants.dataDriven.storyboard,
+          impact: result.variants.dataDriven.estimated_impact,
+        },
+        synthesis: result.synthesis
+          ? {
+              summary: result.synthesis.concept_summary,
+              reasoning: result.synthesis.reasoning,
+              storyboard: result.synthesis.storyboard,
+              impact: result.synthesis.estimated_impact,
+            }
+          : undefined,
+        recommendation: result.recommendation,
+        total_generation_time_ms: result.total_generation_time_ms,
+      },
+    });
+  } catch (error: any) {
+    console.error('Error in /api/concept-debate:', error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Internal server error',
     });
   }
 });
